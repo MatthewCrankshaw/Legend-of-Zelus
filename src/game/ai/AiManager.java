@@ -10,7 +10,6 @@ public class AiManager {
 
     private Player friendPlayer;
     private ArrayList<Enemy> characters;
-    private float pos = 0;
 
     public AiManager(Player friendPlayer, ArrayList<Enemy> characters){
         this.friendPlayer = friendPlayer;
@@ -19,40 +18,27 @@ public class AiManager {
 
     public void tick(){
         for(int i = 0; i < characters.size(); i++) {
-            Random rand = new Random();
-            rand.setSeed(System.nanoTime());
-            int randNum = Math.abs(rand.nextInt()%100);
 
-            int r = 70;
+                int r = 70;
 
-            int theta = 360 * i / characters.size();
-            theta += (int)pos;
-            pos += 0.02;
+                int theta = 360 * i / characters.size();
 
-            float x = (float) (r * Math.cos(Math.toRadians(theta)) + friendPlayer.x);
-            float y = (float) (r * Math.sin(Math.toRadians(theta)) + friendPlayer.y);
+                float x = (float) (r * Math.cos(Math.toRadians(theta)) + friendPlayer.x);
+                float y = (float) (r * Math.sin(Math.toRadians(theta)) + friendPlayer.y);
 
-            if(randNum < 80) {
-                if((int)x == (int) characters.get(i).x){
-
-                }else if (x > characters.get(i).x) {
-                    characters.get(i).x++;
-                } else if (x < characters.get(i).x) {
-                    characters.get(i).x--;
+                if (x > characters.get(i).x && (int) x != (int) characters.get(i).x) {
+                    characters.get(i).moveRight();
+                } else if (x < characters.get(i).x && (int) x != (int) characters.get(i).x) {
+                    characters.get(i).moveLeft();
                 }
-            }
 
-            randNum = Math.abs(rand.nextInt()%100);
 
-            if(randNum < 80) {
-                if((int)y == (int) characters.get(i).y){
-
-                }else if (y > characters.get(i).y) {
-                    characters.get(i).y++;
-                } else if (y < characters.get(i).y) {
-                    characters.get(i).y--;
+                if (y > characters.get(i).y && (int) y != (int) characters.get(i).y) {
+                    characters.get(i).moveDown();
+                } else if (y < characters.get(i).y && (int) y != (int) characters.get(i).y) {
+                    characters.get(i).moveUp();
                 }
-            }
+
         }
     }
 }

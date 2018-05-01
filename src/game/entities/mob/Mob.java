@@ -20,6 +20,7 @@ public abstract class Mob extends Entity {
     protected int movingDir = 1; // 0 is up 1 is down 2 is left 3 is right
     protected boolean moving;
 
+    protected boolean stuck;
     protected Sprite sprite;
 
     public Mob(Level level, Screen screen, String name, int speed){
@@ -32,32 +33,47 @@ public abstract class Mob extends Entity {
 
 
     public void move(int xa, int ya){
+        isStuck();
         if (xa != 0 && ya != 0) {
-            move(xa,0);
-            move(0,ya);
+            move(xa, 0);
+            move(0, ya);
             numSteps--;
             return;
         }
         numSteps++;
-        if(ya < 0) {
+        if (ya < 0) {
             movingDir = 0;
         }
-        if(ya > 0) {
+        if (ya > 0) {
             movingDir = 1;
         }
-        if(xa < 0) {
+        if (xa < 0) {
             movingDir = 2;
         }
-        if(xa > 0) {
+        if (xa > 0) {
             movingDir = 3;
         }
-        if (!level.tileColision((int)x + xa,(int)y + ya, 8, 2, 1, 0, 8)) {
+        if (!level.tileColision((int) x + xa, (int) y + ya, 8, 2, 1, 0, 8)) {
             x += xa * speed;
             y += ya * speed;
-        }else {
-            //Particles p = new Particles(level, screen, (int)x, (int)y, 50, 50);
-            //level.add(p);
         }
+    }
+
+    public void isStuck(){
+        boolean s = true;
+        if (!level.tileColision((int)x + -1,(int)y -1, 8, 2, 1, 0, 8)) {
+            s = false;
+        }
+        if (!level.tileColision((int)x -1,(int)y + 1, 8, 2, 1, 0, 8)) {
+            s = false;
+        }
+        if (!level.tileColision((int)x + 1,(int)y - 1, 8, 2, 1, 0, 8)) {
+            s = false;
+        }
+        if (!level.tileColision((int)x + 1,(int)y + 1, 8, 2, 1, 0, 8)) {
+            s = false;
+        }
+        stuck = s;
     }
 
     public void changeLocation(int x, int y){
@@ -97,6 +113,10 @@ public abstract class Mob extends Entity {
 
     public int getY(){
         return (int)y;
+    }
+
+    public boolean getStuck(){
+        return stuck;
     }
 
     public String getName(){ return this.name;}
