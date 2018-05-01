@@ -1,5 +1,7 @@
 package game;
 
+import game.ai.AiManager;
+import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.*;
 
@@ -11,13 +13,17 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
     private static final long serialVersionUID = 1L;
 
-    public static final int WIDTH = 300;
-    public static final int HEIGHT = 300;
-    public static final int SCALE = 3;
+    public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+
+    public static final int WIDTH = screensize.width/2-50;
+    public static final int HEIGHT = screensize.height/2-50;
+    public static final int SCALE = 2;
     public static final String NAME = "GAME";
 
     private JFrame frame;
@@ -32,6 +38,8 @@ public class Game extends Canvas implements Runnable{
     public Level level;
     private Screen screen;
     private Player player;
+    private AiManager ai;
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
         new Game().start();
@@ -50,7 +58,7 @@ public class Game extends Canvas implements Runnable{
         frame.add(this, BorderLayout.CENTER);
         frame.pack();
 
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -58,10 +66,18 @@ public class Game extends Canvas implements Runnable{
     public void init(){
         screen = new Screen(WIDTH, HEIGHT);
         input = new InputHandler(this);
-        level = new SpawnLevel("/levels/TransitionTestMap.png");
+        level = new SpawnLevel("/levels/TestingArena.png");
         player = new Player(150, 150, level, screen,input);
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis());
+        for(int i = 0; i < 20; i++) {
+            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, null));
+        }
+        for(Enemy e: enemies) {
+            level.add(e);
+        }
+        ai = new AiManager(player, enemies);
         level.add(player);
-
     }
 
 
@@ -103,6 +119,7 @@ public class Game extends Canvas implements Runnable{
             try{
                 Thread.sleep(2);
             }
+
             catch (InterruptedException e ) {
                 e.printStackTrace();
             }
@@ -121,10 +138,10 @@ public class Game extends Canvas implements Runnable{
         }
     }
 
-    public void tick() {
+    public void tick(){
         tickCount++;
         level.tick();
-
+        ai.tick();
     }
 
 

@@ -28,17 +28,9 @@ public class Player extends Mob {
     private TeleportManager teleportManager;
     private PlayerAnimator playerAnimator;
 
-    public Player(Level level, Screen screen, InputHandler input){
-
-        super(level, screen,"player", 3);
-        this.input = input;
-        fireballManager = new FireballManager(screen,  input, level);
-        teleportManager = new TeleportManager(screen, this, input);
-        playerAnimator = new PlayerAnimator(screen, 4, PlayerSprite.playerSprites, this);
-    }
 
     public Player(int x, int y, Level level, Screen screen, InputHandler input){
-        super(level, screen, "Player", 1);
+        super(level, screen, "Player", 2);
         this.x = x;
         this.y = y;
         this.input = input;
