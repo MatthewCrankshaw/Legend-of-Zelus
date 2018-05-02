@@ -1,5 +1,6 @@
 package game.entities.ability.ability_managers.projectile_managers;
 
+import game.Game;
 import game.InputHandler;
 import game.animators.ability_animators.FireballAnimator;
 import game.entities.ability.Ability;
@@ -16,7 +17,7 @@ import game.levels.Level;
 public class FireballManager extends AbilityManager {
 
     private Level level;
-
+    private InputHandler input;
     private FireballAnimator fireballAnimator;
     private long lastAbilityCreated;
 
@@ -24,8 +25,9 @@ public class FireballManager extends AbilityManager {
 
 
     public FireballManager(Screen screen, InputHandler input, Level level){
-        super(screen, input, 5);
+        super(screen, 5);
         timeBetweenAnim = Player.FIREBALL_CAST_SPEED/numOfAnim;
+        this.input = input;
         this.level = level;
         inAnimation = false;
         readyToShoot = true;
@@ -55,6 +57,18 @@ public class FireballManager extends AbilityManager {
     @Override
     public void castAbility(int x, int y) {
         addAbilityInstance(new FireballProjectile(level, screen, x, y, getDir()));
+    }
+
+    public double getDir(){
+        int mouseX, mouseY;
+
+        mouseX = input.getMouseX();
+        mouseY = input.getMouseY();
+
+        double dx = mouseX - Game.WIDTH*Game.SCALE/2;
+        double dy = mouseY - Game.HEIGHT*Game.SCALE/2;
+
+        return Math.atan2(dy, dx);
     }
 
     public void renderFireballs(){

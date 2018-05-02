@@ -2,7 +2,7 @@ package game.entities.mob;
 
 import game.InputHandler;
 
-import game.animators.mob_animators.PlayerAnimator;
+import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.ability.ability_managers.projectile_managers.FireballManager;
 import game.graphics.Screen;
@@ -20,13 +20,12 @@ public class Player extends Mob {
     private int life;
     private int damage;
 
-    public static int TELEPORT_CAST_SPEED = 500;
+    public static int TELEPORT_CAST_SPEED = 700;
     public static int FIREBALL_CAST_SPEED = 200;
-    public static int PLAYER_ANIMATION_SPEED = 100;
 
     private FireballManager fireballManager;
     private TeleportManager teleportManager;
-    private PlayerAnimator playerAnimator;
+    private CharacterAnimator characterAnimator;
 
 
     public Player(int x, int y, Level level, Screen screen, InputHandler input){
@@ -37,7 +36,7 @@ public class Player extends Mob {
 
         fireballManager = new FireballManager(screen, input, level);
         teleportManager = new TeleportManager(screen, this, input);
-        playerAnimator = new PlayerAnimator(screen, 4, PlayerSprite.playerSprites, this);
+        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.playerSprites, this, 100);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class Player extends Mob {
         }else if (teleportManager.isInAnimation()){
             teleportManager.renderSprite(x,y);
         }else{
-            playerAnimator.renderSprite((int)x,(int)y);
+            characterAnimator.renderSprite((int)x,(int)y);
         }
         //render Pre-existing fireballs
         fireballManager.renderFireballs();

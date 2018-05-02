@@ -107,14 +107,6 @@ public abstract class Mob extends Entity {
         return moving;
     }
 
-    public int getX(){
-        return (int)x;
-    }
-
-    public int getY(){
-        return (int)y;
-    }
-
     public boolean getStuck(){
         return stuck;
     }

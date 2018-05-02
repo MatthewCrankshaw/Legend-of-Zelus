@@ -23,9 +23,8 @@ public abstract class AbilityManager {
 
     public static ArrayList<Ability> abilityList = new ArrayList<>();
 
-    public AbilityManager(Screen screen, InputHandler input, int numOfAnim){
+    public AbilityManager(Screen screen, int numOfAnim){
         this.screen = screen;
-        this.input = input;
         this.numOfAnim = numOfAnim; // number of animation frames in the whole animation
         inAnimation = false;
     }
@@ -35,18 +34,6 @@ public abstract class AbilityManager {
     public abstract void renderSprite(double x, double y);
 
     public abstract void castAbility(int x, int y);
-
-    public double getDir(){
-        int mouseX, mouseY;
-
-        mouseX = input.getMouseX();
-        mouseY = input.getMouseY();
-
-        double dx = mouseX - Game.WIDTH*Game.SCALE/2;
-        double dy = mouseY - Game.HEIGHT*Game.SCALE/2;
-
-        return Math.atan2(dy, dx);
-    }
 
     public boolean isInAnimation(){
         return inAnimation;

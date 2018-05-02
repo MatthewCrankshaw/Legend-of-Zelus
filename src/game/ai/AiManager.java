@@ -4,7 +4,6 @@ import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class AiManager {
 
@@ -19,26 +18,25 @@ public class AiManager {
     public void tick(){
         for(int i = 0; i < characters.size(); i++) {
 
-                int r = 70;
+            int r = 70;
 
-                int theta = 360 * i / characters.size();
+            int theta = 360 * i / characters.size();
 
-                float x = (float) (r * Math.cos(Math.toRadians(theta)) + friendPlayer.x);
-                float y = (float) (r * Math.sin(Math.toRadians(theta)) + friendPlayer.y);
-
-                if (x > characters.get(i).x && (int) x != (int) characters.get(i).x) {
-                    characters.get(i).moveRight();
-                } else if (x < characters.get(i).x && (int) x != (int) characters.get(i).x) {
-                    characters.get(i).moveLeft();
-                }
+            float x = (float) (r * Math.cos(Math.toRadians(theta)) + friendPlayer.getX());
+            float y = (float) (r * Math.sin(Math.toRadians(theta)) + friendPlayer.getY());
 
 
-                if (y > characters.get(i).y && (int) y != (int) characters.get(i).y) {
-                    characters.get(i).moveDown();
-                } else if (y < characters.get(i).y && (int) y != (int) characters.get(i).y) {
-                    characters.get(i).moveUp();
-                }
+            if (x > characters.get(i).getX() && (int) x != (int) characters.get(i).getX()) {
+                characters.get(i).moveRight();
+            } else if (x < characters.get(i).getX() && (int) x != (int) characters.get(i).getX()) {
+                characters.get(i).moveLeft();
+            }
 
+            if (y > characters.get(i).getY() && (int) y != (int) characters.get(i).getY()) {
+                characters.get(i).moveDown();
+            } else if (y < characters.get(i).getY() && (int) y != (int) characters.get(i).getY()) {
+                characters.get(i).moveUp();
+            }
         }
     }
 }

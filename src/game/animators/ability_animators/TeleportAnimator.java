@@ -9,9 +9,9 @@ import game.graphics.sprite.Sprite;
  * Created by Matthew.c on 07/02/2017.
  */
 public class TeleportAnimator extends AbilityAnimator {
-    public TeleportAnimator(Screen screen, int numOfAnims, Sprite[] basicSprite, AbilityManager abilityManager) {
+    public TeleportAnimator(Screen screen, int numOfAnims, Sprite[] basicSprite, AbilityManager abilityManager, int timeForAnim) {
         super(screen, numOfAnims, basicSprite, abilityManager);
-        timeBetweenAnim = Player.TELEPORT_CAST_SPEED/numOfAnims;
+        timeBetweenAnim = timeForAnim;
     }
 
     @Override

@@ -19,10 +19,11 @@ public class TeleportManager extends AbilityManager{
     private boolean alreadyTP;
 
     public TeleportManager(Screen screen, Mob mob, InputHandler input){
-        super(screen, input, 6);
-        timeBetweenAnim = Player.FIREBALL_CAST_SPEED/numOfAnim;
+        super(screen, 6);
+        timeBetweenAnim = Player.TELEPORT_CAST_SPEED/numOfAnim;
+        this.input = input;
         this.mob = mob;
-        teleportAnimator = new TeleportAnimator(screen, 6, Sprite.teleportSprite, this);
+        teleportAnimator = new TeleportAnimator(screen, 6, Sprite.teleportSprite, this, timeBetweenAnim);
         inAnimation = false;
     }
 

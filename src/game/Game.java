@@ -71,7 +71,7 @@ public class Game extends Canvas implements Runnable{
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         for(int i = 0; i < 20; i++) {
-            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, null));
+            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1));
         }
         for(Enemy e: enemies) {
             level.add(e);
@@ -155,8 +155,8 @@ public class Game extends Canvas implements Runnable{
 
         screen.clear();
 
-        int playerx = (int)player.x - screen.width/ 2;
-        int playery = (int)player.y - screen.height / 2;
+        int playerx = (int)player.getX() - screen.width/ 2;
+        int playery = (int)player.getY() - screen.height / 2;
         level.render(screen, playerx, playery);
 
 

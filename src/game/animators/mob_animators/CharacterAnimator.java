@@ -10,12 +10,12 @@ import game.levels.tile.Tile;
 /**
  * Created by Matthew.c on 06/02/2017.
  */
-public class PlayerAnimator extends MobAnimator {
+public class CharacterAnimator extends MobAnimator {
 
 
-    public PlayerAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, Mob mob){
+    public CharacterAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, Mob mob, int animSpeed){
         super(screen, numOfAnims, sprite, mob);
-        timeBetweenAnim = Player.PLAYER_ANIMATION_SPEED;
+        timeBetweenAnim = animSpeed;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class PlayerAnimator extends MobAnimator {
                     currentSprite = mobSprite[3][2];
                 }else if(currentTime - lastTime >= timeBetweenAnim * 2) {
                     currentSprite = mobSprite[3][1];
-                }else if(currentTime - lastTime >= timeBetweenAnim * 1) {
+                }else if(currentTime - lastTime >= timeBetweenAnim) {
                     currentSprite = mobSprite[3][0];
                 }
             }
@@ -42,7 +42,7 @@ public class PlayerAnimator extends MobAnimator {
                     currentSprite = mobSprite[0][2];
                 }else if(currentTime - lastTime >= timeBetweenAnim * 2) {
                     currentSprite = mobSprite[0][1];
-                }else if(currentTime - lastTime >= timeBetweenAnim * 1) {
+                }else if(currentTime - lastTime >= timeBetweenAnim) {
                     currentSprite = mobSprite[0][0];
                 }
             }
@@ -54,7 +54,7 @@ public class PlayerAnimator extends MobAnimator {
                     currentSprite = mobSprite[2][2];
                 }else if(currentTime - lastTime >= timeBetweenAnim * 2) {
                     currentSprite = mobSprite[2][1];
-                }else if(currentTime - lastTime >= timeBetweenAnim * 1) {
+                }else if(currentTime - lastTime >= timeBetweenAnim) {
                     currentSprite = mobSprite[2][0];
                 }
             }
@@ -66,7 +66,7 @@ public class PlayerAnimator extends MobAnimator {
                     currentSprite = mobSprite[1][2];
                 }else if(currentTime - lastTime >= timeBetweenAnim * 2) {
                     currentSprite = mobSprite[1][1];
-                }else if(currentTime - lastTime >= timeBetweenAnim * 1) {
+                }else if(currentTime - lastTime >= timeBetweenAnim) {
                     currentSprite = mobSprite[1][0];
                 }
             }
@@ -76,13 +76,10 @@ public class PlayerAnimator extends MobAnimator {
         }
 
         if (mob.isSwimming()) {
-            screen.renderAnimatedTile(mob.getX(), mob.getY(), Tile.swimming, PlayerSprite.swimming);
-            screen.renderPlayer(mob.getX(), mob.getY(), Tile.TILE_SIZE*2, 12, currentSprite);
+            screen.renderAnimatedTile((int)mob.getX(), (int)mob.getY(), Tile.swimming, PlayerSprite.swimming);
+            screen.renderPlayer((int)mob.getX(), (int)mob.getY(), Tile.TILE_SIZE*2, 12, currentSprite);
         }else{
-            screen.renderPlayer(mob.getX(), mob.getY(), Tile.TILE_SIZE*2, Tile.TILE_SIZE*2, currentSprite);
+            screen.renderPlayer((int)mob.getX(), (int)mob.getY(), Tile.TILE_SIZE*2, Tile.TILE_SIZE*2, currentSprite);
         }
-
-
-
     }
 }

@@ -1,9 +1,12 @@
 package game.entities.mob;
 
 import game.animators.Animator;
-import game.animators.mob_animators.PlayerAnimator;
+import game.animators.mob_animators.CharacterAnimator;
+import game.animators.mob_animators.MobAnimator;
+import game.entities.ability.ability_managers.AITeleportManager;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.graphics.Screen;
+import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
@@ -12,18 +15,23 @@ import java.util.Random;
 
 public class Enemy extends Mob{
 
-    private PlayerAnimator playerAnimator;
+    public static int ENEMY_TELEPORT_SPEED = 1200;
+    private CharacterAnimator characterAnimator;
+    private AITeleportManager teleportManager;
     private int movX, movY = 0;
 
-    public Enemy(int x, int y, Level level, Screen screen, String name, int speed, Animator animator){
+    public Enemy(int x, int y, Level level, Screen screen, String name, int speed){
         super(level, screen, name, speed);
         this.x  = x;
         this.y = y;
-        playerAnimator = new PlayerAnimator(screen, 4, PlayerSprite.playerSprites, this);
+        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.playerSprites, this, 120);
+        teleportManager = new AITeleportManager(screen, this);
     }
 
     @Override
     public void tick() {
+
+        teleportManager.tick();
 
         Tile.swimming.tick();
         if (!stuck) {
@@ -42,36 +50,35 @@ public class Enemy extends Mob{
             xa++;
         }
 
+        if (!teleportManager.isInAnimation()) {
+            if (xa != 0 || ya != 0) {
+                move(xa, ya);
+                moving = true;
+            } else {
+                moving = false;
+            }
 
-        if (xa != 0 || ya != 0) {
-            move(xa, ya);
-            moving = true;
-        } else {
-            moving = false;
+            movX = 0;
+            movY = 0;
         }
-
-        movX = 0;
-        movY = 0;
 
         }else {
-            Random random = new Random();
-
-            random.setSeed(System.currentTimeMillis());
-
-            int xa = random.nextInt() % 200 + 100;
-            int ya = random.nextInt() % 200 + 100;
-
-            x = xa;
-            y = ya;
-
-            isStuck();
+            if (!teleportManager.isInAnimation()) {
+                teleportManager.reset();
+                teleportManager.setInAnimation(true);
+            }
         }
 
+        isStuck();
     }
 
     @Override
     public void render(Screen screen) {
-        playerAnimator.renderSprite((int)x,(int)y);
+        if (teleportManager.isInAnimation()){
+            teleportManager.renderSprite(x, y);
+        }else{
+            characterAnimator.renderSprite((int)x,(int)y);
+        }
     }
 
 

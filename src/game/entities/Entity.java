@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public abstract class Entity {
 
-    public double x,y;
+    protected double x,y;
     protected Level level;
     protected boolean alive;
 
@@ -31,5 +31,13 @@ public abstract class Entity {
 
     public void kill(){
         alive = false;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }
