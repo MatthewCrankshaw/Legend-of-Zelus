@@ -36,7 +36,7 @@ public class Screen {
             int ya = y + yp;
             for(int x = 0; x < sprite.SIZE; x++) {
                 int xa = x + xp;
-                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= width) break;
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 int col = sprite.pixels[x+y*sprite.SIZE];
                 if (col != 0xffff00ff){
@@ -53,7 +53,7 @@ public class Screen {
             int ya = y + yp;
             for(int x = 0; x < tile.currentSprite.SIZE; x++) {
                 int xa = x + xp;
-                if (xa < -tile.currentSprite.SIZE || xa >= width || ya < 0 || ya >= width) break;
+                if (xa < -tile.currentSprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 pixels[xa+ya*width] = tile.currentSprite.pixels[x+ y * tile.currentSprite.SIZE];
             }
@@ -68,7 +68,7 @@ public class Screen {
             int ya = y + yp;
             for(int x = 0; x < sprite.SIZE; x++) {
                 int xa = x + xp;
-                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= width) break;
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 int col = sprite.pixels[x+y*sprite.SIZE];
                 if (col != 0xffff00ff){
@@ -88,7 +88,7 @@ public class Screen {
             int ya = y + yp;
             for(int x = 0; x < 16; x++) {
                 int xa = x + xp;
-                if (xa < -16 || xa >= width || ya < 0 || ya >= width) break;
+                if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 int col = sprite[animIndex].pixels[x+y*Tile.TILE_SIZE*2];
                 if (col != 0xffff00ff){
@@ -127,7 +127,7 @@ public class Screen {
             int ya = y + yp;
             for(int x = 0; x < pixelsLong; x++) {
                 int xa = x + xp;
-                if (xa < -Tile.TILE_SIZE*2 || xa >= width || ya < 0 || ya >= width) break;
+                if (xa < -Tile.TILE_SIZE*2 || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
                 int col = sprite.pixels[x + y * Tile.TILE_SIZE*2];
                 if (col != 0xffff00ff){
