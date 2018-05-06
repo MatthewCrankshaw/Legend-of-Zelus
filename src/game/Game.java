@@ -5,6 +5,7 @@ import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.*;
 
+import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.SpawnLevel;
 
@@ -70,8 +71,9 @@ public class Game extends Canvas implements Runnable{
         player = new Player(150, 150, level, screen,input);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
-        for(int i = 0; i < 20; i++) {
-            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1));
+        for(int i = 0; i < 10; i++) {
+            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.enemySprites));
+            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.zombieSprites));
         }
         for(Enemy e: enemies) {
             level.add(e);

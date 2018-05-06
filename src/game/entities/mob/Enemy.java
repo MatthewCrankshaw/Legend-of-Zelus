@@ -20,11 +20,11 @@ public class Enemy extends Mob{
     private AITeleportManager teleportManager;
     private int movX, movY = 0;
 
-    public Enemy(int x, int y, Level level, Screen screen, String name, int speed){
+    public Enemy(int x, int y, Level level, Screen screen, String name, int speed, Sprite[][] spriteName){
         super(level, screen, name, speed);
         this.x  = x;
         this.y = y;
-        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.playerSprites, this, 120);
+        characterAnimator = new CharacterAnimator(screen, 4, spriteName, this, 120);
         teleportManager = new AITeleportManager(screen, this);
     }
 
