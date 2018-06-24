@@ -17,8 +17,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     public Key space = new Key();
     public Key e_teleport = new Key();
 
-    public Key shoot = new Key();
-
     private int mouseX = 0;
     private int mouseY = 0;
 
@@ -87,27 +85,44 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     }
 
     public void toggleMouse(boolean isPressed){
-        shoot.toggle(isPressed);
+        space.toggle(isPressed);
     }
 
     public void toggleKey(int KeyCode, boolean isPressed) {
-        if (KeyCode == KeyEvent.VK_W || KeyCode == KeyEvent.VK_UP) {
-            up.toggle(isPressed);
-        }
-        if (KeyCode == KeyEvent.VK_A || KeyCode == KeyEvent.VK_LEFT) {
-            left.toggle(isPressed);
-        }
-        if (KeyCode == KeyEvent.VK_S | KeyCode == KeyEvent.VK_DOWN) {
-            down.toggle(isPressed);
-        }
-        if (KeyCode == KeyEvent.VK_D || KeyCode == KeyEvent.VK_RIGHT) {
-            right.toggle(isPressed);
-        }
-        if (KeyCode == KeyEvent.VK_E){
-            e_teleport.toggle(isPressed);
-        }
-        if (KeyCode == KeyEvent.VK_SPACE) {
-            space.toggle(isPressed);
+        switch(KeyCode){
+            //Directional Keys for movement
+            case KeyEvent.VK_UP:
+                up.toggle(isPressed);
+                break;
+            case KeyEvent.VK_DOWN:
+                down.toggle(isPressed);
+                break;
+            case KeyEvent.VK_LEFT:
+                left.toggle(isPressed);
+                break;
+            case KeyEvent.VK_RIGHT:
+                right.toggle(isPressed);
+                break;
+
+            //WASD For movement
+            case KeyEvent.VK_W:
+                up.toggle(isPressed);
+                break;
+            case KeyEvent.VK_S:
+                down.toggle(isPressed);
+                break;
+            case KeyEvent.VK_A:
+                left.toggle(isPressed);
+                break;
+            case KeyEvent.VK_D:
+                right.toggle(isPressed);
+                break;
+
+            //Ability keys
+            case KeyEvent.VK_E:
+                e_teleport.toggle(isPressed);
+                break;
+
         }
     }
 

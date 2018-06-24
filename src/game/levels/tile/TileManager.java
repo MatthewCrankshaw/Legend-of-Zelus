@@ -255,7 +255,6 @@ public class TileManager {
             }
 
         }catch (ArrayIndexOutOfBoundsException e ){
-            //System.out.println("x" + x + " y " +  y);
         }
         //return GrassToSandTiles.solidTile1;
         return tileType.S1;

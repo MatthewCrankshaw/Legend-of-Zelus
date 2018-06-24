@@ -1,5 +1,6 @@
 package game.animators.ability_animators;
 
+import game.Game;
 import game.entities.ability.ability_managers.AbilityManager;
 import game.entities.mob.Player;
 import game.graphics.Screen;
@@ -30,16 +31,15 @@ public class FireballAnimator extends AbilityAnimator {
         if (currentTime - lastTime <= timeBetweenAnim *4) {
             progressPercent = ((currentTime - lastTime) / (timeBetweenAnim * 4d));
             sizeOfBar = (int) (progressPercent * 100d);
-            System.out.println(sizeOfBar);
         }
 
-        screen.renderRectangle(1, 1, sizeOfBar, 10, 0x0000ff, false);
+        screen.renderRectangle(1, Game.HEIGHT - 11, sizeOfBar, 10, 0xffffff, false);
 
         if (currentTime - lastTime <= timeBetweenAnim) {
             animating = true;
             currentSprite = basicSprite[0];
             screen.renderSprite(x - 8, y, Sprite.fireballFloorSign[0]);
-        }else if (currentTime - lastTime <= timeBetweenAnim * 1 && animating) {
+        }else if (currentTime - lastTime <= timeBetweenAnim && animating) {
             currentSprite = basicSprite[1];
             screen.renderSprite(x - 8, y, Sprite.fireballFloorSign[1]);
             screen.renderRectangle(100, 100, 100/2, 20, 0xff00ff, true);
