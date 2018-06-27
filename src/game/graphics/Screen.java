@@ -104,20 +104,38 @@ public class Screen {
             yp -= yOffset;
         }
 
-        for (int x = xp; x< xp + width; x++) {
-            if (x < 0 | x >= this.width || yp >= this.height) continue;
-            if (yp > 0) pixels[x + yp * this.width] = colour;
-            if (yp + height >= this.height) continue;
-            if (yp + height > 0) pixels[x+(yp + height) *this.width] = colour;
+        for(int y = yp; y < yp + height; y++) {
+            for (int x = xp; x < xp + width; x++) {
+                pixels[x + (this.width*y) ] = colour;
+            }
+        }
+    }
+
+    public void renderCircle(int xp, int yp, int radius, int fill, int colour, boolean fillColour, boolean fixed){
+        //whether the cirle moves with the screen or is relative to the ground
+        if(fixed) {
+            xp -= xOffset;
+            yp -= yOffset;
         }
 
-        for (int y = yp; y <= yp + height; y++) {
-            if (xp >= this.width || y < 0 || y >= this.height) continue;
-            if (xp > 0) pixels[xp + y * this.width] = colour;
-            if (xp + width >= this.width) continue;
-            if (xp + width > 0) pixels[(xp + width) + y * this.width] = colour;
-        }
+        int fillAmount = (radius * fill) / 100;
 
+        for(int i = -radius; i <= radius; i++){
+            for(int j = radius - (fillAmount*2); j <=radius; j++){
+                if(i+xp < 0 || i+xp >= width || j+yp < 0 || j+yp >= width) continue;
+
+                if(fillColour){
+                    if(Math.round(Math.sqrt(i*i + j*j)) < radius){
+                        pixels[(i+xp) + (this.width * (j+yp))] = colour;
+                    }
+                }
+
+                if(Math.round(Math.sqrt(i*i + j*j)) == radius){
+                    pixels[(i+xp) + (this.width * (j+yp))] = colour/2;
+                }
+
+            }
+        }
     }
 
     public void renderPlayer(int xp, int yp , int pixelsLong, int pixelshigh, Sprite sprite){
