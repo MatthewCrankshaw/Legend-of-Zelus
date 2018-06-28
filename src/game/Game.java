@@ -6,6 +6,7 @@ import game.entities.mob.Player;
 import game.graphics.*;
 
 import game.graphics.sprite.mob_sprites.PlayerSprite;
+import game.graphics.ui.UserInterface;
 import game.levels.Level;
 import game.levels.SpawnLevel;
 
@@ -39,6 +40,7 @@ public class Game extends Canvas implements Runnable{
     public Level level;
     private Screen screen;
     private Player player;
+    private UserInterface ui;
     private AiManager ai;
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
@@ -59,7 +61,7 @@ public class Game extends Canvas implements Runnable{
         frame.add(this, BorderLayout.CENTER);
         frame.pack();
 
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -79,6 +81,7 @@ public class Game extends Canvas implements Runnable{
             level.add(e);
         }
         ai = new AiManager(player, enemies);
+        ui = new UserInterface(screen, player);
         level.add(player);
     }
 
@@ -144,6 +147,7 @@ public class Game extends Canvas implements Runnable{
         tickCount++;
         level.tick();
         ai.tick();
+        ui.tick();
     }
 
 
@@ -160,6 +164,7 @@ public class Game extends Canvas implements Runnable{
         int playerx = (int)player.getX() - screen.width/ 2;
         int playery = (int)player.getY() - screen.height / 2;
         level.render(screen, playerx, playery);
+        ui.render();
 
 
         for (int i = 0; i < pixels.length; i ++) {

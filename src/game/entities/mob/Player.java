@@ -17,7 +17,8 @@ public class Player extends Mob {
 
     private InputHandler input;
 
-    private int life;
+    private int currentLife, maxLife;
+    private int currentMana, maxMana;
     private int damage;
 
     public static int TELEPORT_CAST_SPEED = 700;
@@ -30,6 +31,12 @@ public class Player extends Mob {
 
     public Player(int x, int y, Level level, Screen screen, InputHandler input){
         super(level, screen, "Player", 2);
+
+        maxLife = 100;
+        maxMana = 100;
+        currentLife = 100;
+        currentMana = 100;
+
         this.x = x;
         this.y = y;
         this.input = input;
@@ -97,4 +104,19 @@ public class Player extends Mob {
         fireballManager.renderFireballs();
     }
 
+    public int getCurrentLife(){
+        return currentLife;
+    }
+
+    public int getMaxLife(){
+        return maxLife;
+    }
+
+    public int getCurrentMana(){
+        return currentMana;
+    }
+
+    public int getMaxMana(){
+        return maxMana;
+    }
 }

@@ -111,27 +111,29 @@ public class Screen {
         }
     }
 
-    public void renderCircle(int xp, int yp, int radius, int fill, int colour, boolean fillColour, boolean fixed){
-        //whether the cirle moves with the screen or is relative to the ground
+    public void renderCircle(int xp, int yp, int radius, int fill, int colour, int borderColour, boolean filled, boolean fixed){
+        //whether the circle moves with the screen or is relative to the ground
         if(fixed) {
             xp -= xOffset;
             yp -= yOffset;
         }
 
+        //fills from bottom to top
+        //0 being empty 100 being full
         int fillAmount = (radius * fill) / 100;
 
-        for(int i = -radius; i <= radius; i++){
-            for(int j = radius - (fillAmount*2); j <=radius; j++){
-                if(i+xp < 0 || i+xp >= width || j+yp < 0 || j+yp >= width) continue;
+        for(int y = -radius; y <= radius; y++){
+            for(int x = radius - (fillAmount*2); x <=radius; x++){
+                if(y+xp < 0 || y+xp >= width || x+yp < 0 || x+yp >= height) continue;
 
-                if(fillColour){
-                    if(Math.round(Math.sqrt(i*i + j*j)) < radius){
-                        pixels[(i+xp) + (this.width * (j+yp))] = colour;
+                if(filled){
+                    if(Math.round(Math.sqrt(y*y + x*x)) < radius){
+                        pixels[(y+xp) + (this.width * (x+yp))] = colour;
                     }
                 }
 
-                if(Math.round(Math.sqrt(i*i + j*j)) == radius){
-                    pixels[(i+xp) + (this.width * (j+yp))] = colour/2;
+                if(Math.round(Math.sqrt(y*y + x*x)) == radius){
+                    pixels[(y+xp) + (this.width * (x+yp))] = borderColour;
                 }
 
             }
