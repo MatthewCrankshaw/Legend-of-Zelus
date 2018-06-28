@@ -23,6 +23,8 @@ public class FireballManager extends AbilityManager {
 
     private boolean readyToShoot;
 
+    public static int MANA_COST = 40;
+
 
     public FireballManager(Screen screen, InputHandler input, Level level){
         super(screen, 5);

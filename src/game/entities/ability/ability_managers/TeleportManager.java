@@ -18,6 +18,8 @@ public class TeleportManager extends AbilityManager{
 
     private boolean alreadyTP;
 
+    public static int MANA_COST = 100;
+
     public TeleportManager(Screen screen, Mob mob, InputHandler input){
         super(screen, 6);
         timeBetweenAnim = Player.TELEPORT_CAST_SPEED/numOfAnim;

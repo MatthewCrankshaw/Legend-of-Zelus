@@ -17,8 +17,8 @@ public class Player extends Mob {
 
     private InputHandler input;
 
-    private int currentLife, maxLife;
-    private int currentMana, maxMana;
+    private int currentLife, maxLife, lifeRegeneration;
+    private int currentMana, maxMana, manaRegeneration;
     private int currentExperience, maxExperience;
 
     private int damage;
@@ -34,12 +34,15 @@ public class Player extends Mob {
     public Player(int x, int y, Level level, Screen screen, InputHandler input){
         super(level, screen, "Player", 2);
 
-        maxLife = 100;
-        maxMana = 100;
-        maxExperience = 100;
+        maxLife = 1000;
+        currentLife = 500;
+        lifeRegeneration = 1;
 
-        currentLife = 70;
-        currentMana = 70;
+        maxMana = 1000;
+        currentMana = 500;
+        manaRegeneration = 1;
+
+        maxExperience = 100;
         currentExperience = 70;
 
 
@@ -54,6 +57,18 @@ public class Player extends Mob {
 
     @Override
     public void tick() {
+
+        //Mana Regeneration
+        currentMana+=manaRegeneration;
+        if(currentMana > maxMana){
+            currentMana = maxMana;
+        }
+        //lifeRegeneration
+        currentLife+=lifeRegeneration;
+        if(currentLife > maxLife){
+            currentLife = maxLife;
+        }
+
         fireballManager.tick();
         teleportManager.tick();
 
@@ -73,11 +88,15 @@ public class Player extends Mob {
         if (input.right.isPressed()) {
             xa++;
         }
-        if (input.space.isPressed()) {
+        if (input.space.isPressed() && currentMana > FireballManager.MANA_COST){
+            if(!fireballManager.isInAnimation()) {
+                currentMana -= FireballManager.MANA_COST;
+            }
             fireballManager.setInAnimation(true);
         }
-        if (input.e_teleport.isPressed()) {
+        if (input.e_teleport.isPressed() && currentMana > TeleportManager.MANA_COST) {
             if (!teleportManager.isInAnimation()) {
+                currentMana -= TeleportManager.MANA_COST;
                 teleportManager.reset();
                 teleportManager.setInAnimation(true);
             }
