@@ -33,8 +33,8 @@ public class FireballAnimator extends AbilityAnimator {
             sizeOfBar = (int) (progressPercent * 100d);
         }
 
-        screen.renderRectangle(1, Game.HEIGHT - 11, sizeOfBar, 10, 0xff00ff, false);
-        screen.renderCircle(100, 100, 50, sizeOfBar, 0xff00ff, 0x000000, true, false);
+        screen.renderRectangle(Game.WIDTH /2 - 50, Game.HEIGHT - 11, sizeOfBar, 10, 0xff00ff, false);
+
         if (currentTime - lastTime <= timeBetweenAnim) {
             animating = true;
             currentSprite = basicSprite[0];

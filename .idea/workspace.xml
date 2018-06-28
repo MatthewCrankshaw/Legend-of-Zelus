@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec28eedc-2dcd-4b2b-87bc-8199667112a8" name="Default" comment="Fixed Issues with uncommited changes">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/game/graphics/ui/CircleStatusBar.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/Game.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/Game.class" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/animators/ability_animators/FireballAnimator.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/animators/ability_animators/FireballAnimator.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/entities/mob/Player.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/entities/mob/Player.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/Screen.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/Screen.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/UIManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/game/Game.java" afterPath="$PROJECT_DIR$/src/game/Game.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/CircleStatusBar.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/CircleStatusBar.class" />
       <change beforePath="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" afterPath="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/ability/ability_managers/projectile_managers/FireballManager.java" afterPath="$PROJECT_DIR$/src/game/entities/ability/ability_managers/projectile_managers/FireballManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/mob/Player.java" afterPath="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/Screen.java" afterPath="$PROJECT_DIR$/src/game/graphics/Screen.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/UIManager.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
     </list>
     <ignored path="JavaGame2D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FireballAnimator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FireballAnimator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-158">
-              <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+            <state relative-caret-position="267">
+              <caret line="35" column="49" lean-forward="false" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -59,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CircleStatusBar.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CircleStatusBar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/CircleStatusBar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
+            <state relative-caret-position="97">
+              <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
               <folding>
                 <element signature="e#781#782#0" expanded="true" />
                 <element signature="e#838#839#0" expanded="true" />
@@ -107,21 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FireballManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/entities/ability/ability_managers/projectile_managers/FireballManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Screen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="126" column="85" lean-forward="true" selection-start-line="126" selection-start-column="85" selection-end-line="126" selection-end-column="85" />
+            <state relative-caret-position="502">
+              <caret line="76" column="13" lean-forward="true" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -201,13 +182,13 @@
         <option value="$PROJECT_DIR$/src/game/InputHandler.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UIManager.java" />
-        <option value="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/Screen.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/ability_managers/projectile_managers/FireballManager.java" />
         <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/CircleStatusBar.java" />
+        <option value="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" />
       </list>
     </option>
   </component>
@@ -289,49 +270,15 @@
               <item name="ProjectAI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
+              <item name="levels" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjectAI" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProjectAI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="ability" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjectAI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjectAI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="ability" type="462c0819:PsiDirectoryNode" />
-              <item name="ability_managers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjectAI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjectAI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="ability" type="462c0819:PsiDirectoryNode" />
-              <item name="ability_managers" type="462c0819:PsiDirectoryNode" />
-              <item name="projectile_managers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjectAI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjectAI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="graphics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjectAI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjectAI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="levels" type="462c0819:PsiDirectoryNode" />
+              <item name="tile" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -476,7 +423,7 @@
       <workItem from="1528445537653" duration="506000" />
       <workItem from="1529406818857" duration="57000" />
       <workItem from="1529880503321" duration="5328000" />
-      <workItem from="1529912952372" duration="14296000" />
+      <workItem from="1529912952372" duration="15474000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1521600697203</created>
@@ -496,7 +443,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51147000" />
+    <option name="totallyTimeSpent" value="52325000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -903,11 +850,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java">
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-158">
-          <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+        <state relative-caret-position="502">
+          <caret line="76" column="13" lean-forward="true" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="28" column="85" lean-forward="false" selection-start-line="28" selection-start-column="85" selection-end-line="28" selection-end-column="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/CircleStatusBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding>
+            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#977#978#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -928,27 +900,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="126" column="85" lean-forward="true" selection-start-line="126" selection-start-column="85" selection-end-line="126" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="28" column="85" lean-forward="false" selection-start-line="28" selection-start-column="85" selection-end-line="28" selection-end-column="85" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/ability/ability_managers/projectile_managers/FireballManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
+        <state relative-caret-position="63">
           <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding />
         </state>
@@ -964,18 +918,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/CircleStatusBar.java">
+    <entry file="file://$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
-          <folding>
-            <element signature="e#781#782#0" expanded="true" />
-            <element signature="e#838#839#0" expanded="true" />
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#977#978#0" expanded="true" />
-            <element signature="e#1022#1023#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="267">
+          <caret line="35" column="49" lean-forward="false" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
