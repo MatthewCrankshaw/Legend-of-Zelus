@@ -1,7 +1,7 @@
 package game.graphics.ui;
 import game.graphics.Screen;
 
-public class CircleStatusBar{
+public class CircleProgressBar {
 
     private Screen screen;
     private int currentBarPercent;
@@ -9,7 +9,7 @@ public class CircleStatusBar{
     private int screenPosX, screenPosY;
     private int sizeRadius;
 
-    public CircleStatusBar(Screen screen, int xPos, int yPos, int size){
+    public CircleProgressBar(Screen screen, int xPos, int yPos, int size){
         this.screen = screen;
         screenPosX = xPos;
         screenPosY = yPos;
@@ -21,11 +21,11 @@ public class CircleStatusBar{
     }
 
     public void render(){
-        screen.renderCircle(screenPosX, screenPosY, sizeRadius, currentBarPercent, barFillColour, barBorderColour, true, false);
+        this.screen.renderCircle(screenPosX, screenPosY, sizeRadius, currentBarPercent, barFillColour, barBorderColour, true, false);
     }
 
     public void setCurrentBarPercent(int max, int current){
-        currentBarPercent = (100 * current) / max;
+        this.currentBarPercent = (100 * current) / max;
     }
 
     public void setBarFillColour(int colour){

@@ -19,6 +19,8 @@ public class Player extends Mob {
 
     private int currentLife, maxLife;
     private int currentMana, maxMana;
+    private int currentExperience, maxExperience;
+
     private int damage;
 
     public static int TELEPORT_CAST_SPEED = 700;
@@ -34,8 +36,12 @@ public class Player extends Mob {
 
         maxLife = 100;
         maxMana = 100;
-        currentLife = 100;
-        currentMana = 100;
+        maxExperience = 100;
+
+        currentLife = 70;
+        currentMana = 70;
+        currentExperience = 70;
+
 
         this.x = x;
         this.y = y;
@@ -118,5 +124,13 @@ public class Player extends Mob {
 
     public int getMaxMana(){
         return maxMana;
+    }
+
+    public int getCurrentExperience() {
+        return currentExperience;
+    }
+
+    public int getMaxExperience() {
+        return maxExperience;
     }
 }

@@ -98,15 +98,21 @@ public class Screen {
         }
     }
 
-    public void renderRectangle(int xp, int yp, int width, int height, int colour, boolean fixed){
+    public void renderRectangle(int xp, int yp, int width, int height, int currentPercent, int colourFill, int colourBorder, boolean fixed){
         if(fixed) {
             xp -= xOffset;
             yp -= yOffset;
         }
 
-        for(int y = yp; y < yp + height; y++) {
-            for (int x = xp; x < xp + width; x++) {
-                pixels[x + (this.width*y) ] = colour;
+        for(int y = yp; y <= yp + height; y++) {
+            for (int x = xp; x <= (xp + width); x++) {
+                if(y == yp || y == yp+height || x == xp || x == xp+width) {
+                    pixels[x + (this.width*y) ] = colourBorder;
+                }else{
+                    if(x <= (currentPercent * 0.01 * width) + xp){
+                        pixels[x + (this.width * y)] = colourFill;
+                    }
+                }
             }
         }
     }
@@ -123,12 +129,14 @@ public class Screen {
         int fillAmount = (radius * fill) / 100;
 
         for(int y = -radius; y <= radius; y++){
-            for(int x = radius - (fillAmount*2); x <=radius; x++){
+            for(int x = -radius; x <=radius*2; x++){
                 if(y+xp < 0 || y+xp >= width || x+yp < 0 || x+yp >= height) continue;
 
-                if(filled){
-                    if(Math.round(Math.sqrt(y*y + x*x)) < radius){
-                        pixels[(y+xp) + (this.width * (x+yp))] = colour;
+                if(x >= radius - (fillAmount*2)) {
+                    if (filled) {
+                        if (Math.round(Math.sqrt(y * y + x * x)) < radius) {
+                            pixels[(y + xp) + (this.width * (x + yp))] = colour;
+                        }
                     }
                 }
 

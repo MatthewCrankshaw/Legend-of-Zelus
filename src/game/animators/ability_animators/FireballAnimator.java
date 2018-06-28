@@ -26,15 +26,6 @@ public class FireballAnimator extends AbilityAnimator {
         }
         currentTime = System.currentTimeMillis();
 
-        double progressPercent = 0;
-        int sizeOfBar = 0;
-        if (currentTime - lastTime <= timeBetweenAnim *4) {
-            progressPercent = ((currentTime - lastTime) / (timeBetweenAnim * 4d));
-            sizeOfBar = (int) (progressPercent * 100d);
-        }
-
-        screen.renderRectangle(Game.WIDTH /2 - 50, Game.HEIGHT - 11, sizeOfBar, 10, 0xff00ff, false);
-
         if (currentTime - lastTime <= timeBetweenAnim) {
             animating = true;
             currentSprite = basicSprite[0];
@@ -42,7 +33,6 @@ public class FireballAnimator extends AbilityAnimator {
         }else if (currentTime - lastTime <= timeBetweenAnim && animating) {
             currentSprite = basicSprite[1];
             screen.renderSprite(x - 8, y, Sprite.fireballFloorSign[1]);
-            screen.renderRectangle(100, 100, 100/2, 20, 0xff00ff, true);
         }else if (currentTime - lastTime <= timeBetweenAnim * 2 && animating) {
             abilityManager.castAbility(x,y);
             currentSprite = basicSprite[2];

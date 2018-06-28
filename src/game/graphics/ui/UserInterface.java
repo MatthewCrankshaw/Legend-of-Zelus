@@ -11,7 +11,8 @@ public class UserInterface {
     protected Screen screen;
     protected Player player;
 
-    private CircleStatusBar healthBar, manaBar;
+    private CircleProgressBar healthBar, manaBar;
+    private RectangleProgressBar experienceBar;
 
     public UserInterface(Screen screen, Player player){
         this.screen = screen;
@@ -21,24 +22,31 @@ public class UserInterface {
 
     public void init(){
         //setup health bar
-        healthBar = new CircleStatusBar(screen, 60, screen.height - 60, 50);
+        healthBar = new CircleProgressBar(screen, 60, screen.height - 60, 50);
         healthBar.setBarFillColour(0xff0000);
         healthBar.setCurrentBarPercent(player.getMaxLife(), player.getCurrentLife());
 
         //setup mana bar
-        manaBar = new CircleStatusBar(screen,screen.width - 60, screen.height - 60, 50);
+        manaBar = new CircleProgressBar(screen,screen.width - 60, screen.height - 60, 50);
         manaBar.setBarFillColour(0x0000ff);
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
+
+        //setup experience bar
+        experienceBar = new RectangleProgressBar(screen, 120, screen.height - 20, screen.width - 240, 10);
+        experienceBar.setBarFillColour(0x444444);
+        experienceBar.setBarBorderColour(0x990099);
     }
 
     public void tick(){
         healthBar.setCurrentBarPercent(player.getMaxLife(),player.getCurrentLife());
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
+        experienceBar.setCurrentBarPercentage(player.getMaxExperience(), player.getCurrentExperience());
     }
 
     public void render(){
         healthBar.render();
         manaBar.render();
+        experienceBar.render();
     }
 
 }
