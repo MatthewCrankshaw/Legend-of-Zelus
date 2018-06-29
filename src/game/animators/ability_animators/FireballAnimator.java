@@ -1,6 +1,4 @@
 package game.animators.ability_animators;
-
-import game.Game;
 import game.entities.ability.ability_managers.AbilityManager;
 import game.entities.mob.Player;
 import game.graphics.Screen;

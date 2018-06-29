@@ -16,6 +16,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     public Key right = new Key();
     public Key space = new Key();
     public Key e_teleport = new Key();
+    public Key escape = new Key();
 
     private int mouseX = 0;
     private int mouseY = 0;
@@ -71,7 +72,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
@@ -84,11 +84,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     }
 
-    public void toggleMouse(boolean isPressed){
+    private void toggleMouse(boolean isPressed){
         space.toggle(isPressed);
     }
 
-    public void toggleKey(int KeyCode, boolean isPressed) {
+    private void toggleKey(int KeyCode, boolean isPressed) {
         switch(KeyCode){
             //Directional Keys for movement
             case KeyEvent.VK_UP:
@@ -123,6 +123,10 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
                 e_teleport.toggle(isPressed);
                 break;
 
+            //Menu
+            case KeyEvent.VK_ESCAPE:
+                escape.swtch();
+                break;
         }
     }
 
@@ -141,11 +145,21 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     public class Key {
         private int numTimesPressed = 0;
         private boolean pressed = false;
+        private long lastTimePressed;
 
-        public void toggle(boolean isPressed) {
+
+        private void toggle(boolean isPressed) {
             pressed = isPressed;
             if(isPressed) {
                 numTimesPressed++;
+            }
+        }
+
+        private void swtch(){
+            // only switch if it has been 500ms since last time pressed
+            if(System.currentTimeMillis() - lastTimePressed > 500){
+                pressed = !pressed;
+                lastTimePressed = System.currentTimeMillis();
             }
         }
 

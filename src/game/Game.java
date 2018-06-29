@@ -116,7 +116,7 @@ public class Game extends Canvas implements Runnable{
             boolean shouldRender = true;
             while(delta >= 1) {
                 ticks++;
-                tick();
+                if(!input.escape.isPressed()) tick();
                 delta -= 1;
                 shouldRender = true;
             }
@@ -145,8 +145,11 @@ public class Game extends Canvas implements Runnable{
 
     public void tick(){
         tickCount++;
-        level.tick();
-        ai.tick();
+        //if paused don't update these
+        if(!input.escape.isPressed()) {
+            level.tick();
+            ai.tick();
+        }
         ui.tick();
     }
 
@@ -157,13 +160,16 @@ public class Game extends Canvas implements Runnable{
             createBufferStrategy(3);
             return;
         }
+        //if paused don't render these
+        if(!input.escape.isPressed()) {
 
 
-        screen.clear();
+            screen.clear();
 
-        int playerx = (int)player.getX() - screen.width/ 2;
-        int playery = (int)player.getY() - screen.height / 2;
-        level.render(screen, playerx, playery);
+            int playerx = (int) player.getX() - screen.width / 2;
+            int playery = (int) player.getY() - screen.height / 2;
+            level.render(screen, playerx, playery);
+        }
         ui.render();
 
 
