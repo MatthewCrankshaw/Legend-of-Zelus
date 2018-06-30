@@ -5,7 +5,6 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 
-
 /**
  * Created by Matthew.c on 08/02/2017.
  */

@@ -48,15 +48,15 @@ public class FireballProjectile extends Projectile{
 
     @Override
     public void render(Screen screen) {
-        screen.renderProjectile((int)x, (int)y, Sprite.projectileFireball);
+        screen.renderSprite((int)x, (int)y, Sprite.projectileFireball, true);
     }
 
     @Override
     public void explode(Screen screen) {
-        screen.renderProjectile((int)x, (int)y, Sprite.fireBallExpload);
+        screen.renderSprite((int)x, (int)y, Sprite.fireBallExpload, true);
     }
 
     public void fizzleOut(Screen screen){
-        screen.renderProjectile((int)x,(int)y, Sprite.fireBallFizzleOut);
+        screen.renderSprite((int)x,(int)y, Sprite.fireBallFizzleOut, true);
     }
 }

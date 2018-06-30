@@ -12,8 +12,6 @@ public class FontSprite extends Sprite{
 
     private static ArrayList<FontSprite> CHAR_SPRITES = loadCharSprites();
 
-    private static String charOrder = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;'\"!?$%()-=+/";
-
     private FontSprite(int size, int x, int y, SpriteSheet sheet) {
         super(size, x, y, sheet);
     }
@@ -22,16 +20,18 @@ public class FontSprite extends Sprite{
         ArrayList<FontSprite> font = new ArrayList<>();
         //Letters
         for(int i = 0; i < 26; i++){
-            font.add( new FontSprite(8, i, 30, SpriteSheet.text));
+            font.add( new FontSprite(8, i, 30, SpriteSheet.spriteSheet));
         }
         //Digits and Signs
         for(int i = 0; i < 26; i++){
-            font.add(new FontSprite(8, i, 31, SpriteSheet.text));
+            font.add(new FontSprite(8, i, 31, SpriteSheet.spriteSheet));
         }
         return font;
     }
 
     public static FontSprite getCharacterSprite(char letter){
+        String charOrder = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;'\"!?$%()-=+/";
+
         letter = Character.toUpperCase(letter);
         int i = charOrder.indexOf(letter);
         if(i == -1){
