@@ -5,6 +5,8 @@ import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.*;
 
+import game.graphics.sprite.FontSprite;
+import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
@@ -91,10 +93,6 @@ public class Game extends Canvas implements Runnable{
         new Thread(this).start();
     }
 
-    public synchronized void stop(){
-        running = false;
-    }
-
     @Override
     public void run() {
         long lastTime = System.nanoTime();
@@ -171,7 +169,6 @@ public class Game extends Canvas implements Runnable{
             level.render(screen, playerx, playery);
         }
         ui.render();
-
 
         for (int i = 0; i < pixels.length; i ++) {
             pixels[i] = screen.pixels[i];

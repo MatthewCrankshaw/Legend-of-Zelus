@@ -41,7 +41,7 @@ public class SpriteSheet {
     public static SpriteSheet statusEffects_16 = new SpriteSheet("/StatusEffects-16.png", 256);
 
     //Text Fonts *******************************************************************************
-    public static SpriteSheet text = new SpriteSheet("/Text.png", 256);
+    public static SpriteSheet text = new SpriteSheet("/SpriteSheet.png", 256);
 
 
     public SpriteSheet(String path, int size){
