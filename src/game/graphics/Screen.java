@@ -1,8 +1,11 @@
 package game.graphics;
 
+import game.graphics.sprite.FontSprite;
 import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
 import game.levels.tile.animated_tiles.AnimatedTile;
+
+import java.awt.*;
 
 /**
  * Created by Matthew.c on 25/01/2017.
@@ -43,6 +46,15 @@ public class Screen {
                     pixels[xa+ya*width] = sprite.pixels[x + y * sprite.SIZE];
                 }
             }
+        }
+    }
+
+    public void renderString(int xp, int yp, String string){
+        for(int i = 0; i < string.length(); i++){
+            if(string.charAt(i) == ' '){
+                continue;
+            }
+            renderSprite(xp + (i*8), yp, FontSprite.getCharacterSprite(string.charAt(i)));
         }
     }
 

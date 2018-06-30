@@ -2,9 +2,6 @@ package game.graphics.sprite;
 
 
 import game.graphics.SpriteSheet;
-
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -13,33 +10,34 @@ import java.util.ArrayList;
 public class FontSprite extends Sprite{
 
 
-    private static ArrayList<FontSprite> charSprites = loadCharSprites();
-    //private static ArrayList<FontSprite> digitSprites = loadDigitSprites();
+    private static ArrayList<FontSprite> CHAR_SPRITES = loadCharSprites();
 
-    private static String charOrder = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,:;'\"!?$%()-=+/";
-    private static String digitOrder = "0123456789";
+    private static String charOrder = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;'\"!?$%()-=+/";
 
-    public FontSprite(int size, int x, int y, SpriteSheet sheet) {
+    private FontSprite(int size, int x, int y, SpriteSheet sheet) {
         super(size, x, y, sheet);
     }
 
     private static ArrayList<FontSprite> loadCharSprites(){
         ArrayList<FontSprite> font = new ArrayList<>();
+        //Letters
         for(int i = 0; i < 26; i++){
             font.add( new FontSprite(8, i, 30, SpriteSheet.text));
         }
-        for(int i = 0; i < 16; i++){
-            font.add(new FontSprite(8, 10 + i, 31, SpriteSheet.text));
+        //Digits and Signs
+        for(int i = 0; i < 26; i++){
+            font.add(new FontSprite(8, i, 31, SpriteSheet.text));
         }
         return font;
     }
 
     public static FontSprite getCharacterSprite(char letter){
+        letter = Character.toUpperCase(letter);
         int i = charOrder.indexOf(letter);
-        if(i < 0 || i > 43) {
-            System.out.println("Error: not a valid character for FontSprite.");
-            return charSprites.get('A');
+        if(i == -1){
+            System.out.println("Error: invalid character for FontSprite. Character:" + letter);
+            System.exit(1);
         }
-        return charSprites.get(i);
+        return CHAR_SPRITES.get(i);
     }
 }
