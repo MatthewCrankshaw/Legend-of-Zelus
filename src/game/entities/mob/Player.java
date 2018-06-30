@@ -42,8 +42,8 @@ public class Player extends Mob {
         currentMana = 500;
         manaRegeneration = 1;
 
-        maxExperience = 100;
-        currentExperience = 70;
+        maxExperience = 1000;
+        currentExperience = 500;
 
 
         this.x = x;

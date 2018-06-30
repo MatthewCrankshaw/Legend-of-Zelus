@@ -32,7 +32,7 @@ public class Screen {
         }
     }
 
-    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed){
+    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed, int colour){
         if(fixed) {
             xp -= xOffset;
             yp -= yOffset;
@@ -43,15 +43,26 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite.pixels[x+y*sprite.SIZE];
+
+                //Set the colour -1 for original colour on sprite
+                int col = sprite.pixels[x + y * sprite.SIZE];
+
+                if(sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff){
+                    col = colour;
+                }
+
+                if(colour == -1) {
+                    col = sprite.pixels[x + y * sprite.SIZE];
+                }
+
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite.pixels[x + y * sprite.SIZE];
+                    pixels[xa+ya*width] = col;
                 }
             }
         }
     }
 
-    public void renderString(int xp, int yp, String string, boolean center){
+    public void renderString(int xp, int yp, String string, boolean center, int colour){
         for(int i = 0; i < string.length(); i++){
             if(string.charAt(i) == ' '){
                 continue;
@@ -61,7 +72,7 @@ public class Screen {
             if(center){
                 centerOffset = ((len*8)/2);
             }else centerOffset = 0;
-            renderSprite(xp + (i*8) - centerOffset, yp, FontSprite.getCharacterSprite(string.charAt(i)), false);
+            renderSprite(xp + (i*8) - centerOffset, yp, FontSprite.getCharacterSprite(string.charAt(i)), false, colour);
         }
     }
 

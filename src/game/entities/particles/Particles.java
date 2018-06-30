@@ -89,7 +89,7 @@ public class Particles extends Entity{
 
     @Override
     public void render(Screen screen) {
-        screen.renderSprite((int) xx, (int) yy - (int)zz +3, sprite, true);
+        screen.renderSprite((int) xx, (int) yy - (int)zz +3, sprite, true, -1);
     }
 
     public boolean isAlive(){

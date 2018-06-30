@@ -18,7 +18,7 @@ public class TeleportAnimator extends AbilityAnimator {
     public void renderSprite(int x, int y) {
         long currentTime = System.currentTimeMillis();
 
-        screen.renderSprite(x -8, y-4, Sprite.teleportFloorSign, true);
+        screen.renderSprite(x -8, y-4, Sprite.teleportFloorSign, true, -1);
         if (currentTime - lastTime >= timeBetweenAnim * 6) {
             currentSprite = basicSprite[0];
             lastTime = currentTime;
@@ -37,7 +37,7 @@ public class TeleportAnimator extends AbilityAnimator {
         }else {
             currentSprite = basicSprite[0];
         }
-        screen.renderSprite(x, y, currentSprite, true);
+        screen.renderSprite(x, y, currentSprite, true, -1);
     }
 
     public void resetAnimation(){

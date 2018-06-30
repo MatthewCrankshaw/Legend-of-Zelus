@@ -23,7 +23,7 @@ public class CircleProgressBar {
     }
 
     public void render(){
-        this.screen.renderString(screenPosX, screenPosY - sizeRadius - 16, label, true);
+        this.screen.renderString(screenPosX, screenPosY - sizeRadius - 16, label, true,0x660000);
         this.screen.renderCircle(screenPosX, screenPosY, sizeRadius, currentBarPercent, barFillColour, barBorderColour, true, false);
     }
 
