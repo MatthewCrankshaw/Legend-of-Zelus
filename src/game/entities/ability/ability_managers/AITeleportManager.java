@@ -32,8 +32,6 @@ public class AITeleportManager extends AbilityManager{
             int xa = (random.nextInt() % 200)+ 200;
             int ya = (random.nextInt() % 200)+ 200;
 
-            System.out.println("tele " + xa + " " + ya);
-
             mob.changeLocation(xa, ya);
             alreadyTP = true;
         }

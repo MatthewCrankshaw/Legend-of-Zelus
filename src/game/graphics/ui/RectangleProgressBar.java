@@ -26,8 +26,9 @@ public class RectangleProgressBar {
     }
 
     public void render(){
-        this.screen.renderString(screenPosX + (width/2) - ((label.length()*8)/2) + 8, screenPosY - height, label);
-        screen.renderRectangle(screenPosX, screenPosY, width, height,currentBarPercentage, barFillColour, barBorderColour,false);
+        int len = label.length();
+        this.screen.renderString(screenPosX + (width/2), screenPosY - height, label, true);
+        this.screen.renderRectangle(screenPosX, screenPosY, width, height,currentBarPercentage, barFillColour, barBorderColour,false);
     }
 
     public void setCurrentBarPercentage(int max, int current) {

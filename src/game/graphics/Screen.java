@@ -51,12 +51,17 @@ public class Screen {
         }
     }
 
-    public void renderString(int xp, int yp, String string){
+    public void renderString(int xp, int yp, String string, boolean center){
         for(int i = 0; i < string.length(); i++){
             if(string.charAt(i) == ' '){
                 continue;
             }
-            renderSprite(xp + (i*8), yp, FontSprite.getCharacterSprite(string.charAt(i)), false);
+            int len = string.length();
+            int centerOffset;
+            if(center){
+                centerOffset = ((len*8)/2);
+            }else centerOffset = 0;
+            renderSprite(xp + (i*8) - centerOffset, yp, FontSprite.getCharacterSprite(string.charAt(i)), false);
         }
     }
 

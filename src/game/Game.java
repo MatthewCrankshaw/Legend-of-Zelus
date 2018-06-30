@@ -32,7 +32,6 @@ public class Game extends Canvas implements Runnable{
 
     private JFrame frame;
 
-    public boolean running = false;
     public int tickCount = 0;
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -68,7 +67,7 @@ public class Game extends Canvas implements Runnable{
         frame.setVisible(true);
     }
 
-    public void init(){
+    private void init(){
         screen = new Screen(WIDTH, HEIGHT);
         input = new InputHandler(this);
         level = new SpawnLevel("/levels/TestingArena.png");
@@ -89,7 +88,6 @@ public class Game extends Canvas implements Runnable{
 
 
     public synchronized void start(){
-        running = true;
         new Thread(this).start();
     }
 
@@ -107,16 +105,14 @@ public class Game extends Canvas implements Runnable{
 
         init();
 
-        while(running){
+        while(true){
             long now = System.nanoTime();
             delta += (now - lastTime) / nsPerTick;
             lastTime = now;
-            boolean shouldRender = true;
             while(delta >= 1) {
                 ticks++;
                 if(!input.escape.isPressed()) tick();
                 delta -= 1;
-                shouldRender = true;
             }
 
             try{
@@ -127,10 +123,10 @@ public class Game extends Canvas implements Runnable{
                 e.printStackTrace();
             }
 
-            if(shouldRender) {
-                frames++;
-                render();
-            }
+
+            frames++;
+            render();
+
 
             if (System.currentTimeMillis() - lastTimer >= 1000) {
                 lastTimer += 1000;
@@ -159,14 +155,14 @@ public class Game extends Canvas implements Runnable{
             return;
         }
         //if paused don't render these
-        if(!input.escape.isPressed()) {
-
-
-            screen.clear();
-
+        screen.clear();
+        if(!input.escape.isPressed()){
+            ui.setGamePaused(false);
             int playerx = (int) player.getX() - screen.width / 2;
             int playery = (int) player.getY() - screen.height / 2;
             level.render(screen, playerx, playery);
+        }else{
+            ui.setGamePaused(true);
         }
         ui.render();
 

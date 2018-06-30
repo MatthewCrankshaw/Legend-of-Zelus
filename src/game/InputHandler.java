@@ -17,6 +17,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     public Key space = new Key();
     public Key e_teleport = new Key();
     public Key escape = new Key();
+    public Key one = new Key();
 
     private int mouseX = 0;
     private int mouseY = 0;
@@ -48,9 +49,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     //Mouse Listeners
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
+    public void mouseDragged(MouseEvent e) {}
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -68,22 +67,17 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         toggleMouse(false);
     }
 
-
+    @Override
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseExited(MouseEvent e) {}
 
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
+    //========================================================================
+    //Mouse toggling
     private void toggleMouse(boolean isPressed){
         space.toggle(isPressed);
     }
@@ -127,8 +121,17 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
             case KeyEvent.VK_ESCAPE:
                 escape.swtch();
                 break;
+            case KeyEvent.VK_1:
+                if(escape.isPressed()){
+                    System.out.println("Info: User quit program!");
+                    System.exit(0);
+                }
+                break;
         }
     }
+
+    //===============================================================
+    //Getters and Setters
 
     public int getMouseX(){
         return mouseX;
