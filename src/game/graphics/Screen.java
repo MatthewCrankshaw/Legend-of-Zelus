@@ -32,9 +32,11 @@ public class Screen {
         }
     }
 
-    public void renderSprite(int xp, int yp, Sprite sprite){
-        xp -= xOffset;
-        yp -= yOffset;
+    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed){
+        if(fixed) {
+            xp -= xOffset;
+            yp -= yOffset;
+        }
         for(int y = 0; y < sprite.SIZE; y ++) {
             int ya = y + yp;
             for(int x = 0; x < sprite.SIZE; x++) {
@@ -54,7 +56,7 @@ public class Screen {
             if(string.charAt(i) == ' '){
                 continue;
             }
-            renderSprite(xp + (i*8), yp, FontSprite.getCharacterSprite(string.charAt(i)));
+            renderSprite(xp + (i*8), yp, FontSprite.getCharacterSprite(string.charAt(i)), false);
         }
     }
 

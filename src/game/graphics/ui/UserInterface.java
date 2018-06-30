@@ -22,17 +22,17 @@ public class UserInterface {
 
     public void init(){
         //setup health bar
-        healthBar = new CircleProgressBar(screen, 60, screen.height - 60, 50);
+        healthBar = new CircleProgressBar(screen, 60, screen.height - 60, 50, "Life");
         healthBar.setBarFillColour(0xff0000);
         healthBar.setCurrentBarPercent(player.getMaxLife(), player.getCurrentLife());
 
         //setup mana bar
-        manaBar = new CircleProgressBar(screen,screen.width - 60, screen.height - 60, 50);
+        manaBar = new CircleProgressBar(screen,screen.width - 60, screen.height - 60, 50, "Mana");
         manaBar.setBarFillColour(0x0000ff);
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
 
         //setup experience bar
-        experienceBar = new RectangleProgressBar(screen, 120, screen.height - 20, screen.width - 240, 10);
+        experienceBar = new RectangleProgressBar(screen, 120, screen.height - 20, screen.width - 240, 10, "Experience");
         experienceBar.setBarFillColour(0x444444);
         experienceBar.setBarBorderColour(0x990099);
     }

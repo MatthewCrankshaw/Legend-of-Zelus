@@ -8,12 +8,14 @@ public class CircleProgressBar {
     private int barFillColour, barBorderColour;
     private int screenPosX, screenPosY;
     private int sizeRadius;
+    private String label;
 
-    public CircleProgressBar(Screen screen, int xPos, int yPos, int size){
+    public CircleProgressBar(Screen screen, int xPos, int yPos, int size, String label){
         this.screen = screen;
-        screenPosX = xPos;
-        screenPosY = yPos;
-        sizeRadius = size;
+        this.screenPosX = xPos;
+        this.screenPosY = yPos;
+        this.sizeRadius = size;
+        this.label = label;
 
         currentBarPercent = 100;
         barFillColour = 0x000000;
@@ -21,6 +23,7 @@ public class CircleProgressBar {
     }
 
     public void render(){
+        this.screen.renderString(screenPosX + (sizeRadius/2) - ((label.length()*8)) - 8, screenPosY - sizeRadius-10, label);
         this.screen.renderCircle(screenPosX, screenPosY, sizeRadius, currentBarPercent, barFillColour, barBorderColour, true, false);
     }
 
