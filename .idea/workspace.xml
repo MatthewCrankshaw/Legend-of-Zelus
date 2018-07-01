@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ec28eedc-2dcd-4b2b-87bc-8199667112a8" name="Default" comment="Fixed Issues with uncommited changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/Game.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/Game.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/UserInterface.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/UserInterface.class" />
       <change beforePath="$PROJECT_DIR$/src/game/Game.java" afterPath="$PROJECT_DIR$/src/game/Game.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" afterPath="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/animators/ability_animators/TeleportAnimator.java" afterPath="$PROJECT_DIR$/src/game/animators/ability_animators/TeleportAnimator.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/ability/projectiles/FireballProjectile.java" afterPath="$PROJECT_DIR$/src/game/entities/ability/projectiles/FireballProjectile.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/mob/Player.java" afterPath="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/particles/Particles.java" afterPath="$PROJECT_DIR$/src/game/entities/particles/Particles.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/Screen.java" afterPath="$PROJECT_DIR$/src/game/graphics/Screen.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/CircleProgressBar.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/CircleProgressBar.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java" />
       <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
     </list>
     <ignored path="JavaGame2D.iws" />
@@ -35,16 +29,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-368">
-              <caret line="30" column="49" lean-forward="false" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+            <state relative-caret-position="380">
+              <caret line="171" column="0" lean-forward="true" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2972#2973#0" expanded="true" />
-                <element signature="e#3012#3013#0" expanded="true" />
-                <marker date="1530355707427" expanded="true" signature="4821:5237" ph="{...}" />
+                <element signature="e#2980#2981#0" expanded="true" />
+                <element signature="e#3020#3021#0" expanded="true" />
+                <marker date="1530476984504" expanded="true" signature="4829:5245" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -53,8 +47,8 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1133">
-              <caret line="45" column="30" lean-forward="false" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
+            <state relative-caret-position="499">
+              <caret line="153" column="5" lean-forward="false" selection-start-line="153" selection-start-column="5" selection-end-line="153" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -63,7 +57,7 @@
       <file leaf-file-name="Screen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
+            <state relative-caret-position="23">
               <caret line="74" column="118" lean-forward="false" selection-start-line="74" selection-start-column="118" selection-end-line="74" selection-end-column="118" />
               <folding>
                 <marker date="1530356518601" expanded="true" signature="2708:2714" ph="{...}" />
@@ -72,10 +66,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RectangleProgressBar.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Enemy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Enemy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RectangleProgressBar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
+            <state relative-caret-position="510">
               <caret line="30" column="134" lean-forward="true" selection-start-line="30" selection-start-column="134" selection-end-line="30" selection-end-column="134" />
               <folding>
                 <marker date="1530356598921" expanded="true" signature="877:1018" ph="{...}" />
@@ -87,12 +91,12 @@
       <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="64" column="110" lean-forward="false" selection-start-line="64" selection-start-column="110" selection-end-line="64" selection-end-column="110" />
+            <state relative-caret-position="567">
+              <caret line="82" column="39" lean-forward="false" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2642#2643#0" expanded="true" />
-                <element signature="e#2682#2683#0" expanded="true" />
+                <element signature="e#3305#3306#0" expanded="true" />
+                <element signature="e#3345#3346#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -178,7 +182,6 @@
         <option value="$PROJECT_DIR$/src/game/entities/mob/Mob.java" />
         <option value="$PROJECT_DIR$/src/game/levels/Level.java" />
         <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
-        <option value="$PROJECT_DIR$/src/game/entities/mob/Enemy.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UIManager.java" />
@@ -190,16 +193,17 @@
         <option value="$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/ability_managers/AITeleportManager.java" />
         <option value="$PROJECT_DIR$/src/game/InputHandler.java" />
-        <option value="$PROJECT_DIR$/src/game/Game.java" />
-        <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/projectiles/FireballProjectile.java" />
         <option value="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" />
         <option value="$PROJECT_DIR$/src/game/animators/ability_animators/TeleportAnimator.java" />
         <option value="$PROJECT_DIR$/src/game/entities/particles/Particles.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/Screen.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/CircleProgressBar.java" />
-        <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java" />
+        <option value="$PROJECT_DIR$/src/game/entities/mob/Enemy.java" />
+        <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
+        <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
+        <option value="$PROJECT_DIR$/src/game/Game.java" />
       </list>
     </option>
   </component>
@@ -213,8 +217,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="284" />
-    <option name="y" value="27" />
+    <option name="x" value="454" />
+    <option name="y" value="213" />
     <option name="width" value="851" />
     <option name="height" value="736" />
   </component>
@@ -454,7 +458,7 @@
       <workItem from="1530268579740" duration="4630000" />
       <workItem from="1530328353234" duration="6748000" />
       <workItem from="1530335803725" duration="7119000" />
-      <workItem from="1530347401256" duration="6408000" />
+      <workItem from="1530347401256" duration="10297000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1521600697203</created>
@@ -474,7 +478,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87216000" />
+    <option name="totallyTimeSpent" value="91105000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -789,14 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Enemy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Mob.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -837,34 +833,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-368">
-          <caret line="30" column="49" lean-forward="false" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2972#2973#0" expanded="true" />
-            <element signature="e#3012#3013#0" expanded="true" />
-            <marker date="1530355707427" expanded="true" signature="4821:5237" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1133">
-          <caret line="45" column="30" lean-forward="false" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/particles/Particles.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="469">
           <caret line="91" column="77" lean-forward="false" selection-start-line="91" selection-start-column="77" selection-end-line="91" selection-end-column="77" />
           <folding>
-            <element signature="e#2200#2201#0" expanded="true" />
-            <element signature="e#2286#2287#0" expanded="true" />
+            <element signature="e#2200#2201#0" expanded="false" />
+            <element signature="e#2286#2287#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -882,8 +857,8 @@
         <state relative-caret-position="520">
           <caret line="59" column="77" lean-forward="false" selection-start-line="59" selection-start-column="77" selection-end-line="59" selection-end-column="77" />
           <folding>
-            <element signature="e#1239#1240#0" expanded="true" />
-            <element signature="e#1327#1328#0" expanded="true" />
+            <element signature="e#1239#1240#0" expanded="false" />
+            <element signature="e#1327#1328#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -911,16 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="74" column="118" lean-forward="false" selection-start-line="74" selection-start-column="118" selection-end-line="74" selection-end-column="118" />
-          <folding>
-            <marker date="1530356518601" expanded="true" signature="2708:2714" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/CircleProgressBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -937,24 +902,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
+    <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Enemy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="64" column="110" lean-forward="false" selection-start-line="64" selection-start-column="110" selection-end-line="64" selection-end-column="110" />
+        <state relative-caret-position="244">
+          <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="74" column="118" lean-forward="false" selection-start-line="74" selection-start-column="118" selection-end-line="74" selection-end-column="118" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2642#2643#0" expanded="true" />
-            <element signature="e#2682#2683#0" expanded="true" />
+            <marker date="1530356518601" expanded="true" signature="2708:2714" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="510">
           <caret line="30" column="134" lean-forward="true" selection-start-line="30" selection-start-column="134" selection-end-line="30" selection-end-column="134" />
           <folding>
             <marker date="1530356598921" expanded="true" signature="877:1018" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="153" column="5" lean-forward="false" selection-start-line="153" selection-start-column="5" selection-end-line="153" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="82" column="39" lean-forward="false" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3305#3306#0" expanded="true" />
+            <element signature="e#3345#3346#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="171" column="0" lean-forward="true" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2980#2981#0" expanded="true" />
+            <element signature="e#3020#3021#0" expanded="true" />
+            <marker date="1530476984504" expanded="true" signature="4829:5245" ph="{...}" />
           </folding>
         </state>
       </provider>

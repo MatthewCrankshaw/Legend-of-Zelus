@@ -1,8 +1,11 @@
 package game.graphics.ui;
 
 import game.Game;
+import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
+
+import java.util.ArrayList;
 
 /**
  * Created by Matthew.c on 02/03/2017.
@@ -11,6 +14,7 @@ public class UserInterface {
 
     protected Screen screen;
     protected Player player;
+    protected ArrayList<Enemy> enemies;
 
     private CircleProgressBar healthBar, manaBar;
     private RectangleProgressBar experienceBar;
@@ -18,9 +22,10 @@ public class UserInterface {
 
     private boolean gamePaused;
 
-    public UserInterface(Screen screen, Player player){
+    public UserInterface(Screen screen, Player player, ArrayList<Enemy> enemies){
         this.screen = screen;
         this.player = player;
+        this.enemies = enemies;
         gamePaused = false;
         init();
     }
@@ -65,6 +70,17 @@ public class UserInterface {
             screen.renderString((Game.WIDTH/2), (Game.HEIGHT/2) - (Game.HEIGHT/4), "--- Paused ---", true,0x660000);
             screen.renderString((Game.WIDTH/2)- (5*8), (Game.HEIGHT/2) - (Game.HEIGHT/4) + 16, "1. Quit", false,0x660000);
             screen.renderString((Game.WIDTH/2)- (5*8), (Game.HEIGHT/2) - (Game.HEIGHT/4) + 24, "2. Settings", false,0x660000);
+        }
+        screen.renderString(0, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0x000000);
+        for (int i = 0; i < enemies.size(); i++){
+            int x = 0;
+            int y = 0;
+            if (i >= 40){
+                x += 8;
+                y = 0;
+            }
+            String s = "E"+(i+1)+ ": " + (int)(enemies.get(i).getX()/8) + " " + (int)(enemies.get(i).getY()/2);
+            screen.renderString(x * (14), y + (8*((i%40)+1)), s, false, 0x000000);
         }
     }
 
