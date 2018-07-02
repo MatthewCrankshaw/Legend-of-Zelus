@@ -79,8 +79,19 @@ public class UserInterface {
                 x += 8;
                 y = 0;
             }
-            String s = "E"+(i+1)+ ": " + (int)(enemies.get(i).getX()/8) + " " + (int)(enemies.get(i).getY()/2);
-            screen.renderString(x * (14), y + (8*((i%40)+1)), s, false, 0x000000);
+            int xp = x * (14);
+            int yp = y + (8*((i%40)+1));
+
+            double playerPosX = player.getX()/8;
+            double playerPosY = player.getY()/8;
+            double enemyPosX = enemies.get(i).getX()/8;
+            double enemyPosY = enemies.get(i).getY()/8;
+
+            screen.drawLine((playerPosX*8) + 8, (playerPosY*8)+8,(enemyPosX*8)+8, (enemyPosY*8)+8, 0x00ff00, true);
+
+            int dist = (int)Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
+            String s = "E"+(i+1)+ ": " + (int)enemyPosX + " " + (int)enemyPosY + " " + dist;
+            screen.renderString(xp, yp, s, false, 0x000000);
         }
     }
 

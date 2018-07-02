@@ -111,6 +111,49 @@ public class Screen {
         }
     }
 
+    public void drawLine(double xp1, double yp1, double xp2, double yp2, int colour, boolean fixed){
+        if(fixed) {
+            xp1 -= xOffset;
+            yp1 -= yOffset;
+            xp2 -= xOffset;
+            yp2 -= yOffset;
+        }
+
+        double tempx = xp1;
+        double tempy = yp1;
+
+        double x = Math.abs(xp2 - tempx);
+        double y = Math.abs(yp2 - tempy);
+
+        double max = Math.max(x, y);
+
+        //Inside try catch block because there is a possibility to have divide by zero
+        try {
+            x /= max;
+            y /= max;
+        }catch (ArithmeticException e){
+            //If divide by zero then just return
+            //We don't need to draw the line
+            return;
+        }
+
+        for(int i = 0; i < max; i++){
+            if(tempx < 0 || tempx >= width || tempy < 0 || tempy >= height) break;
+            if(xp2 < 0 || xp2 >= width || yp2 < 0 || yp2 >= height) break;
+            pixels[(int)tempx + (this.width * (int)tempy)] = colour;
+            if(tempx < xp2) {
+                tempx += x;
+            }else{
+                tempx -= x;
+            }
+            if(tempy < yp2){
+                tempy += y;
+            }else{
+                tempy -= y;
+            }
+        }
+    }
+
     public void renderRectangle(int xp, int yp, int width, int height, int currentPercent, int colourFill, int colourBorder, boolean fixed){
         if(fixed) {
             xp -= xOffset;
