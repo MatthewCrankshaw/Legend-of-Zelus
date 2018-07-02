@@ -5,6 +5,7 @@ import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,13 @@ public class UserInterface {
     private CircleProgressBar healthBar, manaBar;
     private RectangleProgressBar experienceBar;
     private RectangleProgressBar abilityBar;
+
+    private final int[] xwalk = {100, 100,200, 250, 300};
+    private final int[] ywalk = {100, 150,200, 100, 300};
+
+    private final Point[] points = {new Point(100, 100), new Point(100, 150), new Point(200, 200), new Point(250, 100), new Point(300, 300)};
+
+
 
     private boolean gamePaused;
 
@@ -87,12 +95,13 @@ public class UserInterface {
             double enemyPosX = enemies.get(i).getX()/8;
             double enemyPosY = enemies.get(i).getY()/8;
 
-            screen.drawLine((playerPosX*8) + 8, (playerPosY*8)+8,(enemyPosX*8)+8, (enemyPosY*8)+8, 0x00ff00, true);
+            screen.renderLine((playerPosX*8) + 8, (playerPosY*8)+8,(enemyPosX*8)+8, (enemyPosY*8)+8, 0x00ff00, true);
 
             int dist = (int)Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E"+(i+1)+ ": " + (int)enemyPosX + " " + (int)enemyPosY + " " + dist;
             screen.renderString(xp, yp, s, false, 0x000000);
         }
+        screen.renderConnectedLine(points, 0x0000ff, true);
     }
 
     public void setGamePaused(boolean paused){

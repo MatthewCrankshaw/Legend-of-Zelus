@@ -111,19 +111,14 @@ public class Screen {
         }
     }
 
-    public void drawLine(double xp1, double yp1, double xp2, double yp2, int colour, boolean fixed){
+    public void renderLine(double xp1, double yp1, double xp2, double yp2, int colour, boolean fixed){
+
         if(fixed) {
-            xp1 -= xOffset;
-            yp1 -= yOffset;
-            xp2 -= xOffset;
-            yp2 -= yOffset;
+            xp1 -= xOffset; yp1 -= yOffset; xp2 -= xOffset; yp2 -= yOffset;
         }
 
-        double tempx = xp1;
-        double tempy = yp1;
-
-        double x = Math.abs(xp2 - tempx);
-        double y = Math.abs(yp2 - tempy);
+        double x = Math.abs(xp2 - xp1);
+        double y = Math.abs(yp2 - yp1);
 
         double max = Math.max(x, y);
 
@@ -138,19 +133,25 @@ public class Screen {
         }
 
         for(int i = 0; i < max; i++){
-            if(tempx < 0 || tempx >= width || tempy < 0 || tempy >= height) break;
+            if(xp1 < 0 || xp1 >= width || yp1 < 0 || yp1 >= height) break;
             if(xp2 < 0 || xp2 >= width || yp2 < 0 || yp2 >= height) break;
-            pixels[(int)tempx + (this.width * (int)tempy)] = colour;
-            if(tempx < xp2) {
-                tempx += x;
+            pixels[(int)xp1 + (this.width * (int)yp1)] = colour;
+            if(xp1 < xp2) {
+                xp1 += x;
             }else{
-                tempx -= x;
+                xp1 -= x;
             }
-            if(tempy < yp2){
-                tempy += y;
+            if(yp1 < yp2){
+                yp1 += y;
             }else{
-                tempy -= y;
+                yp1 -= y;
             }
+        }
+    }
+
+    public void renderConnectedLine(Point[] points, int colour, boolean fixed){
+        for(int i = 0; i < points.length - 1; i++){
+            renderLine(points[i].x, points[i].y,points[i+1].x,points[i+1].y, colour, fixed);
         }
     }
 

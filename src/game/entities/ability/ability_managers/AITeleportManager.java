@@ -24,15 +24,13 @@ public class AITeleportManager extends AbilityManager{
 
     @Override
     public void castAbility(int x, int y) {
-
-        //TODO fix bugs and teleport to meaningful location
         if (!alreadyTP){
             Random random = new Random();
-            random.setSeed(System.currentTimeMillis());
-            int xa = (random.nextInt() % 200)+ 200;
-            int ya = (random.nextInt() % 200)+ 200;
+            random.setSeed(System.nanoTime());
+            int xa = (random.nextInt() % 100) + 100;
+            int ya = (random.nextInt() % 100) + 100;
 
-            mob.changeLocation(xa, ya);
+            mob.warpLocation(xa, ya);
             alreadyTP = true;
         }
     }

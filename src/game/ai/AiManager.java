@@ -18,7 +18,7 @@ public class AiManager {
     public void tick(){
         for(int i = 0; i < characters.size(); i++) {
 
-            int r = 70;
+            int r = 8*8+1;
 
             int theta = 360 * i / characters.size();
 

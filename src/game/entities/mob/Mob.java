@@ -81,6 +81,11 @@ public abstract class Mob extends Entity {
         this.y += y;
     }
 
+    public void warpLocation(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
 
     //todo make this more efficient
     public boolean isSwimming(){
