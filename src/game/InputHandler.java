@@ -18,6 +18,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     public Key e_teleport = new Key();
     public Key escape = new Key();
     public Key one = new Key();
+    public Key two = new Key();
 
     private int mouseX = 0;
     private int mouseY = 0;
@@ -150,7 +151,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         private boolean pressed = false;
         private long lastTimePressed;
 
-
+        //used for movement
+        //isPressed for as long as user holds down key
         private void toggle(boolean isPressed) {
             pressed = isPressed;
             if(isPressed) {
@@ -158,6 +160,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
             }
         }
 
+        //clicked once of on and once for off
+        //isPressed until user presses again
         private void swtch(){
             // only switch if it has been 500ms since last time pressed
             if(System.currentTimeMillis() - lastTimePressed > 500){

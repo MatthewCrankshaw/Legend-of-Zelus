@@ -149,9 +149,9 @@ public class Screen {
         }
     }
 
-    public void renderConnectedLine(Point[] points, int colour, boolean fixed){
+    public void renderConnectedLine(Point[] points, int xOffset, int yOffset, int colour, boolean fixed){
         for(int i = 0; i < points.length - 1; i++){
-            renderLine(points[i].x, points[i].y,points[i+1].x,points[i+1].y, colour, fixed);
+            renderLine(points[i].x + xOffset, points[i].y+ yOffset,points[i+1].x+ xOffset,points[i+1].y+ yOffset, colour, fixed);
         }
     }
 

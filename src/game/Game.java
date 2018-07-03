@@ -74,7 +74,7 @@ public class Game extends Canvas implements Runnable{
         player = new Player(150, 150, level, screen,input);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < 10; i++) {
             enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.enemySprites));
             enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.zombieSprites));
         }
@@ -82,7 +82,7 @@ public class Game extends Canvas implements Runnable{
             level.add(e);
         }
         ai = new AiManager(player, enemies);
-        ui = new UserInterface(screen, player, enemies);
+        ui = new UserInterface(screen, player, enemies, ai);
         level.add(player);
     }
 
@@ -154,8 +154,9 @@ public class Game extends Canvas implements Runnable{
             createBufferStrategy(3);
             return;
         }
-        //if paused don't render these
+
         screen.clear();
+        //if paused don't render these
         if(!input.escape.isPressed()){
             ui.setGamePaused(false);
             int playerx = (int) player.getX() - screen.width / 2;
