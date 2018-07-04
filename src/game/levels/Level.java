@@ -28,10 +28,6 @@ public class Level {
 
     public static TileManager TILE_MANAGER;
 
-
-
-
-
     private BufferedImage levelImage;
 
     public Level(int width, int height){

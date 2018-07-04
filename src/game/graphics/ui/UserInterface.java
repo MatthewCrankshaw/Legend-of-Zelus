@@ -121,9 +121,8 @@ public class UserInterface {
     }
 
     private void showEnemyPaths(int colour){
-        //Todo will need to be replaced with proper paths when path finding is working
         for(int i = 0; i < enemies.size(); i++){
-            Point path[] = ai.getAIPath(i);
+            ArrayList<Point> path = ai.getAIPath(i);
             screen.renderConnectedLine(path, 8, 8, 0x00ff00, true);
         }
     }

@@ -6,6 +6,7 @@ import game.levels.tile.Tile;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Matthew.c on 25/01/2017.
@@ -149,9 +150,9 @@ public class Screen {
         }
     }
 
-    public void renderConnectedLine(Point[] points, int xOffset, int yOffset, int colour, boolean fixed){
-        for(int i = 0; i < points.length - 1; i++){
-            renderLine(points[i].x + xOffset, points[i].y+ yOffset,points[i+1].x+ xOffset,points[i+1].y+ yOffset, colour, fixed);
+    public void renderConnectedLine(ArrayList<Point> points, int xOffset, int yOffset, int colour, boolean fixed){
+        for(int i = 0; i < points.size() - 1; i++){
+            renderLine(points.get(i).x + xOffset, points.get(i).y+ yOffset,points.get(i+1).x+ xOffset,points.get(i+1).y+ yOffset, colour, fixed);
         }
     }
 
