@@ -123,7 +123,7 @@ public class UserInterface {
     private void showEnemyPaths(int colour){
         for(int i = 0; i < enemies.size(); i++){
             ArrayList<Point> path = ai.getAIPath(i);
-            screen.renderConnectedLine(path, 8, 8, 0x00ff00, true);
+            screen.renderConnectedLine(path, 8, 8, colour, true);
         }
     }
 

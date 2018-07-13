@@ -6,16 +6,19 @@ import game.entities.mob.Player;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class AiManager {
 
     private Player friendPlayer;
     private ArrayList<Enemy> characters;
+    private long pathFindLastTime = 0;
+    private float pathFindInterval; //in seconds
 
     private PathFinder pathFinder;
 
 
-    private ArrayList<ArrayList<Point>> moveSet = new ArrayList<>();
+    private ArrayList<ArrayList<Point>> moveSet;
 
     private Point points[] = {
             new Point(9*8, 12*8),
@@ -38,6 +41,8 @@ public class AiManager {
         this.characters = characters;
         this.moveCounter = new int[characters.size()];
         pathFinder = new PathFinder(friendPlayer, characters);
+        pathFindLastTime = System.currentTimeMillis();
+        pathFindInterval = 7.0f;
         moveSet = pathFinder.pathFinder();
         for(int i = 0; i < moveCounter.length; i++){
             moveCounter[i] = 0;
@@ -46,24 +51,35 @@ public class AiManager {
 
     public void tick(){
 
+        //Recalculate the path every so often as described by the pathFindInterval
+        long currentTime = System.currentTimeMillis();
+        if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
+            moveSet = pathFinder.pathFinder();
+            pathFindLastTime = currentTime;
+            for(int i = 0; i < characters.size(); i++){
+                moveCounter[i] = 0;
+            }
+        }
+
         for(int i = 0; i < characters.size(); i++) {
             int currentTileX, currentTileY;
-
             currentTileX = (int)characters.get(i).getX();
             currentTileY = (int)characters.get(i).getY();
 
-            System.out.println("mov " + moveSet.size() + " path " + moveSet.get(i).size() + " counter " + moveCounter[i]);
+            System.out.println("moveset size : " + moveSet.get(i).size() + " moveCounter " + moveCounter[i]);
             int tileX = moveSet.get(i).get(moveCounter[i]).x;
             int tileY = moveSet.get(i).get(moveCounter[i]).y;
 
             if(tileX == currentTileX && tileY == currentTileY){
-                if (moveCounter[i] == moveSet.get(i).size() - 1){
-                    characters.get(i).warpLocation(moveSet.get(i).get(0).x,moveSet.get(i).get(0).y);
+                if (moveCounter[i] >= moveSet.get(i).size() - 1){
                     moveCounter[i] = 0;
                 }else{
                     moveCounter[i]++;
                 }
             }else {
+                if (moveSet.isEmpty()){
+                    continue;
+                }
                 tileX = moveSet.get(i).get(moveCounter[i]).x;
                 tileY = moveSet.get(i).get(moveCounter[i]).y;
 
