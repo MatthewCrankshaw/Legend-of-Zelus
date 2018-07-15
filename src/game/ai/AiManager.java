@@ -2,6 +2,7 @@ package game.ai;
 
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.levels.Level;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
@@ -12,6 +13,7 @@ public class AiManager {
 
     private Player friendPlayer;
     private ArrayList<Enemy> characters;
+    private Level level;
     private long pathFindLastTime = 0;
     private float pathFindInterval; //in seconds
 
@@ -36,13 +38,14 @@ public class AiManager {
 
     private int moveCounter[];
 
-    public AiManager(Player friendPlayer, ArrayList<Enemy> characters){
+    public AiManager(Player friendPlayer, ArrayList<Enemy> characters, Level level){
         this.friendPlayer = friendPlayer;
         this.characters = characters;
         this.moveCounter = new int[characters.size()];
-        pathFinder = new PathFinder(friendPlayer, characters);
+        this.level = level;
+        pathFinder = new PathFinder(friendPlayer, characters, level);
         pathFindLastTime = System.currentTimeMillis();
-        pathFindInterval = 7.0f;
+        pathFindInterval = 0.1f;
         moveSet = pathFinder.pathFinder();
         for(int i = 0; i < moveCounter.length; i++){
             moveCounter[i] = 0;

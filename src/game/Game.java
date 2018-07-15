@@ -25,8 +25,8 @@ public class Game extends Canvas implements Runnable{
 
     public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public static final int WIDTH = screensize.width/2-50;
-    public static final int HEIGHT = screensize.height/2-50;
+    public static final int WIDTH = (screensize.width/2)-(screensize.width/8);
+    public static final int HEIGHT = (screensize.height/2)-(screensize.height/8);
     public static final int SCALE = 2;
     public static final String NAME = "Never Lost";
 
@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable{
         for(Enemy e: enemies) {
             level.add(e);
         }
-        ai = new AiManager(player, enemies);
+        ai = new AiManager(player, enemies, level);
         ui = new UserInterface(screen, player, enemies, ai);
         level.add(player);
     }

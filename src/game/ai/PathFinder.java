@@ -2,6 +2,7 @@ package game.ai;
 
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.levels.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class PathFinder {
 
     private Player player;
     private ArrayList<Enemy> enemies;
+    private Level level;
 
     private float heuristic[] = new float[]{1.5f    ,1      ,1.5f,
                                             1       ,1      ,1,
@@ -19,14 +21,13 @@ public class PathFinder {
 
     //path variable for each enemy
     private ArrayList<ArrayList<Point> > paths = new ArrayList<>();
-    //Visited List for each enemy
-    private ArrayList<ArrayList<Point> > visitedList;
 
     int maxDistance;
 
-    public PathFinder(Player player, ArrayList<Enemy> enemies){
+    public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
         this.player = player;
         this.enemies = enemies;
+        this.level = level;
         init();
     }
 
