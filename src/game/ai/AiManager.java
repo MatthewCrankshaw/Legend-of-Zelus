@@ -2,6 +2,7 @@ package game.ai;
 
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.levels.Level;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
@@ -12,7 +13,8 @@ public class AiManager {
 
     private Player friendPlayer;
     private ArrayList<Enemy> characters;
-    private long pathFindLastTime = 0;
+    private Level level;
+    private long pathFindLastTime;
     private float pathFindInterval; //in seconds
 
     private PathFinder pathFinder;
@@ -20,29 +22,16 @@ public class AiManager {
 
     private ArrayList<ArrayList<Point>> moveSet;
 
-    private Point points[] = {
-            new Point(9*8, 12*8),
-            new Point(10*8, 11*8),
-            new Point( 11*8, 11*8),
-            new Point(12*8, 12*8),
-            new Point(12*8,13*8),
-            new Point(11*8,14*8),
-            new Point(10*8,15*8),
-            new Point(9*8,16*8),
-            new Point(10*8,16*8),
-            new Point(11*8,16*8),
-            new Point(12*8,16*8),
-    };
-
     private int moveCounter[];
 
-    public AiManager(Player friendPlayer, ArrayList<Enemy> characters){
+    public AiManager(Player friendPlayer, ArrayList<Enemy> characters, Level level){
         this.friendPlayer = friendPlayer;
         this.characters = characters;
+        this.level = level;
         this.moveCounter = new int[characters.size()];
-        pathFinder = new PathFinder(friendPlayer, characters);
+        pathFinder = new PathFinder(friendPlayer, characters, level);
         pathFindLastTime = System.currentTimeMillis();
-        pathFindInterval = 7.0f;
+        pathFindInterval = 0.2f;
         moveSet = pathFinder.pathFinder();
         for(int i = 0; i < moveCounter.length; i++){
             moveCounter[i] = 0;
@@ -66,7 +55,6 @@ public class AiManager {
             currentTileX = (int)characters.get(i).getX();
             currentTileY = (int)characters.get(i).getY();
 
-            System.out.println("moveset size : " + moveSet.get(i).size() + " moveCounter " + moveCounter[i]);
             int tileX = moveSet.get(i).get(moveCounter[i]).x;
             int tileY = moveSet.get(i).get(moveCounter[i]).y;
 

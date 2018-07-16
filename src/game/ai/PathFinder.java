@@ -2,6 +2,7 @@ package game.ai;
 
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.levels.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,37 +11,36 @@ public class PathFinder {
 
     private Player player;
     private ArrayList<Enemy> enemies;
+    private Level level;
 
-    private float heuristic[] = new float[]{1.5f    ,1      ,1.5f,
-                                            1       ,1      ,1,
-                                            1.5f    ,1      ,1.5f};
+    private float heuristic[] = new float[]{1 ,1 ,1,
+                                            1 ,1 ,1,
+                                            1 ,1 ,1};
 
-    private ArrayList<Point> points = new ArrayList<>();
+    private int maxDistance;
 
-    //path variable for each enemy
-    private ArrayList<ArrayList<Point> > paths = new ArrayList<>();
-    //Visited List for each enemy
-    private ArrayList<ArrayList<Point> > visitedList;
-
-    int maxDistance;
-
-    public PathFinder(Player player, ArrayList<Enemy> enemies){
+    public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
         this.player = player;
         this.enemies = enemies;
+        this.level = level;
         init();
     }
 
     private void init() {
-        maxDistance = 100;
+        maxDistance = 50;
     }
 
     public ArrayList<ArrayList<Point>> pathFinder(){
-        paths = new ArrayList<>();
-        points = new ArrayList<>();
+        ArrayList<ArrayList<Point> > paths = new ArrayList<>();
+        ArrayList<Point> points = new ArrayList<>();
 
         for(int enemyNum = 0; enemyNum < enemies.size(); enemyNum++){
+            //Visited List for each enemy
+            ArrayList<Point>visitedList = new ArrayList<>();
+
             boolean pathFound = false;
             int currentDistance = 0;
+
             Point playerPos = new Point((int)player.getX(), (int)player.getY());
             Point startingEnemyPos = new Point((int)enemies.get(enemyNum).getX(),(int)enemies.get(enemyNum).getY());
 
@@ -69,7 +69,17 @@ public class PathFinder {
 
                 //calculate all of the distances
                 for(int i = 0; i < 9; i++){
-                    nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
+                    int visitedOffset = 1000;
+                    for(int j = 0; j < visitedList.size(); j++){
+                        if(nextStep[i] == visitedList.get(j)){
+                            nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i] + visitedOffset;
+                        }else{
+                            nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
+                        }
+                    }
+                    if(visitedList.isEmpty()){
+                        nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
+                    }
                 }
 
 
@@ -79,39 +89,48 @@ public class PathFinder {
                     case 0:
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y+8));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 1:
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y+8));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 2:
                         p = new Point((startingEnemyPos.x-8), (startingEnemyPos.y+8));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 3:
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 4:
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         pathFound = true;
                         break;
                     case 5:
                         p = new Point((startingEnemyPos.x-8), (startingEnemyPos.y));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 6:
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y-8));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 7:
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y-8));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     case 8:
                         p = new Point((startingEnemyPos.x-8), (startingEnemyPos.y-8));
                         points.add(p);
+                        visitedList.add(new Point(p.x/8, p.y/8));
                         break;
                     default:
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y));
