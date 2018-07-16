@@ -19,7 +19,6 @@ public class AiManager {
 
     private PathFinder pathFinder;
 
-
     private ArrayList<ArrayList<Point>> moveSet;
 
     private int moveCounter[];
@@ -39,7 +38,6 @@ public class AiManager {
     }
 
     public void tick(){
-
         //Recalculate the path every so often as described by the pathFindInterval
         long currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {

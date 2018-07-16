@@ -3,6 +3,7 @@ package game.levels.tile;
 import game.animators.tile_animators.TransitionTileAnimator;
 import game.levels.Level;
 import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
+import game.levels.tile.static_tiles.VoidTile;
 import game.levels.tile.transition_tiles.TransitionTiles;
 
 import static game.levels.tile.TileManager.tileType.*;
