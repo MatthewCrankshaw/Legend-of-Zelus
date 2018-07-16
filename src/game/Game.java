@@ -70,18 +70,18 @@ public class Game extends Canvas implements Runnable{
     private void init(){
         screen = new Screen(WIDTH, HEIGHT);
         input = new InputHandler(this);
-        level = new SpawnLevel("/levels/TestingArena2.png");
+        level = new SpawnLevel("/levels/TestingArena.png");
         player = new Player(150, 150, level, screen,input);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
-        for(int i = 0; i < 5; i++) {
-            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.enemySprites));
-            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.zombieSprites));
+        for(int i = 0; i < 20; i++) {
+            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.enemySprites));
+            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.zombieSprites));
         }
         for(Enemy e: enemies) {
             level.add(e);
         }
-        ai = new AiManager(player, enemies, level);
+        ai = new AiManager(player, enemies, level,screen);
         ui = new UserInterface(screen, player, enemies, ai);
         level.add(player);
     }

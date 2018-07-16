@@ -53,7 +53,7 @@ public abstract class Mob extends Entity {
         if (xa > 0) {
             movingDir = 3;
         }
-        if (!level.tileColision((int) x + xa, (int) y + ya, 8, 2, 1, 0, 8)) {
+        if (!level.tileCollision( (int)x + xa,  (int)y + ya, 16, 0, 8, 0,0, movingDir)) {
             x += xa * speed;
             y += ya * speed;
         }
@@ -61,16 +61,16 @@ public abstract class Mob extends Entity {
 
     public void isStuck(){
         boolean s = true;
-        if (!level.tileColision((int)x + -1,(int)y -1, 8, 2, 1, 0, 8)) {
+        if (!level.tileCollision((int)x - 1,(int)y - 1, 16, 0, 8, 0,0, movingDir)) {
             s = false;
         }
-        if (!level.tileColision((int)x -1,(int)y + 1, 8, 2, 1, 0, 8)) {
+        if (!level.tileCollision((int)x + 1,(int)y - 1, 16, 0, 8, 0,0, movingDir)) {
             s = false;
         }
-        if (!level.tileColision((int)x + 1,(int)y - 1, 8, 2, 1, 0, 8)) {
+        if (!level.tileCollision((int)x - 1,(int)y + 1, 16, 0, 8, 0,0, movingDir)) {
             s = false;
         }
-        if (!level.tileColision((int)x + 1,(int)y + 1, 8, 2, 1, 0, 8)) {
+        if (!level.tileCollision((int)x + 1,(int)y + 1, 16, 0, 8, 0,0, movingDir)) {
             s = false;
         }
         stuck = s;
@@ -101,7 +101,7 @@ public abstract class Mob extends Entity {
                 }
             }
         }
-        return Level.TILE_MANAGER.getTile((int) x >> Tile.TILE_SHIFT_BIT, (int) y >> Tile.TILE_SHIFT_BIT).equals(Tile.mud);
+        return Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT,(int)y >> Tile.TILE_SHIFT_BIT).equals(Tile.mud);
     }
 
     public int getMovingDir(){

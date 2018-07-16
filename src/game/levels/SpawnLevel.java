@@ -1,8 +1,6 @@
 package game.levels;
 
-import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -16,7 +14,6 @@ public class SpawnLevel extends Level {
         super(path);
     }
 
-
     protected void loadLevelFromFile(String path){
         try{
             BufferedImage image = ImageIO.read(SpawnLevel.class.getResourceAsStream(path));
@@ -26,8 +23,8 @@ public class SpawnLevel extends Level {
             System.out.println(TileManager.tiles.length);
             image.getRGB(0,0,w,h,TileManager.tiles, 0, w);
         }catch (IOException e) {
+            System.err.println("Level file could not be found:");
             e.printStackTrace();
-            System.err.println("File could not be loaded from file");
         }
     }
 

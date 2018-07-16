@@ -2,6 +2,7 @@ package game.ai;
 
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.graphics.Screen;
 import game.levels.Level;
 
 import java.awt.*;
@@ -12,22 +13,24 @@ public class PathFinder {
     private Player player;
     private ArrayList<Enemy> enemies;
     private Level level;
+    private Screen screen;
 
-    private float heuristic[] = new float[]{1 ,1 ,1,
+    private float heuristic[] = new float[]{1.2f ,1 ,1.2f,
                                             1 ,1 ,1,
-                                            1 ,1 ,1};
+                                            1.2f ,1 ,1.2f};
 
     private int maxDistance;
 
-    public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
+    public PathFinder(Player player, ArrayList<Enemy> enemies, Level level, Screen screen){
         this.player = player;
         this.enemies = enemies;
         this.level = level;
+        this.screen = screen;
         init();
     }
 
     private void init() {
-        maxDistance = 50;
+        maxDistance = 100;
     }
 
     public ArrayList<ArrayList<Point>> pathFinder(){
@@ -69,17 +72,7 @@ public class PathFinder {
 
                 //calculate all of the distances
                 for(int i = 0; i < 9; i++){
-                    int visitedOffset = 1000;
-                    for(int j = 0; j < visitedList.size(); j++){
-                        if(nextStep[i] == visitedList.get(j)){
-                            nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i] + visitedOffset;
-                        }else{
-                            nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
-                        }
-                    }
-                    if(visitedList.isEmpty()){
-                        nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
-                    }
+                    nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
                 }
 
 
@@ -155,6 +148,7 @@ public class PathFinder {
             if(distArray[i] <= min){
                 index = i;
                 min = distArray[i];
+                //System.out.println("min: " + min);
             }
         }
         return index;

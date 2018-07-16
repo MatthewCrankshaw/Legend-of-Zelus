@@ -38,7 +38,7 @@ public class FireballProjectile extends Projectile{
             alive = false;
         }
 
-        if (level.tileColision((int)(x),(int)(y), 8 , 1, 1, 0 , 0)) {
+        if (level.tileCollision((int)(x),(int)(y), 8, 0, 0, 0, 0, -1)) {
             explode = true;
             level.add(new Spawner(level, (int)x+4, (int)y, Spawner.Type.PARTICAL, 100));
         }

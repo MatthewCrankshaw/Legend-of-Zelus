@@ -8,6 +8,7 @@ import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,12 +19,12 @@ import java.util.List;
  */
 public class Level {
 
-    protected int width;
-    protected int height;
+    private int width;
+    private int height;
 
 
     private List<Entity> entities = new ArrayList<>();
-    private List<Particles> particles = new ArrayList<Particles>();
+    private List<Particles> particles = new ArrayList<>();
 
 
     public static TileManager TILE_MANAGER;
@@ -100,13 +101,39 @@ public class Level {
         }
     }
 
-    public boolean tileColision(int x, int y, int size, int widthModifier, int heightModifier, int xOffset, int yOffset){
-        //width and height modifier should be left at 1 unless the size of the sprite is bigger than 8 by 8 pixel
+    public boolean tileCollision(int x, int y, int size, int topOffsetX, int topOffsetY, int botOffsetX, int botOffsetY, int movingDir) {
         boolean solid = false;
-        for(int c = 0; c < 4; c++) {
-            int xt = ((x + c % 2  * size*widthModifier + xOffset) >> 3);
-            int yt = ((y + c / 2 * size*heightModifier + yOffset) >> 3);
-            if (TILE_MANAGER.getTile(xt, yt).isSolid()) solid = true;
+
+        Point corners[] = new Point[4];
+        corners[0] = new Point(x + topOffsetX           , y + topOffsetY);
+        corners[1] = new Point(x + size + topOffsetX    , y + topOffsetY);
+        corners[2] = new Point(x + botOffsetX           , y + size + botOffsetY);
+        corners[3] = new Point(x + size + botOffsetX    , y + size + botOffsetY);
+
+        //if object is moving we need to check only the moving direction
+        if (movingDir == 0) { //up
+            if(TILE_MANAGER.getTile(corners[0].x >> 3, corners[0].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[1].x >> 3, corners[1].y >> 3).isSolid()){
+                solid = true;
+            }
+        } else if (movingDir == 1) { //down
+            if(TILE_MANAGER.getTile(corners[2].x >> 3, corners[2].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[3].x >> 3, corners[3].y >> 3).isSolid()){
+                solid = true;
+            }
+        } else if (movingDir == 2) { //left
+            if(TILE_MANAGER.getTile(corners[0].x >> 3, corners[0].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[2].x >> 3, corners[2].y >> 3).isSolid()){
+                solid = true;
+            }
+        } else if (movingDir == 3) { //right
+            if(TILE_MANAGER.getTile(corners[1].x >> 3, corners[1].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[3].x >> 3, corners[3].y >> 3).isSolid()){
+                solid = true;
+            }
+        } else {//Check all directions
+
+            for (int i = 0; i < 3; i++) {
+                if (TILE_MANAGER.getTile(corners[i].x >> 3, corners[i].y >> 3).isSolid()) {
+                    solid = true;
+                }
+            }
         }
         return solid;
     }
