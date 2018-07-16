@@ -14,27 +14,12 @@ public class AiManager {
     private Player friendPlayer;
     private ArrayList<Enemy> characters;
     private Level level;
-    private long pathFindLastTime = 0;
+    private long pathFindLastTime;
     private float pathFindInterval; //in seconds
 
     private PathFinder pathFinder;
 
-
     private ArrayList<ArrayList<Point>> moveSet;
-
-    private Point points[] = {
-            new Point(9*8, 12*8),
-            new Point(10*8, 11*8),
-            new Point( 11*8, 11*8),
-            new Point(12*8, 12*8),
-            new Point(12*8,13*8),
-            new Point(11*8,14*8),
-            new Point(10*8,15*8),
-            new Point(9*8,16*8),
-            new Point(10*8,16*8),
-            new Point(11*8,16*8),
-            new Point(12*8,16*8),
-    };
 
     private int moveCounter[];
 
@@ -53,7 +38,6 @@ public class AiManager {
     }
 
     public void tick(){
-
         //Recalculate the path every so often as described by the pathFindInterval
         long currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
@@ -69,7 +53,6 @@ public class AiManager {
             currentTileX = (int)characters.get(i).getX();
             currentTileY = (int)characters.get(i).getY();
 
-            System.out.println("moveset size : " + moveSet.get(i).size() + " moveCounter " + moveCounter[i]);
             int tileX = moveSet.get(i).get(moveCounter[i]).x;
             int tileY = moveSet.get(i).get(moveCounter[i]).y;
 

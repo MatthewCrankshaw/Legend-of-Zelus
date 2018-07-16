@@ -25,8 +25,8 @@ public class Game extends Canvas implements Runnable{
 
     public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public static final int WIDTH = (screensize.width/2)-(screensize.width/8);
-    public static final int HEIGHT = (screensize.height/2)-(screensize.height/8);
+    public static final int WIDTH = (screensize.width/2)-(screensize.width/15);
+    public static final int HEIGHT = (screensize.height/2)-(screensize.height/15);
     public static final int SCALE = 2;
     public static final String NAME = "Never Lost";
 
@@ -70,13 +70,13 @@ public class Game extends Canvas implements Runnable{
     private void init(){
         screen = new Screen(WIDTH, HEIGHT);
         input = new InputHandler(this);
-        level = new SpawnLevel("/levels/TestingArena.png");
+        level = new SpawnLevel("/levels/TestingArena2.png");
         player = new Player(150, 150, level, screen,input);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         for(int i = 0; i < 1; i++) {
             enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.enemySprites));
-            //enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.zombieSprites));
+            enemies.add(new Enemy((rand.nextInt() % 200) + 200, (rand.nextInt() % 200) + 200, level, screen, "name", 1, PlayerSprite.zombieSprites));
         }
         for(Enemy e: enemies) {
             level.add(e);

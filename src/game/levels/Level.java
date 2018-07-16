@@ -100,7 +100,6 @@ public class Level {
         }
     }
 
-
     public boolean tileColision(int x, int y, int size, int widthModifier, int heightModifier, int xOffset, int yOffset){
         //width and height modifier should be left at 1 unless the size of the sprite is bigger than 8 by 8 pixel
         boolean solid = false;
