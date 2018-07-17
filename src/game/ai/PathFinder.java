@@ -13,19 +13,16 @@ public class PathFinder {
     private Player player;
     private ArrayList<Enemy> enemies;
     private Level level;
-    private Screen screen;
-
     private float heuristic[] = new float[]{1.2f ,1 ,1.2f,
                                             1 ,1 ,1,
                                             1.2f ,1 ,1.2f};
 
     private int maxDistance;
 
-    public PathFinder(Player player, ArrayList<Enemy> enemies, Level level, Screen screen){
+    public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
         this.player = player;
         this.enemies = enemies;
         this.level = level;
-        this.screen = screen;
         init();
     }
 

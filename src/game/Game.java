@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable{
         for(Enemy e: enemies) {
             level.add(e);
         }
-        ai = new AiManager(player, enemies, level,screen);
+        ai = new AiManager(player, enemies, level);
         ui = new UserInterface(screen, player, enemies, ai);
         level.add(player);
     }

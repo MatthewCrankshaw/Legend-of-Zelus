@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Level {
 
-    private int width;
-    private int height;
+    int width;
+    int height;
 
 
     private List<Entity> entities = new ArrayList<>();

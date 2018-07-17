@@ -164,7 +164,7 @@ public class Screen {
 
         for(int y = yp; y <= yp + height; y++) {
             for (int x = xp; x <= (xp + width); x++) {
-               if(x >= this.width || y >= this.height) continue;
+               if(x >= this.width || y >= this.height || x < 0 || y < 0) continue;
                 if(y == yp || y == yp+height || x == xp || x == xp+width) {
                     pixels[x + (this.width*y) ] = colourBorder;
                 }else{

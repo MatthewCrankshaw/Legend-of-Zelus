@@ -79,8 +79,6 @@ public class UserInterface {
             experienceBar.render();
             abilityBar.render();
 
-            screen.renderRectangle(16*8, 63*8, 8, 8, 100, 0x000000, 0x000000, true);
-
             showPlayerPositions(0x000055);
             showEnemyPaths(0x000055);
         }else{
