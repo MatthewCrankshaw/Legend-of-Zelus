@@ -6,6 +6,7 @@ import game.graphics.Screen;
 import game.levels.Level;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PathFinder {
@@ -19,6 +20,8 @@ public class PathFinder {
 
     private int maxDistance;
 
+    private ArrayList<Point> visitedList;
+
     public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
         this.player = player;
         this.enemies = enemies;
@@ -27,7 +30,8 @@ public class PathFinder {
     }
 
     private void init() {
-        maxDistance = 100;
+        maxDistance = 20;
+        visitedList = new ArrayList<>();
     }
 
     public ArrayList<ArrayList<Point>> pathFinder(){
@@ -51,14 +55,13 @@ public class PathFinder {
                 }
 
                 Point centerE = new Point((startingEnemyPos.x+8)/8, (startingEnemyPos.y+8)/8);
-
                 Point centerP = new Point((playerPos.x+8)/8, (playerPos.y+8)/8);
 
 
                 //Array of the next points around the enemy that they can move
                 Point[] nextStep;
                 //Array of the cost to move to that each new step around character
-                double[] nextStepDist = new double[9];
+                ArrayList<Double> nextStepDist = new ArrayList<>();
 
                 //create array of next steps around character
                 nextStep = new Point[]{
@@ -69,12 +72,14 @@ public class PathFinder {
 
                 //calculate all of the distances
                 for(int i = 0; i < 9; i++){
-                    nextStepDist[i] = euclidDist(centerP, nextStep[i]) + heuristic[i];
+                    double dist = euclidDist(centerP, nextStep[i]) + heuristic[i];
+                    nextStepDist.add(dist);
                 }
 
-
-                int dir = findMinDist(nextStepDist);
+                ArrayList<Integer> dist = sortDistances(nextStepDist);
+                int dir = dist.get(0);
                 Point p;
+
                 switch(dir){
                     case 0:
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y+8));
@@ -129,23 +134,51 @@ public class PathFinder {
                 currentDistance++;
                 startingEnemyPos = p;
             }
-            paths.add(points);
+
+            //If the player is too far away give up and
+            if(currentDistance >= maxDistance){
+                points.clear();
+                points.add(new Point((int)enemies.get(enemyNum).getX(), (int)enemies.get(enemyNum).getY()));
+                paths.add(points);
+            }else{
+                paths.add(points);
+            }
         }
         return paths;
+    }
+
+    private boolean inVisitedList(Point p){
+        for (Point vis : visitedList){
+            if(vis.x == p.x && vis.y == p.y){
+                System.out.println("visited");
+                return true;
+            }
+        }
+        return false;
     }
 
     private int euclidDist(Point a, Point b){
         return (int) Math.sqrt((Math.pow((b.x - a.x), 2.0)) + (Math.pow((b.y - a.y), 2.0)));
     }
 
-    private int findMinDist(double[] distArray){
+    private ArrayList<Integer> sortDistances(ArrayList<Double> distArray){
+        ArrayList<Integer> indexList = new ArrayList<>();
+        int initSize = distArray.size();
+        for(int i = 0; i < initSize; i++){
+            int index = findMinDist(distArray);
+            indexList.add(index);
+            distArray.remove(index);
+        }
+        return indexList;
+    }
+
+    private int findMinDist(ArrayList<Double> distArray){
         int index = 0;
         double min = Double.MAX_VALUE;
-        for(int i = 0; i < distArray.length; i++){
-            if(distArray[i] <= min){
+        for(int i = 0; i < distArray.size(); i++){
+            if(distArray.get(i) <= min){
                 index = i;
-                min = distArray[i];
-                //System.out.println("min: " + min);
+                min = distArray.get(i);
             }
         }
         return index;
