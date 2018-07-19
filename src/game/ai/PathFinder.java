@@ -14,9 +14,9 @@ public class PathFinder {
     private Player player;
     private ArrayList<Enemy> enemies;
     private Level level;
-    private float heuristic[] = new float[]{1.2f ,1 ,1.2f,
+    private float heuristic[] = new float[]{1 ,1 ,1,
                                             1 ,1 ,1,
-                                            1.2f ,1 ,1.2f};
+                                            1 ,1 ,1};
 
     private int maxDistance;
 
@@ -30,7 +30,7 @@ public class PathFinder {
     }
 
     private void init() {
-        maxDistance = 20;
+        maxDistance = 300;
         visitedList = new ArrayList<>();
     }
 
@@ -40,7 +40,7 @@ public class PathFinder {
 
         for(int enemyNum = 0; enemyNum < enemies.size(); enemyNum++){
             //Visited List for each enemy
-            ArrayList<Point>visitedList = new ArrayList<>();
+            visitedList.clear();
 
             boolean pathFound = false;
             int currentDistance = 0;
@@ -77,59 +77,84 @@ public class PathFinder {
                 }
 
                 ArrayList<Integer> dist = sortDistances(nextStepDist);
-                int dir = dist.get(0);
-                Point p;
+                int dir;
+                Point p = new Point();
 
-                switch(dir){
-                    case 0:
+                for(int i = 0; i < 9; i++){
+                    dir = dist.get(i);
+                    if(pathFound) break;
+                    System.out.println("dir: " + dir);
+                    if(dir == 0){
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y+8));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 1:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else if(dir == 1){
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y+8));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 2:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else if(dir == 2){
                         p = new Point((startingEnemyPos.x-8), (startingEnemyPos.y+8));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 3:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else if(dir == 3){
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 4:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else if(dir == 4){
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        pathFound = true;
-                        break;
-                    case 5:
+                        if(p.x/8 == playerPos.x/8 && p.y/8 == playerPos.y/8){
+                            points.add(p);
+                            pathFound = true;
+                        }
+                    }else if(dir == 5){
                         p = new Point((startingEnemyPos.x-8), (startingEnemyPos.y));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 6:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else if(dir == 6){
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y-8));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 7:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else if(dir == 7){
                         p = new Point((startingEnemyPos.x), (startingEnemyPos.y-8));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    case 8:
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }else{
                         p = new Point((startingEnemyPos.x-8), (startingEnemyPos.y-8));
-                        points.add(p);
-                        visitedList.add(new Point(p.x/8, p.y/8));
-                        break;
-                    default:
-                        p = new Point((startingEnemyPos.x), (startingEnemyPos.y));
-                        break;
+                        if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
+                        if(!inVisitedList(new Point(p.x/8, p.y/8))){
+                            points.add(p);
+                            visitedList.add(new Point(p.x/8, p.y/8));
+                            break;
+                        }
+                    }
                 }
                 currentDistance++;
                 startingEnemyPos = p;
@@ -137,8 +162,9 @@ public class PathFinder {
 
             //If the player is too far away give up and
             if(currentDistance >= maxDistance){
-                points.clear();
-                points.add(new Point((int)enemies.get(enemyNum).getX(), (int)enemies.get(enemyNum).getY()));
+                System.out.println("Give up");
+                //points.clear();
+                //points.add(new Point((int)enemies.get(enemyNum).getX(), (int)enemies.get(enemyNum).getY()));
                 paths.add(points);
             }else{
                 paths.add(points);
@@ -150,7 +176,6 @@ public class PathFinder {
     private boolean inVisitedList(Point p){
         for (Point vis : visitedList){
             if(vis.x == p.x && vis.y == p.y){
-                System.out.println("visited");
                 return true;
             }
         }

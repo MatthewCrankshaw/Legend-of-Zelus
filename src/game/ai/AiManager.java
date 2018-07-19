@@ -31,7 +31,7 @@ public class AiManager {
         this.moveCounter = new int[characters.size()];
         pathFinder = new PathFinder(friendPlayer, characters, level);
         pathFindLastTime = System.currentTimeMillis();
-        pathFindInterval = 0.2f;
+        pathFindInterval = 1.0f;
         moveSet = pathFinder.pathFinder();
         for(int i = 0; i < moveCounter.length; i++){
             moveCounter[i] = 0;
