@@ -21,6 +21,7 @@ public abstract class Tile {
     public int x, y;
     public static final int TILE_SIZE = 8;
     public static final int TILE_SHIFT_BIT = 3;
+    private float speedImparement;
     private boolean solid;
     private boolean emitter;
 
@@ -32,7 +33,6 @@ public abstract class Tile {
     public static BasicSolidTile stone = new BasicSolidTile(FloorTileSprite.stone);
     public static BasicTile grass = new BasicTile(FloorTileSprite.grass);
     public static BasicTile woodFloor = new BasicTile(FloorTileSprite.woodFloor);
-    public static BasicTile sand = new BasicTile(FloorTileSprite.sand);
     public static BasicTile sandStone = new BasicTile(FloorTileSprite.sandStone);
 
     //transition terrain tiles
@@ -43,25 +43,26 @@ public abstract class Tile {
 
 
     //animated terrain tiles
-    public static AnimatedTile water = new AnimatedTile(FloorTileSprite.water, false, false, 700);
-    public static AnimatedTile mud = new AnimatedTile(FloorTileSprite.mud, false, false, 1000);
+    public static AnimatedTile mud = new AnimatedTile(FloorTileSprite.mud, false, false, 0.1f, 1000);
 
     //animated player tiles
-    public static AnimatedTile swimming = new AnimatedTile(PlayerSprite.swimming, false, false, 500  );
+    public static AnimatedTile swimming = new AnimatedTile(PlayerSprite.swimming, false, false, 0.0f, 500  );
 
 
 
 
-    public Tile(Sprite currentSprite, boolean solid, boolean emitter){
+    public Tile(Sprite currentSprite, boolean solid, boolean emitter, float speedImparement){
         this.currentSprite = currentSprite;
         this.solid = solid;
         this.emitter = emitter;
+        this.speedImparement = speedImparement;
     }
 
-    public Tile(Sprite[] animatedsprite, boolean solid, boolean emitter){
+    public Tile(Sprite[] animatedsprite, boolean solid, boolean emitter, float speedImparement){
         this.animatedSprite = animatedsprite;
         this.solid = solid;
         this.emitter = emitter;
+        this.speedImparement = speedImparement;
     }
 
     public abstract void render(int x, int y, Screen screen);
@@ -76,7 +77,6 @@ public abstract class Tile {
         return emitter;
     }
 
-
-
+    public float getSpeedImparement(){ return speedImparement; }
 
 }

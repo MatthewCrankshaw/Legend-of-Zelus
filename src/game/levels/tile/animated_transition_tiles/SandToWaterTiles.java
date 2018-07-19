@@ -15,25 +15,6 @@ public class SandToWaterTiles extends AnimatedTransitionTiles {
 
     @Override
     public void setTiles() {
-        /*super.NW_DiagonalTile = new BasicTile(SandToWaterSprites.NW_Diagonal[0]);
-        super.NE_DiagonalTile = new BasicTile(SandToWaterSprites.NE_Diagonal[0]);
-        super.SW_DiagonalTile = new BasicTile(SandToWaterSprites.SW_Diagonal[0]);
-        super.SE_DiagonalTile = new BasicTile(SandToWaterSprites.SE_Diagonal[0]);
-
-        super.NW_CornerTile = new BasicTile(SandToWaterSprites.NW_Corner[0]);
-        super.NE_CornerTile = new BasicTile(SandToWaterSprites.NE_Corner[0]);
-        super.SW_CornerTile = new BasicTile(SandToWaterSprites.SW_Corner[0]);
-        super.SE_CornerTile = new BasicTile(SandToWaterSprites.SE_Corner[0]);
-
-        super.northEdgeTile = new BasicTile(SandToWaterSprites.northEdge[0]);
-        super.westEdgeTile = new BasicTile(SandToWaterSprites.westEdge[0]);
-        super.eastEdgeTile = new BasicTile(SandToWaterSprites.eastEdge[0]);
-        super.southEdgeTile = new BasicTile(SandToWaterSprites.southEdge[0]);
-
-        super.solidTile1 = new BasicTile(SandToWaterSprites.solidWater1[0]);
-        super.solidTile2 = new BasicTile(SandToWaterSprites.solidWater2[0]);
-
-        */
 
         /*********************************************************************************
          * each variation of each Sprite as a basic Tile

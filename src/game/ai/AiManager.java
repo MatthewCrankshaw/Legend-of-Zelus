@@ -14,7 +14,6 @@ public class AiManager {
 
     private Player friendPlayer;
     private ArrayList<Enemy> characters;
-    private Level level;
     private long pathFindLastTime;
     private float pathFindInterval; //in seconds
 
@@ -27,7 +26,6 @@ public class AiManager {
     public AiManager(Player friendPlayer, ArrayList<Enemy> characters, Level level){
         this.friendPlayer = friendPlayer;
         this.characters = characters;
-        this.level = level;
         this.moveCounter = new int[characters.size()];
         pathFinder = new PathFinder(friendPlayer, characters, level);
         pathFindLastTime = System.currentTimeMillis();

@@ -9,6 +9,7 @@ import game.graphics.Screen;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
+import game.levels.tile.TileManager;
 
 /**
  * Created by Matthew.c on 21/01/2017.

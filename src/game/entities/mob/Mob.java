@@ -6,6 +6,7 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
+import game.levels.tile.animated_tiles.AnimatedTile;
 
 /**
  * Created by Matthew.c on 21/01/2017.
@@ -15,7 +16,7 @@ public abstract class Mob extends Entity {
     protected Screen screen;
 
     protected String name;
-    protected int speed;
+    protected double speed;
     protected int numSteps;
     protected int movingDir = 1; // 0 is up 1 is down 2 is left 3 is right
     protected boolean moving;
@@ -54,8 +55,8 @@ public abstract class Mob extends Entity {
             movingDir = 3;
         }
         if (!level.tileCollision( (int)x + xa,  (int)y + ya, 16, 0, 8, 0,0, movingDir)) {
-            x += xa * speed;
-            y += ya * speed;
+            x += xa * (speed + getTileMovementImparement());
+            y += ya * (speed + getTileMovementImparement());
         }
     }
 
@@ -102,6 +103,23 @@ public abstract class Mob extends Entity {
             }
         }
         return Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT,(int)y >> Tile.TILE_SHIFT_BIT).equals(Tile.mud);
+    }
+
+    //todo make this more efficient
+    public float getTileMovementImparement(){
+        for(Tile t : Tile.sandToWaterTiles.solidTile1) {
+            if (Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
+                return t.getSpeedImparement();
+            }
+            else {
+                for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
+                    if (Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
+                        return t.getSpeedImparement();
+                    }
+                }
+            }
+        }
+        return 0.0f;
     }
 
     public int getMovingDir(){

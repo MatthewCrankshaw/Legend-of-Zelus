@@ -34,8 +34,8 @@ public class TileManager {
     TransitionTileAnimator tileAnimator = new TransitionTileAnimator();
 
 
-    protected int numXTiles;
-    protected int numYTiles;
+    private int numXTiles;
+    private int numYTiles;
     public static int[] tiles;
 
     public TileManager(int numXTiles, int numYTiles){
@@ -51,8 +51,7 @@ public class TileManager {
         }else if(tiles[x+y*numXTiles] == GRASS){
             return Tile.grass;
         }else if(tiles[x+y*numXTiles] == SAND_TO_WATER){
-            Tile temp = getAnimatedTransitionTileVariant(x,y, SAND_TO_WATER, GRASS_TO_SAND, Tile.sandToWaterTiles);
-            return temp;
+            return getAnimatedTransitionTileVariant(x,y, SAND_TO_WATER, GRASS_TO_SAND, Tile.sandToWaterTiles);
         }else if(tiles[x+y*numXTiles] == MUD){
             return Tile.mud;
         }else if(tiles[x+y*numXTiles] == WOODFLOOR){
@@ -138,126 +137,122 @@ public class TileManager {
     }
 
     private tileType findTileType(int x, int y, int colour, int transitionTileCol){
-        try{
-            //*********************************************************************
-            //See if it is the solid tile
-            //*********************************************************************
 
-            if (tiles[(x-1) + (y-1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y-1) * numXTiles] == colour &&
-                    tiles[(x-1) + (y+1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y+1) * numXTiles] == colour) {
+        //*********************************************************************
+        //See if it is the solid tile
+        //*********************************************************************
 
-                if(x % 2 == 0 && y % 2 != 0){
-                    return tileType.S1;
-                }else if (x % 2 == 0 && y % 2 == 0){
-                    return tileType.S2;
-                }else if(x % 2 != 0 && y % 2 == 0){
-                    return tileType.S1;
-                }else{
-                    return tileType.S2;
-                }
+        if (tiles[(x-1) + (y-1) * numXTiles] == colour &&
+                tiles[(x+1) + (y-1) * numXTiles] == colour &&
+                tiles[(x-1) + (y+1) * numXTiles] == colour &&
+                tiles[(x+1) + (y+1) * numXTiles] == colour) {
+
+            if(x % 2 == 0 && y % 2 != 0){
+                return tileType.S1;
+            }else if (x % 2 == 0 && y % 2 == 0){
+                return tileType.S2;
+            }else if(x % 2 != 0 && y % 2 == 0){
+                return tileType.S1;
+            }else{
+                return tileType.S2;
             }
-
-            //********************************************************************
-            //See if it is the Edge tile
-            //********************************************************************
-
-            //if it is North Edge
-            else if(tiles[(x) + (y-1) * numXTiles] == transitionTileCol &&
-                    tiles[(x-1) + (y) * numXTiles] == colour &&
-                    tiles[(x+1) + (y) * numXTiles] == colour){
-                return tileType.N_EDGE;
-            }
-            //if it is South Edge
-            else if(tiles[(x) + (y+1) * numXTiles] == transitionTileCol &&
-                    tiles[(x-1) + (y) * numXTiles] == colour &&
-                    tiles[(x+1) + (y) * numXTiles] == colour){
-                return tileType.S_EDGE;
-            }
-            // if it is West Edge
-            else if (tiles[(x-1) + (y) * numXTiles] == transitionTileCol &&
-                    tiles[(x) + (y-1) * numXTiles] == colour &&
-                    tiles[(x) + (y+1) * numXTiles] == colour){
-                return tileType.W_EDGE;
-
-            }
-            // if it is East Edge
-            else if (tiles[(x+1) + (y) * numXTiles] == transitionTileCol &&
-                    tiles[(x) + (y-1) * numXTiles] == colour &&
-                    tiles[(x) + (y+1) * numXTiles] == colour){
-                return tileType.E_EDGE;
-            }
-
-            //********************************************************************
-            //see if it is a corner tile
-            //********************************************************************
-
-            //if it is north west corner
-            else if (tiles[(x) + (y+1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y) * numXTiles] == colour &&
-                    tiles[(x) + (y-1) * numXTiles] == transitionTileCol &&
-                    tiles[(x-1) + (y) * numXTiles] == transitionTileCol) {
-                return tileType.NW_CRNR;
-            }
-            //if it is north east corner
-            else if (tiles[(x) + (y+1) * numXTiles] == colour &&
-                    tiles[(x-1) + (y) * numXTiles] == colour &&
-                    tiles[(x) + (y-1) * numXTiles] == transitionTileCol &&
-                    tiles[(x+1) + (y) * numXTiles] == transitionTileCol) {
-                return tileType.NE_CRNR;
-            }
-            //if it is south west corner
-            else if (tiles[(x) + (y-1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y) * numXTiles] == colour &&
-                    tiles[(x) + (y+1) * numXTiles] == transitionTileCol &&
-                    tiles[(x-1) + (y) * numXTiles] == transitionTileCol) {
-                return tileType.SW_CRNR;
-            }
-            //if it is south east corner
-            else if (tiles[(x) + (y-1) * numXTiles] == colour &&
-                    tiles[(x-1) + (y) * numXTiles] == colour &&
-                    tiles[(x) + (y+1) * numXTiles] == transitionTileCol &&
-                    tiles[(x+1) + (y) * numXTiles] == transitionTileCol) {
-                return tileType.SE_CRNR;
-            }
-
-            //********************************************************************
-            //see if it is a diagonal Tile
-            //********************************************************************
-
-
-            //if it is North West Diagonal
-            else if (tiles[(x-1) + (y+1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y-1) * numXTiles] == colour &&
-                    tiles[(x-1) + (y-1) * numXTiles] == transitionTileCol) {
-                return tileType.NW_DIAG;
-            }
-
-            //if it is North East Diagonal
-            else if (tiles[(x-1) + (y-1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y+1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y-1) * numXTiles] == transitionTileCol) {
-                return tileType.NE_DIAG;
-            }
-
-            //if it is South West Diagonal
-            else if (tiles[(x-1) + (y-1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y+1) * numXTiles] == colour &&
-                    tiles[(x-1) + (y+1) * numXTiles] == transitionTileCol) {
-                return tileType.SW_DIAG;
-            }
-
-            //if it is South East Diagonal
-            else if (tiles[(x-1) + (y+1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y-1) * numXTiles] == colour &&
-                    tiles[(x+1) + (y+1) * numXTiles] == transitionTileCol) {
-                return tileType.SE_DIAG;
-            }
-
-        }catch (ArrayIndexOutOfBoundsException e ){
         }
-        //return GrassToSandTiles.solidTile1;
+
+        //********************************************************************
+        //See if it is the Edge tile
+        //********************************************************************
+
+        //if it is North Edge
+        else if(tiles[(x) + (y-1) * numXTiles] == transitionTileCol &&
+                tiles[(x-1) + (y) * numXTiles] == colour &&
+                tiles[(x+1) + (y) * numXTiles] == colour){
+            return tileType.N_EDGE;
+        }
+        //if it is South Edge
+        else if(tiles[(x) + (y+1) * numXTiles] == transitionTileCol &&
+                tiles[(x-1) + (y) * numXTiles] == colour &&
+                tiles[(x+1) + (y) * numXTiles] == colour){
+            return tileType.S_EDGE;
+        }
+        // if it is West Edge
+        else if (tiles[(x-1) + (y) * numXTiles] == transitionTileCol &&
+                tiles[(x) + (y-1) * numXTiles] == colour &&
+                tiles[(x) + (y+1) * numXTiles] == colour){
+            return tileType.W_EDGE;
+
+        }
+        // if it is East Edge
+        else if (tiles[(x+1) + (y) * numXTiles] == transitionTileCol &&
+                tiles[(x) + (y-1) * numXTiles] == colour &&
+                tiles[(x) + (y+1) * numXTiles] == colour){
+            return tileType.E_EDGE;
+        }
+
+        //********************************************************************
+        //see if it is a corner tile
+        //********************************************************************
+
+        //if it is north west corner
+        else if (tiles[(x) + (y+1) * numXTiles] == colour &&
+                tiles[(x+1) + (y) * numXTiles] == colour &&
+                tiles[(x) + (y-1) * numXTiles] == transitionTileCol &&
+                tiles[(x-1) + (y) * numXTiles] == transitionTileCol) {
+            return tileType.NW_CRNR;
+        }
+        //if it is north east corner
+        else if (tiles[(x) + (y+1) * numXTiles] == colour &&
+                tiles[(x-1) + (y) * numXTiles] == colour &&
+                tiles[(x) + (y-1) * numXTiles] == transitionTileCol &&
+                tiles[(x+1) + (y) * numXTiles] == transitionTileCol) {
+            return tileType.NE_CRNR;
+        }
+        //if it is south west corner
+        else if (tiles[(x) + (y-1) * numXTiles] == colour &&
+                tiles[(x+1) + (y) * numXTiles] == colour &&
+                tiles[(x) + (y+1) * numXTiles] == transitionTileCol &&
+                tiles[(x-1) + (y) * numXTiles] == transitionTileCol) {
+            return tileType.SW_CRNR;
+        }
+        //if it is south east corner
+        else if (tiles[(x) + (y-1) * numXTiles] == colour &&
+                tiles[(x-1) + (y) * numXTiles] == colour &&
+                tiles[(x) + (y+1) * numXTiles] == transitionTileCol &&
+                tiles[(x+1) + (y) * numXTiles] == transitionTileCol) {
+            return tileType.SE_CRNR;
+        }
+
+        //********************************************************************
+        //see if it is a diagonal Tile
+        //********************************************************************
+
+
+        //if it is North West Diagonal
+        else if (tiles[(x-1) + (y+1) * numXTiles] == colour &&
+                tiles[(x+1) + (y-1) * numXTiles] == colour &&
+                tiles[(x-1) + (y-1) * numXTiles] == transitionTileCol) {
+            return tileType.NW_DIAG;
+        }
+
+        //if it is North East Diagonal
+        else if (tiles[(x-1) + (y-1) * numXTiles] == colour &&
+                tiles[(x+1) + (y+1) * numXTiles] == colour &&
+                tiles[(x+1) + (y-1) * numXTiles] == transitionTileCol) {
+            return tileType.NE_DIAG;
+        }
+
+        //if it is South West Diagonal
+        else if (tiles[(x-1) + (y-1) * numXTiles] == colour &&
+                tiles[(x+1) + (y+1) * numXTiles] == colour &&
+                tiles[(x-1) + (y+1) * numXTiles] == transitionTileCol) {
+            return tileType.SW_DIAG;
+        }
+
+        //if it is South East Diagonal
+        else if (tiles[(x-1) + (y+1) * numXTiles] == colour &&
+                tiles[(x+1) + (y-1) * numXTiles] == colour &&
+                tiles[(x+1) + (y+1) * numXTiles] == transitionTileCol) {
+            return tileType.SE_DIAG;
+        }
         return tileType.S1;
     }
 }

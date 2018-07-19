@@ -11,7 +11,7 @@ import game.levels.tile.Tile;
 public class BasicTile extends Tile {
 
     public BasicTile(Sprite sprite){
-        super(sprite, false, false);
+        super(sprite, false, false, -0.5f);
     }
 
     @Override

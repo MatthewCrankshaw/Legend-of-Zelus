@@ -8,13 +8,12 @@ import game.levels.tile.Tile;
  * Created by Matthew.c on 30/01/2017.
  */
 public class AnimatedTile extends Tile{
-    //public int x, y;
     private int currentAnimationIndex;
     private long lastIterationTime;
     private int animationSwitchDelay;
 
-    public AnimatedTile(Sprite[] sprites, boolean solid, boolean emitter, int animationSwitchDelay){
-        super(sprites, solid, emitter);
+    public AnimatedTile(Sprite[] sprites, boolean solid, boolean emitter, float speedImparement, int animationSwitchDelay){
+        super(sprites, solid, emitter, speedImparement);
         currentSprite = animatedSprite[0];
         this.animationSwitchDelay = animationSwitchDelay;
     }
