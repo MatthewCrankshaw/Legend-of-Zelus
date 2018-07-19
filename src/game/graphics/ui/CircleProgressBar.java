@@ -31,11 +31,8 @@ public class CircleProgressBar {
         this.currentBarPercent = (100 * current) / max;
     }
 
-    public void setBarFillColour(int colour){
-        this.barFillColour = colour;
-    }
-
-    public void setBarBorderColour(int colour){
-        this.barBorderColour = colour;
+    public void setBarColours(int barFillColour, int barBorderColour){
+        this.barFillColour = barFillColour;
+        this.barBorderColour = barBorderColour;
     }
 }

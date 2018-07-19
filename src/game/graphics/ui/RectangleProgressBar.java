@@ -34,11 +34,8 @@ public class RectangleProgressBar {
         this.currentBarPercentage = (100 * current)/max;
     }
 
-    public void setBarFillColour(int barFillColour) {
+    public void setBarColours(int barFillColour, int barBorderColour) {
         this.barFillColour = barFillColour;
-    }
-
-    public void setBarBorderColour(int barBorderColour) {
         this.barBorderColour = barBorderColour;
     }
 }

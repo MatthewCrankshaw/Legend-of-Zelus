@@ -26,7 +26,7 @@ public class UserInterface {
     private CircleProgressBar healthBar, manaBar;
     private RectangleProgressBar experienceBar;
     private RectangleProgressBar abilityBar;
-    private UIButton button;
+    private UIButton menuButton;
 
     private boolean gamePaused;
 
@@ -43,31 +43,29 @@ public class UserInterface {
 
         currentManuLevel = MenuLevel.PAUSE;
 
-        int circleBarSize = screen.height / 10;
+        int circleBarSize = screen.getHeight() / 10;
+
         //setup health bar
-        healthBar = new CircleProgressBar(screen, circleBarSize + circleBarSize/10, screen.height-circleBarSize -(circleBarSize/10), circleBarSize, "Life");
-        healthBar.setBarFillColour(0xff0000);
-        healthBar.setBarBorderColour(0xffffff);
+        healthBar = new CircleProgressBar(screen, circleBarSize + circleBarSize/10, screen.getHeight()-circleBarSize -(circleBarSize/10), circleBarSize, "Life");
+        healthBar.setBarColours(0xff0000, 0xffffff);
         healthBar.setCurrentBarPercent(player.getMaxLife(), player.getCurrentLife());
 
         //setup mana bar
-        manaBar = new CircleProgressBar(screen,screen.width - circleBarSize - circleBarSize/10, screen.height - circleBarSize - circleBarSize/10, circleBarSize, "Mana");
-        manaBar.setBarFillColour(0x0000ff);
-        manaBar.setBarBorderColour(0xffffff);
+        manaBar = new CircleProgressBar(screen,screen.getWidth() - circleBarSize - circleBarSize/10, screen.getHeight() - circleBarSize - circleBarSize/10, circleBarSize, "Mana");
+        manaBar.setBarColours(0x0000ff, 0xffffff);
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
 
         //setup experience bar
-        experienceBar = new RectangleProgressBar(screen, screen.width/6, screen.height - 20, (screen.width/6)*4, 10, "Experience");
-        experienceBar.setBarFillColour(0x444444);
-        experienceBar.setBarBorderColour(0x990099);
+        experienceBar = new RectangleProgressBar(screen, screen.getWidth()/6, screen.getHeight() - 20, (screen.getWidth()/6)*4, 10, "Experience");
+        experienceBar.setBarColours(0x444444,0x990099);
 
         //setup ability bar
-        abilityBar = new RectangleProgressBar(screen, screen.width/2 - 50, 16, 100, 10, "Ability");
-        abilityBar.setBarFillColour(0x00ff00);
-        abilityBar.setBarBorderColour(0x007700);
+        abilityBar = new RectangleProgressBar(screen, screen.getWidth()/2 - 50, 16, 100, 10, "Ability");
+        abilityBar.setBarColours(0x00ff00, 0x007700);
 
-        button = new UIButton(screen,  10, 10, 30, 20, "ESC");
-        button.setColour(0xaa0000, 0xffff00);
+        //setup menu button
+        menuButton = new UIButton(screen,  10, 10, 30, 20, "ESC");
+        menuButton.setColour(0xaa0000, 0xffff00);
     }
 
     public void tick(){
@@ -83,7 +81,7 @@ public class UserInterface {
             manaBar.render();
             experienceBar.render();
             abilityBar.render();
-            button.render();
+            menuButton.render();
 
             showPlayerPositions(0x000055);
             showEnemyPaths(0x000055);
@@ -104,9 +102,9 @@ public class UserInterface {
     }
 
     private void showPlayerPositions(int colour){
-        screen.renderString(screen.width - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, colour);
+        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, colour);
         for (int i = 0; i < enemies.size(); i++) {
-            int x = screen.width - 116;
+            int x = screen.getWidth() - 116;
             int y = 0;
             int yp = y + (8*(i+1));
 
@@ -128,13 +126,26 @@ public class UserInterface {
         }
     }
 
-    public void checkInputEvent(int x, int y){
-        System.out.println("Check Input Event");
-        System.out.println("isPressed = " + button.isPressed(x, y));
+    public int checkInputEvent(int x, int y){
+        //return 0 means no buttons pressed
+        //return 1 means a button was pressed but no action by InputHandler necessary
+        //return -1 means game was paused
+
+        if (menuButton.isPressed(x, y)){
+            setGamePaused(true);
+            return -1;
+        }else{
+            setGamePaused(false);
+        }
+        return 0;
     }
 
     public void setGamePaused(boolean paused){
         this.gamePaused = paused;
+    }
+
+    public boolean isGamePaused(){
+        return this.gamePaused;
     }
 
     public void sendUserInput(int number){

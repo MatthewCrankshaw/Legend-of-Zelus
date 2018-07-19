@@ -82,9 +82,9 @@ public class Level {
     public void render(Screen screen, int xScroll, int yScroll){
         screen.setOffset(xScroll, yScroll);
         int x0 = xScroll >> Tile.TILE_SHIFT_BIT;
-        int x1 = (xScroll + screen.width + Tile.TILE_SIZE) >> Tile.TILE_SHIFT_BIT;
+        int x1 = (xScroll + screen.getWidth() + Tile.TILE_SIZE) >> Tile.TILE_SHIFT_BIT;
         int y0 = yScroll >> Tile.TILE_SHIFT_BIT;
-        int y1 = (yScroll + screen.height + Tile.TILE_SIZE) >> Tile.TILE_SHIFT_BIT;
+        int y1 = (yScroll + screen.getHeight() + Tile.TILE_SIZE) >> Tile.TILE_SHIFT_BIT;
 
         for(int y = y0; y < y1; y++) {
             for (int x = x0; x < x1; x++) {

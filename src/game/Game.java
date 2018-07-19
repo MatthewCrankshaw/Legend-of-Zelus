@@ -85,15 +85,15 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void init(){
-        screen = new Screen(WIDTH, HEIGHT);
+        screen = new Screen(WIDTH, HEIGHT, SCALE);
         input = new InputHandler(this);
         level = new SpawnLevel("/levels/TestingArena.png");
         player = new Player(150, 150, level, screen,input);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 1; i++) {
             enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.enemySprites));
-            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.zombieSprites));
+            //enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.zombieSprites));
         }
         for(Enemy e: enemies) {
             level.add(e);
@@ -158,7 +158,7 @@ public class Game extends Canvas implements Runnable{
     public void tick(){
         tickCount++;
         //if paused don't update these
-        if(!input.escape.isPressed()) {
+        if(!ui.isGamePaused()) {
             level.tick();
             ai.tick();
         }
@@ -175,10 +175,10 @@ public class Game extends Canvas implements Runnable{
 
         screen.clear();
         //if paused don't render these
-        if(!input.escape.isPressed()){
+        if(!ui.isGamePaused()){
             ui.setGamePaused(false);
-            int playerx = (int) player.getX() - screen.width / 2;
-            int playery = (int) player.getY() - screen.height / 2;
+            int playerx = (int) player.getX() - screen.getWidth() / 2;
+            int playery = (int) player.getY() - screen.getHeight() / 2;
             level.render(screen, playerx, playery);
         }else{
             ui.setGamePaused(true);

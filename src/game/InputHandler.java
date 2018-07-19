@@ -63,7 +63,16 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     @Override
     public void mousePressed(MouseEvent e) {
-        toggleMouse(true);
+        int uiPressed = 0;
+        if(ui != null) {
+            uiPressed = ui.checkInputEvent(mouseX, mouseY);
+        }
+
+        if (uiPressed == 0) {
+            toggleMouse(true);
+        }else if(uiPressed == -1){
+            escape.pressed = true;
+        }
     }
 
     @Override
@@ -72,11 +81,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        if(ui != null) {
-            ui.checkInputEvent(mouseX, mouseY);
-        }
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mouseEntered(MouseEvent e) {}
@@ -128,6 +133,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
             //Menu
             case KeyEvent.VK_ESCAPE:
                 escape.swtch();
+                if (escape.isPressed()){
+                    ui.setGamePaused(true);
+                }else{
+                    ui.setGamePaused(false);
+                }
                 break;
             case KeyEvent.VK_1:
                 if(escape.isPressed()){

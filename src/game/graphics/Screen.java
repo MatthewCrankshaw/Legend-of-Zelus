@@ -13,17 +13,19 @@ import java.util.ArrayList;
  */
 public class Screen {
 
-    public int width, height;
+    private int width, height;
+    private int scale;
 
-    public double xOffset;
-    public double yOffset;
+    private double xOffset;
+    private double yOffset;
 
     public int[] pixels;
 
 
-    public Screen(int width, int height){
+    public Screen(int width, int height, int scale){
         this.width = width;
         this.height = height;
+        this.scale = scale;
         pixels = new int[width * height];
     }
 
@@ -227,5 +229,25 @@ public class Screen {
     public void setOffset(double x, double y){
         this.xOffset = x;
         this.yOffset = y;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public double getxOffset() {
+        return xOffset;
+    }
+
+    public double getyOffset() {
+        return yOffset;
     }
 }
