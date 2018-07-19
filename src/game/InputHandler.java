@@ -1,6 +1,7 @@
 package game;
 
 import game.Game;
+import game.graphics.ui.UserInterface;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,6 +23,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     private int mouseX = 0;
     private int mouseY = 0;
+
+    private UserInterface ui;
 
     public InputHandler(Game game) {
         game.addKeyListener(this);
@@ -69,7 +72,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        if(ui != null) {
+            ui.checkInputEvent(mouseX, mouseY);
+        }
+    }
 
     @Override
     public void mouseEntered(MouseEvent e) {}
@@ -177,6 +184,10 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         public boolean isPressed(){
             return pressed;
         }
+    }
+
+    public void setUi(UserInterface ui) {
+        this.ui = ui;
     }
 }
 

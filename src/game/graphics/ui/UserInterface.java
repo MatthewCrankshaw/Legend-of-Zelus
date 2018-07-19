@@ -26,6 +26,7 @@ public class UserInterface {
     private CircleProgressBar healthBar, manaBar;
     private RectangleProgressBar experienceBar;
     private RectangleProgressBar abilityBar;
+    private UIButton button;
 
     private boolean gamePaused;
 
@@ -56,14 +57,17 @@ public class UserInterface {
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
 
         //setup experience bar
-        experienceBar = new RectangleProgressBar(screen, 120, screen.height - 20, screen.width - 240, 10, "Experience");
+        experienceBar = new RectangleProgressBar(screen, screen.width/6, screen.height - 20, (screen.width/6)*4, 10, "Experience");
         experienceBar.setBarFillColour(0x444444);
         experienceBar.setBarBorderColour(0x990099);
 
         //setup ability bar
-        abilityBar = new RectangleProgressBar(screen, Game.WIDTH/2 - 50, 16, 100, 10, "Ability");
+        abilityBar = new RectangleProgressBar(screen, screen.width/2 - 50, 16, 100, 10, "Ability");
         abilityBar.setBarFillColour(0x00ff00);
         abilityBar.setBarBorderColour(0x007700);
+
+        button = new UIButton(screen,  10, 10, 30, 20, "ESC");
+        button.setColour(0xaa0000, 0xffff00);
     }
 
     public void tick(){
@@ -79,6 +83,7 @@ public class UserInterface {
             manaBar.render();
             experienceBar.render();
             abilityBar.render();
+            button.render();
 
             showPlayerPositions(0x000055);
             showEnemyPaths(0x000055);
@@ -99,16 +104,11 @@ public class UserInterface {
     }
 
     private void showPlayerPositions(int colour){
-        screen.renderString(0, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, colour);
+        screen.renderString(screen.width - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, colour);
         for (int i = 0; i < enemies.size(); i++) {
-            int x = 0;
+            int x = screen.width - 116;
             int y = 0;
-            if (i >= 40) {
-                x += 8;
-                y = 0;
-            }
-            int xp = x * (14);
-            int yp = y + (8 * ((i % 40) + 1));
+            int yp = y + (8*(i+1));
 
             double playerPosX = player.getX() / 8;
             double playerPosY = player.getY() / 8;
@@ -117,7 +117,7 @@ public class UserInterface {
 
             int dist = (int) Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
-            screen.renderString(xp, yp, s, false, colour);
+            screen.renderString(x, yp, s, false, colour);
         }
     }
 
@@ -126,6 +126,11 @@ public class UserInterface {
             ArrayList<Point> path = ai.getAIPath(i);
             screen.renderConnectedLine(path, 8, 8, colour, true);
         }
+    }
+
+    public void checkInputEvent(int x, int y){
+        System.out.println("Check Input Event");
+        System.out.println("isPressed = " + button.isPressed(x, y));
     }
 
     public void setGamePaused(boolean paused){

@@ -37,11 +37,11 @@ public class Game extends Canvas implements Runnable{
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
+    private UserInterface ui;
     public InputHandler input;
     public Level level;
     private Screen screen;
     private Player player;
-    private UserInterface ui;
     private AiManager ai;
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
@@ -100,6 +100,7 @@ public class Game extends Canvas implements Runnable{
         }
         ai = new AiManager(player, enemies, level);
         ui = new UserInterface(screen, player, enemies, ai);
+        input.setUi(ui);
         level.add(player);
     }
 
