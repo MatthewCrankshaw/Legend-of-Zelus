@@ -83,7 +83,6 @@ public class PathFinder {
                 for(int i = 0; i < 9; i++){
                     dir = dist.get(i);
                     if(pathFound) break;
-                    System.out.println("dir: " + dir);
                     if(dir == 0){
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y+8));
                         if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
@@ -162,7 +161,6 @@ public class PathFinder {
 
             //If the player is too far away give up and
             if(currentDistance >= maxDistance){
-                System.out.println("Give up");
                 //points.clear();
                 //points.add(new Point((int)enemies.get(enemyNum).getX(), (int)enemies.get(enemyNum).getY()));
                 paths.add(points);

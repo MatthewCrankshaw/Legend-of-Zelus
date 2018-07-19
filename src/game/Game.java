@@ -25,9 +25,9 @@ public class Game extends Canvas implements Runnable{
 
     public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public static final int WIDTH = (screensize.width/2)-(screensize.width/15);
-    public static final int HEIGHT = (screensize.height/2)-(screensize.height/15);
-    public static final int SCALE = 2;
+    public static int WIDTH = (screensize.width/2)-(screensize.width/15);
+    public static int HEIGHT = (screensize.height/2)-(screensize.height/15);
+    public static int SCALE = 2;
     public static final String NAME = "Never Lost";
 
     private JFrame frame;
@@ -46,6 +46,22 @@ public class Game extends Canvas implements Runnable{
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
+        //Adjust the scale, width and height based off of the monitor user is viewing it on
+        if(screensize.width < 1280 && screensize.height < 720){
+            WIDTH = (screensize.width)-(screensize.width/8);
+            HEIGHT = (screensize.height)-(screensize.height/8);
+            SCALE = 1;
+        }else if(screensize.width < 1920 && screensize.height < 1080){
+            WIDTH = (screensize.width)-(screensize.width/10);
+            HEIGHT = (screensize.height)-(screensize.height/10);
+            SCALE = 1;
+        }else{
+            WIDTH = (screensize.width/2)-(screensize.width/25);
+            HEIGHT = (screensize.height/2)-(screensize.height/25);
+            SCALE = 2;
+        }
+
+        //Start the game
         new Game().start();
     }
 
@@ -62,7 +78,7 @@ public class Game extends Canvas implements Runnable{
         frame.add(this, BorderLayout.CENTER);
         frame.pack();
 
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -74,9 +90,9 @@ public class Game extends Canvas implements Runnable{
         player = new Player(150, 150, level, screen,input);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 4; i++) {
             enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.enemySprites));
-            //enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.zombieSprites));
+            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.zombieSprites));
         }
         for(Enemy e: enemies) {
             level.add(e);
