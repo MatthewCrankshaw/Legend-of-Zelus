@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
     public static int WIDTH = (screensize.width/2)-(screensize.width/15);
     public static int HEIGHT = (screensize.height/2)-(screensize.height/15);
     public static int SCALE = 2;
-    public static final String NAME = "Never Lost";
+    public static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
 
     private JFrame frame;
 
@@ -48,16 +48,16 @@ public class Game extends Canvas implements Runnable{
     public static void main(String[] args) {
         //Adjust the scale, width and height based off of the monitor user is viewing it on
         if(screensize.width < 1280 && screensize.height < 720){
-            WIDTH = (screensize.width)-(screensize.width/8);
-            HEIGHT = (screensize.height)-(screensize.height/8);
+            WIDTH = screensize.width;
+            HEIGHT = screensize.height;
             SCALE = 1;
         }else if(screensize.width < 1920 && screensize.height < 1080){
-            WIDTH = (screensize.width)-(screensize.width/10);
-            HEIGHT = (screensize.height)-(screensize.height/10);
+            WIDTH = screensize.width;
+            HEIGHT = screensize.height;
             SCALE = 1;
         }else{
-            WIDTH = (screensize.width/2)-(screensize.width/25);
-            HEIGHT = (screensize.height/2)-(screensize.height/25);
+            WIDTH = (screensize.width/2);
+            HEIGHT = (screensize.height/2);
             SCALE = 2;
         }
 
@@ -73,6 +73,7 @@ public class Game extends Canvas implements Runnable{
         frame = new JFrame(NAME);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setUndecorated(true);
         frame.setLayout(new BorderLayout());
 
         frame.add(this, BorderLayout.CENTER);
