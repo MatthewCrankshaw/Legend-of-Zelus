@@ -23,13 +23,13 @@ public class TileManager {
     public static final int STONE = 0xff494949;
     public static final int GRASS = 0xff0e7700;
     public static final int MUD = 0xff593000;
-    public static final int WOODFLOOR = 0xffae5d17;
-    public static final int SANDSTONE = 0xffe6cd91;
     public static final int VOIDTILE = 0xffff00ff;
 
 
     public static final int SAND_TO_WATER = 0xff0022ff;
     public static final int GRASS_TO_SAND = 0xffcfb579;
+    public static final int GRASS_TO_DIRT = 0xff5c4500;
+    public static final int DIRT_TO_GRASS = 0xff204600;
 
     TransitionTileAnimator tileAnimator = new TransitionTileAnimator();
 
@@ -54,12 +54,12 @@ public class TileManager {
             return getAnimatedTransitionTileVariant(x,y, SAND_TO_WATER, GRASS_TO_SAND, Tile.sandToWaterTiles);
         }else if(tiles[x+y*numXTiles] == MUD){
             return Tile.mud;
-        }else if(tiles[x+y*numXTiles] == WOODFLOOR){
-            return Tile.woodFloor;
-        }else if(tiles[x+y*numXTiles] == GRASS_TO_SAND){
+        }else if(tiles[x+y*numXTiles] == GRASS_TO_SAND) {
             return getTransitionTileVariant(x, y, GRASS_TO_SAND, GRASS, Tile.grassToSandTiles);
-        }else if(tiles[x+y*numXTiles] == SANDSTONE){
-            return Tile.sandStone;
+        }else if(tiles[x+y*numXTiles] == GRASS_TO_DIRT) {
+            return getTransitionTileVariant(x, y, GRASS_TO_DIRT, GRASS, Tile.grassToDirtTiles);
+        }else if(tiles[x+y*numXTiles] == DIRT_TO_GRASS){
+            return getTransitionTileVariant(x, y, DIRT_TO_GRASS, GRASS_TO_DIRT, Tile.dirtToGrassTiles);
         }else{
             return Tile.voidTile;
         }

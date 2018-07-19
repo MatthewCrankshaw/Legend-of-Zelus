@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec28eedc-2dcd-4b2b-87bc-8199667112a8" name="Default" comment="Fixed Issues with uncommited changes">
-      <change beforePath="$PROJECT_DIR$/src/game/ai/AiManager.java" afterPath="$PROJECT_DIR$/src/game/ai/AiManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/mob/Mob.java" afterPath="$PROJECT_DIR$/src/game/entities/mob/Mob.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/mob/Player.java" afterPath="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/levels/tile/Tile.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/Tile.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/levels/TestingArena.png" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/levels/TestingArena.png" />
+      <change beforePath="$PROJECT_DIR$/res/levels/TestingArena.png" afterPath="$PROJECT_DIR$/res/levels/TestingArena.png" />
       <change beforePath="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/levels/tile/animated_tiles/AnimatedTile.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/animated_tiles/AnimatedTile.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/levels/tile/animated_transition_tiles/SandToWaterTiles.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/animated_transition_tiles/SandToWaterTiles.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/levels/tile/static_tiles/BasicSolidTile.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/static_tiles/BasicSolidTile.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/levels/tile/static_tiles/BasicTile.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/static_tiles/BasicTile.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/levels/tile/static_tiles/VoidTile.java" afterPath="$PROJECT_DIR$/src/game/levels/tile/static_tiles/VoidTile.java" />
     </list>
     <ignored path="JavaGame2D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,21 +38,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/levels/tile/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="41" column="62" lean-forward="false" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+            <state relative-caret-position="359">
+              <caret line="40" column="64" lean-forward="false" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TileManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TileManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/levels/tile/TileManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+            <state relative-caret-position="495">
+              <caret line="61" column="101" lean-forward="false" selection-start-line="61" selection-start-column="101" selection-end-line="61" selection-end-column="101" />
               <folding />
             </state>
           </provider>
@@ -67,8 +61,18 @@
       <file leaf-file-name="DirtToGrassTiles.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/levels/tile/transition_tiles/DirtToGrassTiles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="10" column="11" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+            <state relative-caret-position="238">
+              <caret line="15" column="56" lean-forward="false" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DirtToGrassSprites.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/environment_sprites/DirtToGrassSprites.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="8" column="26" lean-forward="true" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -155,9 +159,9 @@
         <option value="$PROJECT_DIR$/src/game/levels/tile/animated_transition_tiles/AnimatedTransitionTiles.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/static_tiles/BasicTile.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Mob.java" />
-        <option value="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/Tile.java" />
         <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
+        <option value="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" />
       </list>
     </option>
   </component>
@@ -426,7 +430,7 @@
       <workItem from="1531688494342" duration="2259000" />
       <workItem from="1531699643046" duration="3971000" />
       <workItem from="1531716860904" duration="15000" />
-      <workItem from="1531717887467" duration="32315000" />
+      <workItem from="1531717887467" duration="34136000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1521600697203</created>
@@ -446,7 +450,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177985000" />
+    <option name="totallyTimeSpent" value="179806000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -627,13 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/environment_sprites/DirtToGrassSprites.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -867,26 +864,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/levels/tile/transition_tiles/DirtToGrassTiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="11" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/levels/tile/transition_tiles/GrassToDirtTiles.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="10" column="11" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/levels/tile/TileManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -926,10 +907,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/environment_sprites/DirtToGrassSprites.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="26" lean-forward="true" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/levels/tile/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="41" column="62" lean-forward="false" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+        <state relative-caret-position="359">
+          <caret line="40" column="64" lean-forward="false" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/levels/tile/transition_tiles/DirtToGrassTiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="15" column="56" lean-forward="false" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/levels/tile/TileManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="61" column="101" lean-forward="false" selection-start-line="61" selection-start-column="101" selection-end-line="61" selection-end-column="101" />
           <folding />
         </state>
       </provider>
