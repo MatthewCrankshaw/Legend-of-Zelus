@@ -71,7 +71,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         if (uiPressed == 0) {
             toggleMouse(true);
         }else if(uiPressed == -1){
-            escape.pressed = true;
+            escape.swtch();
         }
     }
 
@@ -137,12 +137,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
                     ui.setGamePaused(true);
                 }else{
                     ui.setGamePaused(false);
-                }
-                break;
-            case KeyEvent.VK_1:
-                if(escape.isPressed()){
-                    System.out.println("Info: User quit program!");
-                    System.exit(0);
                 }
                 break;
         }

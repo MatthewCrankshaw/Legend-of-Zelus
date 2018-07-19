@@ -18,9 +18,7 @@ public class AiManager {
     private float pathFindInterval; //in seconds
 
     private PathFinder pathFinder;
-
     private ArrayList<ArrayList<Point>> moveSet;
-
     private int moveCounter[];
 
     public AiManager(Player friendPlayer, ArrayList<Enemy> characters, Level level){

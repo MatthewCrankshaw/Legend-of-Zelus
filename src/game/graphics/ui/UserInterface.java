@@ -7,6 +7,7 @@ import game.entities.mob.Player;
 import game.graphics.Screen;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 public class UserInterface {
 
-    public enum MenuLevel{PAUSE, SETTINGS}
+    public enum MenuLevel{NONE ,PAUSE, SETTINGS}
 
     protected Screen screen;
     protected Player player;
@@ -27,6 +28,14 @@ public class UserInterface {
     private RectangleProgressBar experienceBar;
     private RectangleProgressBar abilityBar;
     private UIButton menuButton;
+
+    private final String[] pauseButtonNames = {"Paused", "Settings", "Back", "Quit"};
+    private final String[] settingsButtonNames = {"Settings", "Draw Positions", "Draw Paths", "Back"};
+    private ArrayList<UIButton> pauseButtons;
+    private ArrayList<UIButton> settingsButtons;
+
+    //Menu options
+    private boolean showEnemyPath, showPositions;
 
     private boolean gamePaused;
 
@@ -42,6 +51,8 @@ public class UserInterface {
     public void init(){
 
         currentManuLevel = MenuLevel.PAUSE;
+        showEnemyPath = true;
+        showPositions = true;
 
         int circleBarSize = screen.getHeight() / 10;
 
@@ -64,8 +75,14 @@ public class UserInterface {
         abilityBar.setBarColours(0x00ff00, 0x007700);
 
         //setup menu button
-        menuButton = new UIButton(screen,  10, 10, 30, 20, "ESC");
+        menuButton = new UIButton(screen,  10, 10, 30, 20, "ESC", true);
         menuButton.setColour(0xaa0000, 0xffff00);
+
+        //========================================================================================
+        //setup all menu buttons
+        //========================================================================================
+        pauseButtons = setupMenuButtons(pauseButtonNames);
+        settingsButtons = setupMenuButtons(settingsButtonNames);
     }
 
     public void tick(){
@@ -83,26 +100,93 @@ public class UserInterface {
             abilityBar.render();
             menuButton.render();
 
-            showPlayerPositions(0x000055);
-            showEnemyPaths(0x000055);
+            showPlayerPositions();
+            showEnemyPaths();
         }else{
             switch (currentManuLevel){
                 case PAUSE:
-                    screen.renderString((Game.WIDTH/2), (Game.HEIGHT/2) - (Game.HEIGHT/4), "--- Paused ---", true,0x777777);
-                    screen.renderString((Game.WIDTH/2)- (5*8), (Game.HEIGHT/2) - (Game.HEIGHT/4) + 16, "1. Quit", false,0x777777);
-                    screen.renderString((Game.WIDTH/2)- (5*8), (Game.HEIGHT/2) - (Game.HEIGHT/4) + 24, "2. Settings", false,0x777777);
+                    for (UIButton b : pauseButtons){
+                        b.render();
+                    }
                     break;
                 case SETTINGS:
-                    screen.renderString((Game.WIDTH/2), (Game.HEIGHT/2) - (Game.HEIGHT/4), "--- Settings---", true,0x777777);
-                    screen.renderString((Game.WIDTH/2)- (5*8), (Game.HEIGHT/2) - (Game.HEIGHT/4) + 16, "1. Draw Player and Enemy Positions", false,0x777777);
-                    screen.renderString((Game.WIDTH/2)- (5*8), (Game.HEIGHT/2) - (Game.HEIGHT/4) + 24, "2. Draw Enemy Paths", false,0x777777);
+                    for (UIButton b : settingsButtons){
+                        b.render();
+                    }
                     break;
             }
         }
     }
 
-    private void showPlayerPositions(int colour){
-        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, colour);
+    public int checkInputEvent(int x, int y){
+        //return 0 means no buttons pressed
+        //return 1 means a button was pressed but no action by InputHandler necessary
+        //return -1 means game was paused
+
+        if (menuButton.isPressed(x, y)){
+            setGamePaused(true);
+            return -1;
+        }
+
+        if(currentManuLevel == MenuLevel.PAUSE) {
+            for (UIButton b : pauseButtons) {
+                if (b.isPressed(x, y)) {
+                    if (b.getLabel().equals("Settings")) {
+                        currentManuLevel = MenuLevel.SETTINGS;
+                    } else if (b.getLabel().equals("Back")) {
+                        setGamePaused(false);
+                        return -1;
+                    } else if (b.getLabel().equals("Quit")) {
+                        System.out.println("INFO: User has exited program!");
+                        System.exit(0);
+                    }
+                }
+            }
+        }else if(currentManuLevel == MenuLevel.SETTINGS) {
+            for (UIButton b : settingsButtons) {
+                if (b.isPressed(x, y)) {
+                    if (b.getLabel().equals("Back")) {
+                        currentManuLevel = MenuLevel.PAUSE;
+                    }else if(b.getLabel().equals("Draw Paths")){
+                        showEnemyPath = !showEnemyPath;
+                        setGamePaused(false);
+                        return -1;
+                    }else if(b.getLabel().equals("Draw Positions")){
+                        showPositions = !showPositions;
+                        setGamePaused(false);
+                        return -1;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    private ArrayList<UIButton> setupMenuButtons(String[] buttonNames){
+        int width, height;
+        boolean clickable;
+        ArrayList<UIButton> buttons = new ArrayList<>();
+        for(int i = 0; i < buttonNames.length; i++){
+            width = 120;
+            height = 15;
+            clickable = true;
+            if(i == 0){
+                width = 150;
+                height = 25;
+                clickable = false;
+            }
+            int xpos = (screen.getWidth()/2) - (width/2);
+            int ypos = screen.getHeight()/2 + ((height+5)*i) - ((buttonNames.length*20)/2 + height);
+            buttons.add(new UIButton(screen, xpos, ypos, width, height, buttonNames[i], clickable));
+            buttons.get(i).setColour(0xaa0000, 0xffff00);
+        }
+        return buttons;
+    }
+
+    private void showPlayerPositions(){
+        if(!showPositions) return;
+
+        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0xaa0000);
         for (int i = 0; i < enemies.size(); i++) {
             int x = screen.getWidth() - 116;
             int y = 0;
@@ -115,40 +199,28 @@ public class UserInterface {
 
             int dist = (int) Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
-            screen.renderString(x, yp, s, false, colour);
+            screen.renderString(x, yp, s, false, 0xaa0000);
         }
     }
 
-    private void showEnemyPaths(int colour){
-        for(int i = 0; i < enemies.size(); i++){
+    private void showEnemyPaths(){
+        if (!showEnemyPath) return;
+
+        for (int i = 0; i < enemies.size(); i++) {
             ArrayList<Point> path = ai.getAIPath(i);
-            screen.renderConnectedLine(path, 8, 8, colour, true);
+            screen.renderConnectedLine(path, 8, 8, 0xaa0000, true);
         }
-    }
-
-    public int checkInputEvent(int x, int y){
-        //return 0 means no buttons pressed
-        //return 1 means a button was pressed but no action by InputHandler necessary
-        //return -1 means game was paused
-
-        if (menuButton.isPressed(x, y)){
-            setGamePaused(true);
-            return -1;
-        }else{
-            setGamePaused(false);
-        }
-        return 0;
     }
 
     public void setGamePaused(boolean paused){
+        if (!paused) currentManuLevel = MenuLevel.NONE;
+        if(this.gamePaused != paused){
+            currentManuLevel = MenuLevel.PAUSE;
+        }
         this.gamePaused = paused;
     }
 
     public boolean isGamePaused(){
         return this.gamePaused;
-    }
-
-    public void sendUserInput(int number){
-        System.out.println("User input " + number);
     }
 }
