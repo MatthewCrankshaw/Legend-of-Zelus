@@ -42,14 +42,15 @@ public class UserInterface {
 
         currentManuLevel = MenuLevel.PAUSE;
 
+        int circleBarSize = screen.height / 10;
         //setup health bar
-        healthBar = new CircleProgressBar(screen, 60, screen.height - 60, 50, "Life");
+        healthBar = new CircleProgressBar(screen, circleBarSize + circleBarSize/10, screen.height-circleBarSize -(circleBarSize/10), circleBarSize, "Life");
         healthBar.setBarFillColour(0xff0000);
         healthBar.setBarBorderColour(0xffffff);
         healthBar.setCurrentBarPercent(player.getMaxLife(), player.getCurrentLife());
 
         //setup mana bar
-        manaBar = new CircleProgressBar(screen,screen.width - 60, screen.height - 60, 50, "Mana");
+        manaBar = new CircleProgressBar(screen,screen.width - circleBarSize - circleBarSize/10, screen.height - circleBarSize - circleBarSize/10, circleBarSize, "Mana");
         manaBar.setBarFillColour(0x0000ff);
         manaBar.setBarBorderColour(0xffffff);
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
