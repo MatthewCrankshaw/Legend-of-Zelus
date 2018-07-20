@@ -3,7 +3,9 @@ package game.entities.mob;
 import game.animators.Animator;
 import game.animators.mob_animators.CharacterAnimator;
 import game.animators.mob_animators.MobAnimator;
+import game.entities.ability.Ability;
 import game.entities.ability.ability_managers.AITeleportManager;
+import game.entities.ability.ability_managers.AbilityManager;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
@@ -30,6 +32,12 @@ public class Enemy extends Mob{
 
     @Override
     public void tick() {
+
+        for(Ability a : AbilityManager.abilityList) {
+            if (isHit((int)a.getX(), (int)a.getY())) {
+                AbilityManager.abilityList.get(0).setExploding();
+            }
+        }
 
         teleportManager.tick();
 
@@ -81,6 +89,12 @@ public class Enemy extends Mob{
         }
     }
 
+    private boolean isHit(int x, int y){
+        System.out.println("x " + x + " this x " + this.x);
+        if (x < this.x || x > this.x+16) return false;
+        if (y < this.y || y > this.y+16) return false;
+        return true;
+    }
 
     public void moveUp(){
         movY = 1;

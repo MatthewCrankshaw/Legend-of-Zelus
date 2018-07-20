@@ -39,8 +39,7 @@ public class FireballProjectile extends Projectile{
         }
 
         if (level.tileCollision((int)(x),(int)(y), 8, 0, 0, 0, 0, -1)) {
-            explode = true;
-            level.add(new Spawner(level, (int)x+4, (int)y, Spawner.Type.PARTICAL, 100));
+            exploding = true;
         }
         x += nx;
         y += ny;
@@ -52,11 +51,11 @@ public class FireballProjectile extends Projectile{
     }
 
     @Override
-    public void explode(Screen screen) {
+    public void explode() {
         screen.renderSprite((int)x, (int)y, Sprite.fireBallExpload, true, -1);
     }
 
-    public void fizzleOut(Screen screen){
+    public void fizzleOut(){
         screen.renderSprite((int)x,(int)y, Sprite.fireBallFizzleOut, true, -1);
     }
 }

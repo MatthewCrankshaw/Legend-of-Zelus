@@ -12,7 +12,6 @@ public abstract class Projectile extends Ability{
     protected double nx, ny;
     protected double speed, lifeSpan, damage;
     public static int fireCount;
-    protected boolean explode = false;
 
 
     public Projectile(Level level, Screen screen, int xOrigin, int yOrigin, double dir){
@@ -28,16 +27,16 @@ public abstract class Projectile extends Ability{
 
     public abstract void render(Screen screen);
 
-    public abstract void fizzleOut(Screen screen);
+    public abstract void fizzleOut();
 
-    public abstract void explode(Screen screen);
+    public abstract void explode();
 
     public boolean isAlive(){
         return alive;
     }
 
     public boolean isExploding(){
-        return explode;
+        return exploding;
     }
 
 

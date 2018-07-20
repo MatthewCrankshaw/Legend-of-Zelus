@@ -11,11 +11,13 @@ public abstract class Ability extends Entity {
 
     protected boolean exploding;
     protected boolean fizzlingOut;
+    protected Screen screen;
 
     public Ability(Level level, Screen screen){
         super(level);
-        exploding = false;
-        fizzlingOut = false;
+        this.exploding = false;
+        this.fizzlingOut = false;
+        this.screen = screen;
     }
 
     public boolean isExploding(){
@@ -26,9 +28,13 @@ public abstract class Ability extends Entity {
         return fizzlingOut;
     }
 
-    public abstract void explode(Screen screen);
+    public void setExploding() {
+        this.exploding = true;
+    }
 
-    public abstract void fizzleOut(Screen screen);
+    public abstract void explode();
+
+    public abstract void fizzleOut();
 
 
 }
