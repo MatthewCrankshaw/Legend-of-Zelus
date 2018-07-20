@@ -36,9 +36,9 @@ public class PathFinder {
 
     public ArrayList<ArrayList<Point>> pathFinder(){
         ArrayList<ArrayList<Point> > paths = new ArrayList<>();
-        ArrayList<Point> points = new ArrayList<>();
 
         for(int enemyNum = 0; enemyNum < enemies.size(); enemyNum++){
+            ArrayList<Point> points = new ArrayList<>();
             //Visited List for each enemy
             visitedList.clear();
 
