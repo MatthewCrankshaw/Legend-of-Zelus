@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec28eedc-2dcd-4b2b-87bc-8199667112a8" name="Default" comment="Fixed Issues with uncommited changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/entities/mob/Enemy.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/entities/mob/Enemy.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/UIButton.class" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/ui/UIButton.class" />
-      <change beforePath="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" afterPath="$PROJECT_DIR$/src/game/animators/ability_animators/FireballAnimator.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/animators/ability_animators/TeleportAnimator.java" afterPath="$PROJECT_DIR$/src/game/animators/ability_animators/TeleportAnimator.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/ability/projectiles/FireballProjectile.java" afterPath="$PROJECT_DIR$/src/game/entities/ability/projectiles/FireballProjectile.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/mob/Enemy.java" afterPath="$PROJECT_DIR$/src/game/entities/mob/Enemy.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/particles/Particles.java" afterPath="$PROJECT_DIR$/src/game/entities/particles/Particles.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/Screen.java" afterPath="$PROJECT_DIR$/src/game/graphics/Screen.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/CircleProgressBar.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/CircleProgressBar.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/RectangleProgressBar.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/UIButton.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/UIButton.java" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Game.java" afterPath="$PROJECT_DIR$/src/game/Game.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/ai/AiManager.java" afterPath="$PROJECT_DIR$/src/game/ai/AiManager.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/ai/PathFinder.java" afterPath="$PROJECT_DIR$/src/game/ai/PathFinder.java" />
     </list>
     <ignored path="JavaGame2D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +30,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="25" column="85" lean-forward="false" selection-start-line="25" selection-start-column="85" selection-end-line="25" selection-end-column="85" />
+            <state relative-caret-position="234">
+              <caret line="94" column="14" lean-forward="false" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -73,20 +63,30 @@
       <file leaf-file-name="AiManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/ai/AiManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="30" column="30" lean-forward="false" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
               <folding>
-                <marker date="1532080417926" expanded="true" signature="1013:1159" ph="{...}" />
+                <marker date="1532297637152" expanded="true" signature="1013:1159" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PathFinder.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game/ai/PathFinder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="165" column="42" lean-forward="false" selection-start-line="165" selection-start-column="42" selection-end-line="165" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="180" column="40" lean-forward="false" selection-start-line="180" selection-start-column="40" selection-end-line="180" selection-end-column="40" />
+            <state relative-caret-position="852">
+              <caret line="183" column="23" lean-forward="true" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -201,14 +201,11 @@
         <option value="$PROJECT_DIR$/src/game/levels/tile/TileManager.java" />
         <option value="$PROJECT_DIR$/src/game/levels/Level.java" />
         <option value="$PROJECT_DIR$/src/game/InputHandler.java" />
-        <option value="$PROJECT_DIR$/src/game/ai/PathFinder.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/Ability.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/projectiles/Projectile.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/ability_managers/projectile_managers/FireballManager.java" />
-        <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Enemy.java" />
-        <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/entities/particles/Particles.java" />
         <option value="$PROJECT_DIR$/src/game/animators/ability_animators/TeleportAnimator.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/projectiles/FireballProjectile.java" />
@@ -218,6 +215,9 @@
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UIButton.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/Screen.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
+        <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
+        <option value="$PROJECT_DIR$/src/game/Game.java" />
+        <option value="$PROJECT_DIR$/src/game/ai/PathFinder.java" />
       </list>
     </option>
   </component>
@@ -268,6 +268,13 @@
               <item name="JavaGame2D" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JavaGame2D" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JavaGame2D" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="JavaGame2D" type="b2602c69:ProjectViewProjectNode" />
@@ -465,7 +472,7 @@
       <workItem from="1531716860904" duration="15000" />
       <workItem from="1531717887467" duration="61987000" />
       <workItem from="1532080462812" duration="406000" />
-      <workItem from="1532293190294" duration="3964000" />
+      <workItem from="1532293190294" duration="6063000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1521600697203</created>
@@ -485,7 +492,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212027000" />
+    <option name="totallyTimeSpent" value="214126000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -513,7 +520,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16184519" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16184519" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -787,14 +794,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/ai/PathFinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="40" column="56" lean-forward="false" selection-start-line="40" selection-start-column="56" selection-end-line="40" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/ability/ability_managers/AbilityManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -849,14 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="25" column="85" lean-forward="false" selection-start-line="25" selection-start-column="85" selection-end-line="25" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/InputHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="704">
@@ -889,8 +880,8 @@
         <state relative-caret-position="261">
           <caret line="58" column="80" lean-forward="false" selection-start-line="58" selection-start-column="80" selection-end-line="58" selection-end-column="80" />
           <folding>
-            <element signature="e#1155#1156#0" expanded="true" />
-            <element signature="e#1246#1247#0" expanded="true" />
+            <element signature="e#1155#1156#0" expanded="false" />
+            <element signature="e#1246#1247#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -908,8 +899,8 @@
         <state relative-caret-position="362">
           <caret line="91" column="80" lean-forward="false" selection-start-line="91" selection-start-column="80" selection-end-line="91" selection-end-column="80" />
           <folding>
-            <element signature="e#2200#2201#0" expanded="true" />
-            <element signature="e#2289#2290#0" expanded="true" />
+            <element signature="e#2200#2201#0" expanded="false" />
+            <element signature="e#2289#2290#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -927,16 +918,6 @@
         <state relative-caret-position="214">
           <caret line="48" column="60" lean-forward="false" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/ai/AiManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <marker date="1532080417926" expanded="true" signature="1013:1159" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -978,10 +959,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/ai/AiManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="30" column="30" lean-forward="false" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <marker date="1532297637152" expanded="true" signature="1013:1159" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="94" column="14" lean-forward="false" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="180" column="40" lean-forward="false" selection-start-line="180" selection-start-column="40" selection-end-line="180" selection-end-column="40" />
+        <state relative-caret-position="852">
+          <caret line="183" column="23" lean-forward="true" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/ai/PathFinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="165" column="42" lean-forward="false" selection-start-line="165" selection-start-column="42" selection-end-line="165" selection-end-column="42" />
           <folding />
         </state>
       </provider>

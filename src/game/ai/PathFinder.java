@@ -15,7 +15,7 @@ public class PathFinder {
     private ArrayList<Enemy> enemies;
     private Level level;
     private float heuristic[] = new float[]{1 ,1 ,1,
-                                            1 ,1 ,1,
+                                            1 ,1000 ,1,
                                             1 ,1 ,1};
 
     private int maxDistance;
@@ -30,7 +30,7 @@ public class PathFinder {
     }
 
     private void init() {
-        maxDistance = 300;
+        maxDistance = 80;
         visitedList = new ArrayList<>();
     }
 
@@ -50,13 +50,10 @@ public class PathFinder {
 
             while(currentDistance <= maxDistance){
 
-                if(pathFound){
-                    break;
-                }
+                if(pathFound) break;
 
                 Point centerE = new Point((startingEnemyPos.x+8)/8, (startingEnemyPos.y+8)/8);
                 Point centerP = new Point((playerPos.x+8)/8, (playerPos.y+8)/8);
-
 
                 //Array of the next points around the enemy that they can move
                 Point[] nextStep;
@@ -81,8 +78,14 @@ public class PathFinder {
                 Point p = new Point();
 
                 for(int i = 0; i < 9; i++){
+
+                    if (nextStep[i].x == centerP.x && nextStep[i].y == centerP.y){
+                        System.out.println("next " + nextStep[i].x + " " + playerPos.x);
+                        pathFound = true;
+                        break;
+                    }
+
                     dir = dist.get(i);
-                    if(pathFound) break;
                     if(dir == 0){
                         p = new Point((startingEnemyPos.x+8), (startingEnemyPos.y+8));
                         if(level.tileCollision(p.x+4, p.y+4, 16, 0, 0, 0, 0, -1)) continue;
@@ -159,10 +162,11 @@ public class PathFinder {
                 startingEnemyPos = p;
             }
 
-            //If the player is too far away give up and
-            if(currentDistance >= maxDistance){
-                //points.clear();
-                //points.add(new Point((int)enemies.get(enemyNum).getX(), (int)enemies.get(enemyNum).getY()));
+            //If the player is too far away give up
+            //or if there is no path found
+            if(currentDistance >= maxDistance || points.isEmpty()){
+                points.clear();
+                points.add(new Point((int)enemies.get(enemyNum).getX(), (int)enemies.get(enemyNum).getY()));
                 paths.add(points);
             }else{
                 paths.add(points);
