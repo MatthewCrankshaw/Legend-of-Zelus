@@ -10,6 +10,8 @@ public class UIButton {
     private String label;
     private boolean clickable;
 
+    private int textSize;
+
     private long pressedTime;
 
     public UIButton(Screen screen, int xpos, int ypos, int width, int height, String label, boolean clickable){
@@ -20,6 +22,8 @@ public class UIButton {
         this.buttonHeight = height;
         this.label = label;
         this.clickable = clickable;
+        this.textSize = 1;
+
 
         fillColour = 0xffffff;
         borderColour = 0x000000;
@@ -35,13 +39,14 @@ public class UIButton {
         }
 
         this.screen.renderRectangle(screenX, screenY, buttonWidth, buttonHeight,100, changeColour, borderColour,false);
-        this.screen.renderString(screenX+buttonWidth/2, screenY + (buttonHeight/2) - (buttonHeight/4), label, true, 0xaaaa00);
+        this.screen.renderString(screenX+buttonWidth/2, screenY + (buttonHeight/2) - (buttonHeight/4), label, true, 0xaaaa00, textSize);
     }
 
     public boolean isPressed(int x, int y){
         if(clickable) {
             int xp = x / screen.getScale();
             int yp = y / screen.getScale();
+            System.out.println("xp: " + xp + " screenx " + screenX);
 
             if (xp < screenX || xp > screenX + buttonWidth) return false;
             if (yp < screenY || yp > screenY + buttonHeight) return false;
@@ -56,6 +61,10 @@ public class UIButton {
     public void setColour(int fillColour, int borderColour){
         this.fillColour = fillColour;
         this.borderColour = borderColour;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 
     public void setClickedFillColour(int clickedFillColour) {

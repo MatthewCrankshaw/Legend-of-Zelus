@@ -1,19 +1,13 @@
 package game.entities.mob;
 
-import game.animators.Animator;
 import game.animators.mob_animators.CharacterAnimator;
-import game.animators.mob_animators.MobAnimator;
 import game.entities.ability.Ability;
 import game.entities.ability.ability_managers.AITeleportManager;
 import game.entities.ability.ability_managers.AbilityManager;
-import game.entities.ability.ability_managers.TeleportManager;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
-
-import java.util.Random;
 
 public class Enemy extends Mob{
 
@@ -90,7 +84,6 @@ public class Enemy extends Mob{
     }
 
     private boolean isHit(int x, int y){
-        System.out.println("x " + x + " this x " + this.x);
         if (x < this.x || x > this.x+16) return false;
         if (y < this.y || y > this.y+16) return false;
         return true;

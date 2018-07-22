@@ -167,8 +167,8 @@ public class UserInterface {
         boolean clickable;
         ArrayList<UIButton> buttons = new ArrayList<>();
         for(int i = 0; i < buttonNames.length; i++){
-            width = 120;
-            height = 15;
+            width = screen.getWidth() / 5;
+            height = screen.getHeight() /20;
             clickable = true;
             if(i == 0){
                 width = 150;
@@ -178,6 +178,7 @@ public class UserInterface {
             int xpos = (screen.getWidth()/2) - (width/2);
             int ypos = screen.getHeight()/2 + ((height+5)*i) - ((buttonNames.length*20)/2 + height);
             buttons.add(new UIButton(screen, xpos, ypos, width, height, buttonNames[i], clickable));
+            buttons.get(i).setTextSize(2);
             buttons.get(i).setColour(0xaa0000, 0xffff00);
         }
         return buttons;
@@ -186,7 +187,7 @@ public class UserInterface {
     private void showPlayerPositions(){
         if(!showPositions) return;
 
-        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0xaa0000);
+        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0xaa0000, 1);
         for (int i = 0; i < enemies.size(); i++) {
             int x = screen.getWidth() - 116;
             int y = 0;
@@ -199,7 +200,7 @@ public class UserInterface {
 
             int dist = (int) Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
-            screen.renderString(x, yp, s, false, 0xaa0000);
+            screen.renderString(x, yp, s, false, 0xaa0000, 1);
         }
     }
 
