@@ -22,10 +22,8 @@ public class Level {
     int width;
     int height;
 
-
     private List<Entity> entities = new ArrayList<>();
     private List<Particles> particles = new ArrayList<>();
-
 
     public static TileManager TILE_MANAGER;
 
@@ -136,5 +134,9 @@ public class Level {
             }
         }
         return solid;
+    }
+
+    public void removeEntity(Entity e){
+        entities.remove(e);
     }
 }

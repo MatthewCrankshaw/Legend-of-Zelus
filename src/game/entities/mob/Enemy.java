@@ -15,11 +15,14 @@ public class Enemy extends Mob{
     private CharacterAnimator characterAnimator;
     private AITeleportManager teleportManager;
     private int movX, movY = 0;
+    private int currentLife, maxLife;
 
     public Enemy(int x, int y, Level level, Screen screen, String name, int speed, Sprite[][] spriteName){
         super(level, screen, name, speed);
         this.x  = x;
         this.y = y;
+        currentLife = 100;
+        maxLife = 100;
         characterAnimator = new CharacterAnimator(screen, 4, spriteName, this, 120);
         teleportManager = new AITeleportManager(screen, this);
     }
@@ -28,9 +31,15 @@ public class Enemy extends Mob{
     public void tick() {
 
         for(Ability a : AbilityManager.abilityList) {
-            if (isHit((int)a.getX(), (int)a.getY())) {
-                AbilityManager.abilityList.get(0).setExploding();
+            int damage = isHit((int)a.getX(), (int)a.getY(), a.getDamage());
+            if (damage != 0){
+                currentLife -= damage;
+                a.setExploding();
             }
+        }
+
+        if(currentLife <= 0){
+            alive = false;
         }
 
         teleportManager.tick();
@@ -83,10 +92,26 @@ public class Enemy extends Mob{
         }
     }
 
-    private boolean isHit(int x, int y){
-        if (x < this.x || x > this.x+16) return false;
-        if (y < this.y || y > this.y+16) return false;
-        return true;
+    private int isHit(int x, int y, int damage){
+        if (x < this.x || x > this.x+16) return 0;
+        if (y < this.y || y > this.y+16) return 0;
+        return damage;
+    }
+
+    public int getLife() {
+        return currentLife;
+    }
+
+    public void setLife(int life) {
+        this.currentLife = life;
+    }
+
+    public int getMaxLife(){
+        return this.maxLife;
+    }
+
+    public void setMaxLife(int life){
+        this.maxLife = life;
     }
 
     public void moveUp(){

@@ -45,6 +45,8 @@ public class Player extends Mob {
         maxExperience = 1000;
         currentExperience = 500;
 
+        damage = 2;
+
 
         this.x = x;
         this.y = y;

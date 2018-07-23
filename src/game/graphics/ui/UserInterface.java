@@ -1,13 +1,11 @@
 package game.graphics.ui;
 
-import game.Game;
 import game.ai.AiManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +25,7 @@ public class UserInterface {
     private CircleProgressBar healthBar, manaBar;
     private RectangleProgressBar experienceBar;
     private RectangleProgressBar abilityBar;
+    private ArrayList<RectangleProgressBar> enemyHealthBars;
     private UIButton menuButton;
 
     private final String[] pauseButtonNames = {"Paused", "Settings", "Back", "Quit"};
@@ -39,10 +38,10 @@ public class UserInterface {
 
     private boolean gamePaused;
 
-    public UserInterface(Screen screen, Player player, ArrayList<Enemy> enemies, AiManager ai){
+    public UserInterface(Screen screen, Player player, AiManager ai){
         this.screen = screen;
         this.player = player;
-        this.enemies = enemies;
+        this.enemies = ai.getEnemies();
         this.ai = ai;
         gamePaused = false;
         init();
@@ -83,6 +82,8 @@ public class UserInterface {
         //========================================================================================
         pauseButtons = setupMenuButtons(pauseButtonNames);
         settingsButtons = setupMenuButtons(settingsButtonNames);
+
+        enemyHealthBars = setupEnemyHealthBars();
     }
 
     public void tick(){
@@ -90,6 +91,10 @@ public class UserInterface {
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
         experienceBar.setCurrentBarPercentage(player.getMaxExperience(), player.getCurrentExperience());
         abilityBar.setCurrentBarPercentage(100, 50);
+        for(int i = 0; i < enemies.size(); i++){
+            enemyHealthBars.get(i).setPos((int)enemies.get(i).getX() - 3, (int)enemies.get(i).getY() - 8);
+            enemyHealthBars.get(i).setCurrentBarPercentage(enemies.get(i).getMaxLife(), enemies.get(i).getLife());
+        }
     }
 
     public void render() {
@@ -102,6 +107,7 @@ public class UserInterface {
 
             showPlayerPositions();
             showEnemyPaths();
+            showEnemyHealthBars();
         }else{
             switch (currentManuLevel){
                 case PAUSE:
@@ -171,8 +177,8 @@ public class UserInterface {
             height = screen.getHeight() /20;
             clickable = true;
             if(i == 0){
-                width = 150;
-                height = 25;
+                width = screen.getWidth() / 3;
+                height = screen.getHeight() / 17;
                 clickable = false;
             }
             int xpos = (screen.getWidth()/2) - (width/2);
@@ -184,10 +190,20 @@ public class UserInterface {
         return buttons;
     }
 
+    private ArrayList<RectangleProgressBar> setupEnemyHealthBars(){
+        ArrayList<RectangleProgressBar> enemybars = new ArrayList<>();
+        for(int i = 0; i < enemies.size(); i++) {
+            enemybars.add(new RectangleProgressBar(screen, (int)enemies.get(i).getX(), (int)enemies.get(i).getY(), 20, 6));
+            enemybars.get(i).setFixed(true);
+            enemybars.get(i).setBarColours(0x000055, 0xffffff);
+        }
+        return enemybars;
+    }
+
     private void showPlayerPositions(){
         if(!showPositions) return;
 
-        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0xaa0000, 1);
+        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0xaa0000, 1, false);
         for (int i = 0; i < enemies.size(); i++) {
             int x = screen.getWidth() - 116;
             int y = 0;
@@ -200,16 +216,21 @@ public class UserInterface {
 
             int dist = (int) Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
-            screen.renderString(x, yp, s, false, 0xaa0000, 1);
+            screen.renderString(x, yp, s, false, 0xaa0000, 1, true);
         }
     }
 
     private void showEnemyPaths(){
         if (!showEnemyPath) return;
-
         for (int i = 0; i < enemies.size(); i++) {
             ArrayList<Point> path = ai.getAIPath(i);
             screen.renderConnectedLine(path, 8, 8, 0xaa0000, true);
+        }
+    }
+
+    private void showEnemyHealthBars(){
+        for(int i = 0; i < enemies.size(); i++){
+            enemyHealthBars.get(i).render();
         }
     }
 

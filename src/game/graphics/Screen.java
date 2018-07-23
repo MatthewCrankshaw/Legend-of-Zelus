@@ -66,7 +66,11 @@ public class Screen {
         }
     }
 
-    public void renderString(int xp, int yp, String string, boolean center, int colour, int scale){
+    public void renderString(int xp, int yp, String string, boolean center, int colour, int scale, boolean fixed){
+        if(fixed) {
+            xp -= xOffset;
+            yp -= yOffset;
+        }
         for(int i = 0; i < string.length(); i++){
             if(string.charAt(i) == ' '){
                 continue;

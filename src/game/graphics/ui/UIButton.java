@@ -32,6 +32,24 @@ public class UIButton {
         pressedTime = 0;
     }
 
+    public UIButton(Screen screen, int xpos, int ypos, int width, int height, boolean clickable){
+        this.screen = screen;
+        this.screenX = xpos;
+        this.screenY = ypos;
+        this.buttonWidth = width;
+        this.buttonHeight = height;
+        this.label = "";
+        this.clickable = clickable;
+        this.textSize = 1;
+
+
+        fillColour = 0xffffff;
+        borderColour = 0x000000;
+        clickedFillColour = 0x000000;
+
+        pressedTime = 0;
+    }
+
     public void render(){
         int changeColour = fillColour;
         if (System.currentTimeMillis() - pressedTime < 100){
@@ -39,14 +57,13 @@ public class UIButton {
         }
 
         this.screen.renderRectangle(screenX, screenY, buttonWidth, buttonHeight,100, changeColour, borderColour,false);
-        this.screen.renderString(screenX+buttonWidth/2, screenY + (buttonHeight/2) - (buttonHeight/4), label, true, 0xaaaa00, textSize);
+        this.screen.renderString(screenX+buttonWidth/2, screenY + (buttonHeight/2) - (buttonHeight/4), label, true, 0xaaaa00, textSize, false);
     }
 
     public boolean isPressed(int x, int y){
         if(clickable) {
             int xp = x / screen.getScale();
             int yp = y / screen.getScale();
-            System.out.println("xp: " + xp + " screenx " + screenX);
 
             if (xp < screenX || xp > screenX + buttonWidth) return false;
             if (yp < screenY || yp > screenY + buttonHeight) return false;

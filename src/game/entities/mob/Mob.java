@@ -30,6 +30,7 @@ public abstract class Mob extends Entity {
         this.name = name;
         this.speed = speed;
         moving = false;
+        alive = true;
     }
 
 

@@ -10,12 +10,12 @@ import game.levels.Level;
 public abstract class Projectile extends Ability{
     public double angle;
     protected double nx, ny;
-    protected double speed, lifeSpan, damage;
+    protected double speed, lifeSpan;
     public static int fireCount;
 
 
-    public Projectile(Level level, Screen screen, int xOrigin, int yOrigin, double dir){
-        super(level, screen);
+    public Projectile(Level level, Screen screen, int xOrigin, int yOrigin, double dir, int damage){
+        super(level, screen, damage);
         this.alive = true;
         this.x = xOrigin;
         this.y = yOrigin;

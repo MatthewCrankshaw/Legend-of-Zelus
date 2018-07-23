@@ -20,7 +20,6 @@ public class SpawnLevel extends Level {
             int w = width = image.getWidth();
             int h = height = image.getHeight();
             TileManager.tiles = new int[w*h];
-            System.out.println(TileManager.tiles.length);
             image.getRGB(0,0,w,h,TileManager.tiles, 0, w);
         }catch (IOException e) {
             System.err.println("Level file could not be found:");

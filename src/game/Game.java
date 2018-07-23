@@ -43,7 +43,6 @@ public class Game extends Canvas implements Runnable{
     private Screen screen;
     private Player player;
     private AiManager ai;
-    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public static void main(String[] args) {
         //Adjust the scale, width and height based off of the monitor user is viewing it on
@@ -88,18 +87,9 @@ public class Game extends Canvas implements Runnable{
         screen = new Screen(WIDTH, HEIGHT, SCALE);
         input = new InputHandler(this);
         level = new SpawnLevel("/levels/TestingArena.png");
-        player = new Player(150, 150, level, screen,input);
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis());
-        for(int i = 0; i < 1; i++) {
-            //enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.enemySprites));
-            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.zombieSprites));
-        }
-        for(Enemy e: enemies) {
-            level.add(e);
-        }
-        ai = new AiManager(player, enemies, level);
-        ui = new UserInterface(screen, player, enemies, ai);
+        player = new Player(150, 150, level, screen, input);
+        ai = new AiManager(player, level, screen);
+        ui = new UserInterface(screen, player, ai);
         input.setUi(ui);
         level.add(player);
     }

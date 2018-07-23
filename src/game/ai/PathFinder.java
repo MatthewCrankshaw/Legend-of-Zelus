@@ -15,7 +15,7 @@ public class PathFinder {
     private ArrayList<Enemy> enemies;
     private Level level;
     private float heuristic[] = new float[]{1 ,1 ,1,
-                                            1 ,1000 ,1,
+                                            1 ,2000 ,1,
                                             1 ,1 ,1};
 
     private int maxDistance;
@@ -80,7 +80,6 @@ public class PathFinder {
                 for(int i = 0; i < 9; i++){
 
                     if (nextStep[i].x == centerP.x && nextStep[i].y == centerP.y){
-                        System.out.println("next " + nextStep[i].x + " " + playerPos.x);
                         pathFound = true;
                         break;
                     }

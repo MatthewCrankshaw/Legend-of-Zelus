@@ -15,11 +15,11 @@ public class FireballProjectile extends Projectile{
 
 
     public FireballProjectile(Level level, Screen screen, int x, int y, double dir){
-        super(level, screen, x, y, dir);
+        super(level, screen, x, y, dir, 10);
         createdTime = System.currentTimeMillis();
         speed = 1.5;
         lifeSpan = 0.7;
-        damage = 1;
+        damage = 10;
         fireCount = 0;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);

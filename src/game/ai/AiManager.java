@@ -1,38 +1,39 @@
 package game.ai;
 
-import game.entities.ability.ability_managers.AbilityManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
+import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Random;
 
 public class AiManager {
 
-    private Player friendPlayer;
-    private ArrayList<Enemy> characters;
+    private Level level;
+    private Screen screen;
+    private PathFinder pathFinder;
+
     private long pathFindLastTime;
     private float pathFindInterval; //in seconds
 
-    private PathFinder pathFinder;
+    private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<ArrayList<Point>> moveSet;
     private int moveCounter[];
 
-    public AiManager(Player friendPlayer, ArrayList<Enemy> characters, Level level){
-        this.friendPlayer = friendPlayer;
-        this.characters = characters;
-        this.moveCounter = new int[characters.size()];
-        pathFinder = new PathFinder(friendPlayer, characters, level);
+    private int numberOfEnemies = 3;
+
+    public AiManager(Player friendPlayer, Level level, Screen screen){
+        this.level = level;
+        this.screen = screen;
+        initializeEnemies();
+        this.moveCounter = new int[numberOfEnemies];
+        this.pathFinder = new PathFinder(friendPlayer, enemies, level);
         pathFindLastTime = System.currentTimeMillis();
         pathFindInterval = 0.2f;
         moveSet = pathFinder.pathFinder();
-        for(int i = 0; i < moveCounter.length; i++){
-            moveCounter[i] = 0;
-        }
     }
 
     public void tick(){
@@ -41,15 +42,20 @@ public class AiManager {
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
             moveSet = pathFinder.pathFinder();
             pathFindLastTime = currentTime;
-            for(int i = 0; i < characters.size(); i++){
+            for(int i = 0; i < enemies.size(); i++){
                 moveCounter[i] = 0;
             }
         }
 
-        for(int i = 0; i < characters.size(); i++) {
+        for(int i = 0; i < enemies.size(); i++) {
+            if (!enemies.get(i).isAlive()){
+                level.removeEntity(enemies.get(i));
+                enemies.remove(i);
+                continue;
+            }
             int currentTileX, currentTileY;
-            currentTileX = (int)characters.get(i).getX();
-            currentTileY = (int)characters.get(i).getY();
+            currentTileX = (int)enemies.get(i).getX();
+            currentTileY = (int)enemies.get(i).getY();
 
             int tileX = moveSet.get(i).get(moveCounter[i]).x;
             int tileY = moveSet.get(i).get(moveCounter[i]).y;
@@ -68,21 +74,34 @@ public class AiManager {
                 tileY = moveSet.get(i).get(moveCounter[i]).y;
 
                 if (tileX > currentTileX) {
-                    characters.get(i).moveRight();
+                    enemies.get(i).moveRight();
                 } else if (tileX < currentTileX) {
-                    characters.get(i).moveLeft();
+                    enemies.get(i).moveLeft();
                 }
 
                 if (tileY > currentTileY) {
-                    characters.get(i).moveDown();
+                    enemies.get(i).moveDown();
                 } else if (tileY < currentTileY) {
-                    characters.get(i).moveUp();
+                    enemies.get(i).moveUp();
                 }
             }
         }
     }
 
+    private void initializeEnemies(){
+        for(int i = 0; i < numberOfEnemies; i++){
+            Random rand = new Random();
+            rand.setSeed(System.currentTimeMillis());
+            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.enemySprites));
+            level.add(enemies.get(i));
+        }
+    }
+
     public ArrayList<Point> getAIPath(int character) {
         return moveSet.get(character);
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }
