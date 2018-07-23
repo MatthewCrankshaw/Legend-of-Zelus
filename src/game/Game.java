@@ -1,13 +1,9 @@
 package game;
 
 import game.ai.AiManager;
-import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.*;
 
-import game.graphics.sprite.FontSprite;
-import game.graphics.sprite.Sprite;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
 import game.levels.SpawnLevel;
@@ -17,29 +13,23 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
     private static final long serialVersionUID = 1L;
 
-    public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public static int WIDTH = (screensize.width/2)-(screensize.width/15);
-    public static int HEIGHT = (screensize.height/2)-(screensize.height/15);
-    public static int SCALE = 2;
-    public static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
-
-    private JFrame frame;
-
-    public int tickCount = 0;
+    private static int WIDTH = (screensize.width/2)-(screensize.width/15);
+    private static int HEIGHT = (screensize.height/2)-(screensize.height/15);
+    private static int SCALE = 2;
+    private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
     private UserInterface ui;
-    public InputHandler input;
-    public Level level;
+    private InputHandler input;
+    private Level level;
     private Screen screen;
     private Player player;
     private AiManager ai;
@@ -69,7 +59,7 @@ public class Game extends Canvas implements Runnable{
         setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
         setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 
-        frame = new JFrame(NAME);
+        JFrame frame = new JFrame(NAME);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setUndecorated(true);
@@ -95,7 +85,7 @@ public class Game extends Canvas implements Runnable{
     }
 
 
-    public synchronized void start(){
+    private synchronized void start(){
         new Thread(this).start();
     }
 
@@ -146,7 +136,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void tick(){
-        tickCount++;
+        //tickCount++;
         //if paused don't update these
         if(!ui.isGamePaused()) {
             level.tick();
@@ -164,7 +154,8 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        //if paused don't render these
+
+        //Make sure game is not paused
         if(!ui.isGamePaused()){
             ui.setGamePaused(false);
             int playerx = (int) player.getX() - screen.getWidth() / 2;

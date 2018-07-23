@@ -69,8 +69,8 @@ public class FireballManager extends AbilityManager {
         mouseY = input.getMouseY();
 
         //fix this
-        double dx = mouseX - (Game.WIDTH*Game.SCALE)/2;
-        double dy = mouseY - (Game.HEIGHT*Game.SCALE)/2;
+        double dx = mouseX - (screen.getWidth()*screen.getScale())/2;
+        double dy = mouseY - (screen.getHeight()*screen.getScale())/2;
 
         return Math.atan2(dy, dx);
     }

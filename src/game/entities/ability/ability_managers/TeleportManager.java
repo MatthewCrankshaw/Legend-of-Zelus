@@ -37,7 +37,7 @@ public class TeleportManager extends AbilityManager{
     @Override
     public void castAbility(int x, int y) {
         if (!alreadyTP){
-            mob.changeLocation(((input.getMouseX() - (Game.WIDTH*Game.SCALE)/2)/3) -8 , ((input.getMouseY() - (Game.HEIGHT*Game.SCALE)/2)/3) - 8);
+            mob.changeLocation(((input.getMouseX() - (screen.getWidth()*screen.getScale())/2)/3) -8 , ((input.getMouseY() - (screen.getHeight()*screen.getScale())/2)/3) - 8);
             alreadyTP = true;
         }
     }
