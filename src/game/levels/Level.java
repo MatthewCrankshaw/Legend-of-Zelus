@@ -1,6 +1,8 @@
 package game.levels;
 
 import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.mob.Enemy;
 import game.entities.mob.Mob;
 import game.entities.particles.Particles;
 import game.graphics.Screen;
@@ -19,41 +21,34 @@ import java.util.List;
  */
 public class Level {
 
-    int width;
-    int height;
+    private int width;
+    private int height;
 
     private List<Entity> entities = new ArrayList<>();
     private List<Particles> particles = new ArrayList<>();
-
     public static TileManager TILE_MANAGER;
 
-    private BufferedImage levelImage;
+    private Screen screen;
+    private Spawner spawner;
 
-    public Level(int width, int height){
-        this.width = width;
-        this.height = height;
-        TILE_MANAGER = new TileManager(width, height);
-    }
-
-    public Level(String path){
+    public Level(String path, Screen screen){
         loadLevelFromFile(path);
+        this.screen = screen;
         TILE_MANAGER = new TileManager(width, height);
+        spawner = new Spawner(this, screen);
     }
 
     protected void loadLevelFromFile(String path){
         try{
-            this.levelImage = ImageIO.read(Level.class.getResourceAsStream(path));
-            this.width = levelImage.getWidth();
-            this.height = levelImage.getHeight();
-            this.loadTiles();
-
+            BufferedImage image = ImageIO.read(Level.class.getResourceAsStream(path));
+            int w = width = image.getWidth();
+            int h = height = image.getHeight();
+            TileManager.tiles = new int[w*h];
+            image.getRGB(0,0,w,h,TileManager.tiles, 0, w);
         }catch (IOException e) {
+            System.err.println("Level file could not be found:");
             e.printStackTrace();
         }
-    }
-
-    public void loadTiles(){
-
     }
 
     public void add(Entity entity){
@@ -62,6 +57,14 @@ public class Level {
         }else if (entity instanceof Mob){
             entities.add(entity);
         }
+    }
+
+    public void spawnEntitiesInLevel(int x, int y, Spawner.Type type, int amount){
+        spawner.spawnEntities(x, y, type, amount);
+    }
+
+    public ArrayList<Enemy> spawnEnemiesInLevel(int x, int y, Spawner.Type type, int amount){
+        return spawner.spawnEnemies(x, y, type, amount);
     }
 
     public void tick(){

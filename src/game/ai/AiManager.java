@@ -1,6 +1,8 @@
 package game.ai;
 
+import game.entities.Spawner;
 import game.entities.mob.Enemy;
+import game.entities.mob.Mob;
 import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
@@ -89,12 +91,8 @@ public class AiManager {
     }
 
     private void initializeEnemies(){
-        for(int i = 0; i < numberOfEnemies; i++){
-            Random rand = new Random();
-            rand.setSeed(System.currentTimeMillis());
-            enemies.add(new Enemy((rand.nextInt() % 200), (rand.nextInt() % 200), level, screen, "name", 1, PlayerSprite.enemySprites));
-            level.add(enemies.get(i));
-        }
+        enemies = level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_ZOMBIE, numberOfEnemies);
+        System.out.println(enemies.size());
     }
 
     public ArrayList<Point> getAIPath(int character) {

@@ -6,7 +6,6 @@ import game.graphics.*;
 
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
-import game.levels.SpawnLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +75,7 @@ public class Game extends Canvas implements Runnable{
     private void init(){
         screen = new Screen(WIDTH, HEIGHT, SCALE);
         input = new InputHandler(this);
-        level = new SpawnLevel("/levels/TestingArena.png");
+        level = new Level("/levels/TestingArena.png", screen);
         player = new Player(150, 150, level, screen, input);
         ai = new AiManager(player, level, screen);
         ui = new UserInterface(screen, player, ai);

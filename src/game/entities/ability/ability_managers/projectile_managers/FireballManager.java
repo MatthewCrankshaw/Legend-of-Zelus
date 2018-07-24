@@ -1,6 +1,5 @@
 package game.entities.ability.ability_managers.projectile_managers;
 
-import game.Game;
 import game.InputHandler;
 import game.animators.ability_animators.FireballAnimator;
 import game.entities.Spawner;
@@ -79,11 +78,10 @@ public class FireballManager extends AbilityManager {
         for (int i = 0; i < abilityList.size(); i++) {
             if (abilityList.get(i).isExploding()) {
                 abilityList.get(i).explode();
-                level.add(new Spawner(level, (int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100));
-                abilityList.remove(i);
+                level.spawnEntitiesInLevel((int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100);
+                abilityList.remove(abilityList.get(i));
             }else if (!abilityList.get(i).isAlive()) {
                 abilityList.get(i).fizzleOut();
-                level.add(new Spawner(level, (int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100));
                 abilityList.remove(i);
             }else{
                 abilityList.get(i).render(screen);

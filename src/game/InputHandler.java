@@ -1,9 +1,7 @@
 package game;
 
-import game.Game;
 import game.graphics.ui.UserInterface;
 
-import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -18,8 +16,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     public Key space = new Key();
     public Key e_teleport = new Key();
     public Key escape = new Key();
-    public Key one = new Key();
-    public Key two = new Key();
 
     private int mouseX = 0;
     private int mouseY = 0;
@@ -179,10 +175,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
                 pressed = !pressed;
                 lastTimePressed = System.currentTimeMillis();
             }
-        }
-
-        public int getNumTimesPressed(){
-            return numTimesPressed;
         }
 
         public boolean isPressed(){
