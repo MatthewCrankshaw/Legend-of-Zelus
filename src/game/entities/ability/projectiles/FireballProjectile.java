@@ -1,6 +1,5 @@
 package game.entities.ability.projectiles;
 
-import game.entities.Spawner;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
@@ -10,12 +9,11 @@ import game.levels.Level;
  */
 public class FireballProjectile extends Projectile{
 
-    public static final int FIRE_RATE = 5;
     private long createdTime;
 
 
-    public FireballProjectile(Level level, Screen screen, int x, int y, double dir){
-        super(level, screen, x, y, dir, 10);
+    public FireballProjectile(Level level, Screen screen, int x, int y, double dir, Sprite[] fireballSprites){
+        super(level, screen, x, y, dir, 10, fireballSprites);
         createdTime = System.currentTimeMillis();
         speed = 1.5;
         lifeSpan = 0.7;
@@ -47,15 +45,15 @@ public class FireballProjectile extends Projectile{
 
     @Override
     public void render(Screen screen) {
-        screen.renderSprite((int)x, (int)y, Sprite.projectileFireball, true, -1, 1);
+        screen.renderSprite((int)x, (int)y, fireballSprite[0], true, -1, 1);
     }
 
     @Override
     public void explode() {
-        screen.renderSprite((int)x, (int)y, Sprite.fireBallExpload, true, -1, 1);
+        screen.renderSprite((int)x, (int)y, fireballSprite[1], true, -1, 1);
     }
 
     public void fizzleOut(){
-        screen.renderSprite((int)x,(int)y, Sprite.fireBallFizzleOut, true, -1, 1);
+        screen.renderSprite((int)x,(int)y, fireballSprite[1], true, -1, 1);
     }
 }

@@ -13,18 +13,23 @@ public class Sprite {
     public int [] pixels;
     private SpriteSheet sheet;
 
-    public static Sprite particle_simple = new Sprite(1, 0x9C2A00);
-    public static Sprite particle_simple2 = new Sprite(2, 0xff0000);
+    public static Sprite particle_red = new Sprite(1, 0x9C2A00);
+    public static Sprite particle_green = new Sprite(1, 0x00aa00);
+    public static Sprite particle_red2 = new Sprite(2, 0xff0000);
 
 
     //Projectile Sprites
-    public static Sprite projectileFireball = new Sprite(8,0, 0, SpriteSheet.abilityEffects8);
-    public static Sprite fireBallFizzleOut = new Sprite(8,1, 0, SpriteSheet.abilityEffects8);
-    public static Sprite fireBallExpload = new Sprite(8,2, 0, SpriteSheet.abilityEffects8);
+    public static Sprite[] fireballSprites = {
+            new Sprite(8,0, 0, SpriteSheet.abilityEffects8),
+            new Sprite(8,1, 0, SpriteSheet.abilityEffects8),
+            new Sprite(8,2, 0, SpriteSheet.abilityEffects8)
+    };
 
-    public static Sprite greenBall= new Sprite(8,3, 0, SpriteSheet.abilityEffects8);
-    public static Sprite greenBallFizzleOut= new Sprite(8,4, 0, SpriteSheet.abilityEffects8);
-    public static Sprite greenBallExpload = new Sprite(8,5, 0, SpriteSheet.abilityEffects8);
+    public static Sprite[] greenballSprites = {
+            new Sprite(8,3, 0, SpriteSheet.abilityEffects8),
+            new Sprite(8,4, 0, SpriteSheet.abilityEffects8),
+            new Sprite(8,5, 0, SpriteSheet.abilityEffects8)
+    };
 
     public static Sprite teleportFloorSign = new Sprite(32, 0, 0, SpriteSheet.abilityEffects32);
 

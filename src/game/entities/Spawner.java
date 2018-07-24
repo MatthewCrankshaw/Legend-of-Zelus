@@ -3,6 +3,7 @@ package game.entities;
 import game.entities.mob.Enemy;
 import game.entities.particles.Particles;
 import game.graphics.Screen;
+import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 
@@ -25,11 +26,11 @@ public class Spawner{
         this.screen = screen;
     }
 
-    public void spawnEntities(int x, int y, Type type, int amount){
+    public void spawnEntities(int x, int y, Type type, int amount, Sprite particleSprite){
         for (int i = 0; i < amount; i++) {
             switch (type){
                 case PARTICAL:
-                    Entity entity = new Particles(level, x, y, 500);
+                    Entity entity = new Particles(level, x, y, 500, particleSprite);
                     level.add(entity);
                     break;
             }

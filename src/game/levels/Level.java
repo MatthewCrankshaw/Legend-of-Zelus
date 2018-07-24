@@ -6,6 +6,7 @@ import game.entities.mob.Enemy;
 import game.entities.mob.Mob;
 import game.entities.particles.Particles;
 import game.graphics.Screen;
+import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 
@@ -59,8 +60,8 @@ public class Level {
         }
     }
 
-    public void spawnEntitiesInLevel(int x, int y, Spawner.Type type, int amount){
-        spawner.spawnEntities(x, y, type, amount);
+    public void spawnEntitiesInLevel(int x, int y, Spawner.Type type, int amount, Sprite particleSprite){
+        spawner.spawnEntities(x, y, type, amount, particleSprite);
     }
 
     public ArrayList<Enemy> spawnEnemiesInLevel(int x, int y, Spawner.Type type, int amount){

@@ -8,6 +8,7 @@ import game.entities.ability.ability_managers.AbilityManager;
 import game.entities.ability.projectiles.FireballProjectile;
 import game.entities.mob.Player;
 import game.graphics.Screen;
+import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 
@@ -58,7 +59,7 @@ public class FireballManager extends AbilityManager {
 
     @Override
     public void castAbility(int x, int y) {
-        addAbilityInstance(new FireballProjectile(level, screen, x, y, getDir()));
+        addAbilityInstance(new FireballProjectile(level, screen, x, y, getDir(), Sprite.greenballSprites));
     }
 
     public double getDir(){
@@ -78,7 +79,7 @@ public class FireballManager extends AbilityManager {
         for (int i = 0; i < abilityList.size(); i++) {
             if (abilityList.get(i).isExploding()) {
                 abilityList.get(i).explode();
-                level.spawnEntitiesInLevel((int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100);
+                level.spawnEntitiesInLevel((int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100, Sprite.particle_green);
                 abilityList.remove(abilityList.get(i));
             }else if (!abilityList.get(i).isAlive()) {
                 abilityList.get(i).fizzleOut();

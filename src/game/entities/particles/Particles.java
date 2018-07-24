@@ -20,14 +20,14 @@ public class Particles extends Entity{
     protected double xx, yy, zz;
     protected double xa, ya, za;
 
-    public Particles(Level level, int x, int y, int life){
+    public Particles(Level level, int x, int y, int life, Sprite particleSprite){
         super(level);
         this.x = x;
         this.y = y;
         this.xx = x;
         this.yy = y;
         this.life = life;
-        sprite = Sprite.particle_simple;
+        sprite = particleSprite;
         alive = true;
         this.createdTime = System.currentTimeMillis();
 

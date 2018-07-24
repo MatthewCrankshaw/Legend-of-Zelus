@@ -1,12 +1,9 @@
 package game.entities.ability.ability_managers;
 
-import game.Game;
 import game.InputHandler;
 import game.entities.ability.Ability;
-import game.entities.mob.Player;
 import game.graphics.Screen;
-import game.graphics.sprite.Sprite;
-import game.levels.Level;
+
 
 import java.util.ArrayList;
 
