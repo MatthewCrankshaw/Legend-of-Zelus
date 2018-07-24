@@ -24,11 +24,14 @@ public abstract class Mob extends Entity {
     protected boolean stuck;
     protected Sprite sprite;
 
-    public Mob(Level level, Screen screen, String name, int speed){
+    protected int mobScale;
+
+    public Mob(Level level, Screen screen, String name, int speed, int mobScale){
         super(level);
         this.screen = screen;
         this.name = name;
         this.speed = speed;
+        this.mobScale = mobScale;
         moving = false;
         alive = true;
     }
@@ -55,7 +58,7 @@ public abstract class Mob extends Entity {
         if (xa > 0) {
             movingDir = 3;
         }
-        if (!level.tileCollision( (int)x + xa,  (int)y + ya, 16, 0, 8, 0,0, movingDir)) {
+        if (!level.tileCollision( (int)x + xa,  (int)y + ya, 16*mobScale, 0, 8, 0,0, movingDir)) {
             x += xa * (speed + getTileMovementImparement());
             y += ya * (speed + getTileMovementImparement());
         }
@@ -63,16 +66,16 @@ public abstract class Mob extends Entity {
 
     public void isStuck(){
         boolean s = true;
-        if (!level.tileCollision((int)x - 1,(int)y - 1, 16, 0, 8, 0,0, movingDir)) {
+        if (!level.tileCollision((int)x - 1,(int)y - 1, 16*mobScale, 0, 8, 0,0, movingDir)) {
             s = false;
         }
-        if (!level.tileCollision((int)x + 1,(int)y - 1, 16, 0, 8, 0,0, movingDir)) {
+        if (!level.tileCollision((int)x + 1,(int)y - 1, 16*mobScale, 0, 8, 0,0, movingDir)) {
             s = false;
         }
-        if (!level.tileCollision((int)x - 1,(int)y + 1, 16, 0, 8, 0,0, movingDir)) {
+        if (!level.tileCollision((int)x - 1,(int)y + 1, 16*mobScale, 0, 8, 0,0, movingDir)) {
             s = false;
         }
-        if (!level.tileCollision((int)x + 1,(int)y + 1, 16, 0, 8, 0,0, movingDir)) {
+        if (!level.tileCollision((int)x + 1,(int)y + 1, 16*mobScale, 0, 8, 0,0, movingDir)) {
             s = false;
         }
         stuck = s;

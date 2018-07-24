@@ -14,7 +14,6 @@ public abstract class Entity {
     protected Level level;
     protected boolean alive;
 
-
     protected Random random = new Random();
 
     public Entity(Level level){

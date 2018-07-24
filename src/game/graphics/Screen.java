@@ -214,18 +214,18 @@ public class Screen {
         }
     }
 
-    public void renderPlayer(int xp, int yp , int pixelsLong, int pixelshigh, Sprite sprite){
+    public void renderPlayer(int xp, int yp , int pixelsLong, int pixelshigh, int scale, Sprite sprite){
         xp -= xOffset;
         yp -= yOffset;
-        for(int y = 0 ; y < pixelshigh; y ++) {
+        for(int y = 0 ; y < pixelshigh*scale; y++) {
             int ya = y + yp;
-            for(int x = 0; x < pixelsLong; x++) {
+            for(int x = 0; x < pixelsLong*scale; x++) {
                 int xa = x + xp;
-                if (xa < -Tile.TILE_SIZE*2 || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < -pixelsLong || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite.pixels[x + y * Tile.TILE_SIZE*2];
+                int col = sprite.pixels[x/scale + y/scale * 16];
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite.pixels[x + y * 16];
+                    pixels[xa+ya*width] = sprite.pixels[x/scale + y/scale * 16];
                 }
             }
         }

@@ -19,11 +19,14 @@ public abstract class MobAnimator extends Animator {
     protected Sprite[][] mobSprite;
     protected Sprite currentSprite;
 
-    public MobAnimator(Screen screen, int numOfAnims, Sprite[][] mobSprite, Mob mob){
+    protected int scale;
+
+    public MobAnimator(Screen screen, int numOfAnims, Sprite[][] mobSprite, Mob mob, int scale){
         super(numOfAnims);
         this.screen = screen;
         this.mobSprite = mobSprite;
         this.mob = mob;
+        this.scale = scale;
     }
 
 

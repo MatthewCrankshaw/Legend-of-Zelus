@@ -18,12 +18,12 @@ public class Enemy extends Mob{
     private int currentLife, maxLife;
 
     public Enemy(int x, int y, Level level, Screen screen, String name, int speed, Sprite[][] spriteName){
-        super(level, screen, name, speed);
+        super(level, screen, name, speed, 1);
         this.x  = x;
         this.y = y;
         currentLife = 100;
         maxLife = 100;
-        characterAnimator = new CharacterAnimator(screen, 4, spriteName, this, 120);
+        characterAnimator = new CharacterAnimator(screen, 4, spriteName, this, 120, mobScale);
         teleportManager = new AITeleportManager(screen, this);
     }
 
@@ -93,8 +93,8 @@ public class Enemy extends Mob{
     }
 
     private int isHit(int x, int y, int damage){
-        if (x < this.x || x > this.x+16) return 0;
-        if (y < this.y || y > this.y+16) return 0;
+        if (x < this.x || x > this.x+16*mobScale) return 0;
+        if (y < this.y || y > this.y+16*mobScale) return 0;
         return damage;
     }
 

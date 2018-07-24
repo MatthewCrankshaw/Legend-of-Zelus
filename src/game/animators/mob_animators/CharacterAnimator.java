@@ -13,8 +13,8 @@ import game.levels.tile.Tile;
 public class CharacterAnimator extends MobAnimator {
 
 
-    public CharacterAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, Mob mob, int animSpeed){
-        super(screen, numOfAnims, sprite, mob);
+    public CharacterAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, Mob mob, int animSpeed, int scale){
+        super(screen, numOfAnims, sprite, mob, scale);
         timeBetweenAnim = animSpeed;
     }
 
@@ -77,9 +77,9 @@ public class CharacterAnimator extends MobAnimator {
 
         if (mob.isSwimming()) {
             screen.renderAnimatedTile((int)mob.getX(), (int)mob.getY(), Tile.swimming, PlayerSprite.swimming);
-            screen.renderPlayer((int)mob.getX(), (int)mob.getY(), Tile.TILE_SIZE*2, 12, currentSprite);
+            screen.renderPlayer((int)mob.getX(), (int)mob.getY(), 16, 16, scale, currentSprite);
         }else{
-            screen.renderPlayer((int)mob.getX(), (int)mob.getY(), Tile.TILE_SIZE*2, Tile.TILE_SIZE*2, currentSprite);
+            screen.renderPlayer((int)mob.getX(), (int)mob.getY(), 16, 16, scale, currentSprite);
         }
     }
 }

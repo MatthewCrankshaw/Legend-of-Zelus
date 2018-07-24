@@ -21,8 +21,6 @@ public class Player extends Mob {
     private int currentMana, maxMana, manaRegeneration;
     private int currentExperience, maxExperience;
 
-    private int damage;
-
     public static int TELEPORT_CAST_SPEED = 700;
     public static int FIREBALL_CAST_SPEED = 200;
 
@@ -32,7 +30,7 @@ public class Player extends Mob {
 
 
     public Player(int x, int y, Level level, Screen screen, InputHandler input){
-        super(level, screen, "Player", 2);
+        super(level, screen, "Player", 2, 1);
 
         maxLife = 1000;
         currentLife = 500;
@@ -45,16 +43,13 @@ public class Player extends Mob {
         maxExperience = 1000;
         currentExperience = 500;
 
-        damage = 2;
-
-
         this.x = x;
         this.y = y;
         this.input = input;
 
         fireballManager = new FireballManager(screen, input, level);
         teleportManager = new TeleportManager(screen, this, input);
-        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.playerSprites, this, 100);
+        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.playerSprites, this, 100, mobScale);
     }
 
     @Override

@@ -203,7 +203,7 @@ public class UserInterface {
     private void showPlayerPositions(){
         if(!showPositions) return;
 
-        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0xaa0000, 1, false);
+        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int)(player.getX()/8) + " " + (int)(player.getY()/8), false, 0x0000aa, 1, false);
         for (int i = 0; i < enemies.size(); i++) {
             int x = screen.getWidth() - 116;
             int y = 0;
@@ -216,7 +216,7 @@ public class UserInterface {
 
             int dist = (int) Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
-            screen.renderString(x, yp, s, false, 0xaa0000, 1, true);
+            screen.renderString(x, yp, s, false, 0xaa0000, 1, false);
         }
     }
 
