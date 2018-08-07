@@ -1,4 +1,4 @@
-package game.entities.ability.ability_managers.projectile_managers;
+package game.entities.ability.ability_managers;
 
 import game.InputHandler;
 import game.animators.ability_animators.FireballAnimator;

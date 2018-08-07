@@ -4,7 +4,7 @@ import game.InputHandler;
 
 import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.ability_managers.TeleportManager;
-import game.entities.ability.ability_managers.projectile_managers.FireballManager;
+import game.entities.ability.ability_managers.FireballManager;
 import game.graphics.Screen;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;

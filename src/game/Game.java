@@ -20,7 +20,7 @@ public class Game extends Canvas implements Runnable{
 
     private static int WIDTH = (screensize.width/2)-(screensize.width/15);
     private static int HEIGHT = (screensize.height/2)-(screensize.height/15);
-    private static int SCALE = 2;
+    private static int SCALE;
     private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -35,7 +35,11 @@ public class Game extends Canvas implements Runnable{
 
     public static void main(String[] args) {
         //Adjust the scale, width and height based off of the monitor user is viewing it on
-        if(screensize.width < 1280 && screensize.height < 720){
+        if(screensize.width == 1366 && screensize.height == 768) {
+            WIDTH = screensize.width;
+            HEIGHT = screensize.height;
+            SCALE = 1;
+        }else if(screensize.width < 1280 && screensize.height < 720){
             WIDTH = screensize.width;
             HEIGHT = screensize.height;
             SCALE = 1;
@@ -46,7 +50,7 @@ public class Game extends Canvas implements Runnable{
         }else{
             WIDTH = (screensize.width/2);
             HEIGHT = (screensize.height/2);
-            SCALE = 2;
+            SCALE = 1;
         }
 
         //Start the game

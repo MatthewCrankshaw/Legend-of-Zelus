@@ -2,15 +2,12 @@ package game.ai;
 
 import game.entities.Spawner;
 import game.entities.mob.Enemy;
-import game.entities.mob.Mob;
 import game.entities.mob.Player;
 import game.graphics.Screen;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class AiManager {
 
@@ -25,24 +22,25 @@ public class AiManager {
     private ArrayList<ArrayList<Point>> moveSet;
     private int moveCounter[];
 
-    private int numberOfEnemies = 3;
+    private int numberOfZombies = 3;
+    private int numberOfEnemyWiz = 3;
 
     public AiManager(Player friendPlayer, Level level, Screen screen){
         this.level = level;
         this.screen = screen;
         initializeEnemies();
-        this.moveCounter = new int[numberOfEnemies];
+        this.moveCounter = new int[numberOfEnemyWiz + numberOfZombies];
         this.pathFinder = new PathFinder(friendPlayer, enemies, level);
         pathFindLastTime = System.currentTimeMillis();
-        pathFindInterval = 0.2f;
-        moveSet = pathFinder.pathFinder();
+        pathFindInterval = 0.3f;
+        moveSet = pathFinder.getEnemyPaths();
     }
 
     public void tick(){
         //Recalculate the path every so often as described by the pathFindInterval
         long currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
-            moveSet = pathFinder.pathFinder();
+            moveSet = pathFinder.getEnemyPaths();
             pathFindLastTime = currentTime;
             for(int i = 0; i < enemies.size(); i++){
                 moveCounter[i] = 0;
@@ -59,6 +57,7 @@ public class AiManager {
             currentTileX = (int)enemies.get(i).getX();
             currentTileY = (int)enemies.get(i).getY();
 
+            if(moveSet.isEmpty() || moveSet.get(i) == null || moveSet.get(i).isEmpty() ) continue;
             int tileX = moveSet.get(i).get(moveCounter[i]).x;
             int tileY = moveSet.get(i).get(moveCounter[i]).y;
 
@@ -91,8 +90,8 @@ public class AiManager {
     }
 
     private void initializeEnemies(){
-        enemies = level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_ZOMBIE, numberOfEnemies);
-        System.out.println(enemies.size());
+        enemies.addAll(level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
+        enemies.addAll(level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
     }
 
     public ArrayList<Point> getAIPath(int character) {
