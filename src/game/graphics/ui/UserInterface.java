@@ -224,6 +224,7 @@ public class UserInterface {
         if (!showEnemyPath) return;
         for (int i = 0; i < enemies.size(); i++) {
             ArrayList<Point> path = ai.getAIPath(i);
+            if(path == null) continue;
             screen.renderConnectedLine(path, 8, 8, 0xaa0000, true);
         }
     }
