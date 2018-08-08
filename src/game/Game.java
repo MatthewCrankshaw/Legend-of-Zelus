@@ -46,11 +46,11 @@ public class Game extends Canvas implements Runnable{
         }else if(screensize.width < 1920 && screensize.height < 1080){
             WIDTH = screensize.width;
             HEIGHT = screensize.height;
-            SCALE = 1;
+            SCALE = 2;
         }else{
             WIDTH = (screensize.width/2);
             HEIGHT = (screensize.height/2);
-            SCALE = 1;
+            SCALE = 2;
         }
 
         //Start the game

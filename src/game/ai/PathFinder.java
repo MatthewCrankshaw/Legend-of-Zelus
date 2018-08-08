@@ -1,41 +1,38 @@
 package game.ai;
 
-import com.sun.istack.internal.localization.NullLocalizable;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
-import game.graphics.Screen;
 import game.levels.Level;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PathFinder {
 
     private Player player;
     private ArrayList<Enemy> enemies;
+    private ArrayList<ArrayList<Point> > paths;
     private Level level;
-    private double heuristic[] = new double[]{
-            Math.sqrt(2.0)  ,1.0f   ,Math.sqrt(2.0),
-            1.0f            ,2000f  ,1.0f,
-            Math.sqrt(2.0)  ,1.0f   ,Math.sqrt(2.0)
-    };
 
     public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
         this.player = player;
         this.enemies = enemies;
         this.level = level;
+        this.paths = new ArrayList<>();
     }
 
+    // Loop through all enemies and calculate their path
     public ArrayList<ArrayList<Point>> getEnemyPaths(){
-        ArrayList<ArrayList<Point> > paths = new ArrayList<>();
-
+        paths.clear();
         for(Enemy e : enemies) {
-            paths.add(aStar(e));
+            ArrayList<Point> p;
+            p = aStar(e);
+            paths.add(p);
         }
         return paths;
     }
 
+    // A* algorithm for finding a path
     private ArrayList<Point> aStar(Enemy enemy){
         ArrayList<Node> openSet = new ArrayList<>();
         ArrayList<Node> closeSet = new ArrayList<>();
@@ -46,13 +43,14 @@ public class PathFinder {
         Node startNode = new Node(start, calculateHeuristic(start, goal), 0, null);
         openSet.add(startNode);
 
-        int maxIter = 200, currentIter = 0;
+        int maxIter = 500, currentIter = 0;
         while(!openSet.isEmpty() && currentIter < maxIter){
             currentIter++;
             Node currentNode = openSet.get(lowestFcostNodeId(openSet));
             if(currentNode.getPosition().equals(goal)){
                 //Goal Found
                 return constructPath(currentNode);
+
             }
             openSet.remove(lowestFcostNodeId(openSet));
             closeSet.add(currentNode);
@@ -168,48 +166,69 @@ public class PathFinder {
         return null; // should not happen
     }
 
+    // check if a path is already taken by another character or an enemy is in the way
+    private boolean isPathTaken(Point pos){
+        for(int i = 0; i < paths.size(); i++){
+            if(paths == null)return false;
+            if(paths.get(i) == null) return false;
+            for(int j = 0; j < paths.get(i).size(); j++){
+                if (pos.equals(new Point(paths.get(i).get(j).x/16, paths.get(i).get(j).y/16))){
+                    return true;
+                }
+            }
+
+            for(Enemy e : enemies){
+                if(pos.equals(pixelPosToChunkPos((int)e.getX(), (int)e.getY()))){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Get all of the neighbor nodes that are not blocked
     private ArrayList<Node> getNeighbors(Node node, Point goal){
         ArrayList<Node> neighbors = new ArrayList<>();
         Point neighborPos;
 
         //top left
         neighborPos = new Point(node.getPosition().x - 1, node.getPosition().y - 1);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos) && !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1.414f, node));
         }
         //top mid
         neighborPos = new Point(node.getPosition().x, node.getPosition().y - 1);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos) && !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1f, node));
         }
         //top right
         neighborPos = new Point(node.getPosition().x+1, node.getPosition().y - 1);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos)&& !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1.414f, node));
         }
         //mid left
         neighborPos = new Point(node.getPosition().x-1, node.getPosition().y);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos)&& !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1f, node));
         }
         //mid right
         neighborPos = new Point(node.getPosition().x+1, node.getPosition().y);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos)&& !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1f, node));
         }
         //bot left
         neighborPos = new Point(node.getPosition().x-1, node.getPosition().y + 1);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos)&& !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1.414f, node));
         }
         //bot mid
         neighborPos = new Point(node.getPosition().x, node.getPosition().y + 1);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos)&& !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1f, node));
         }
         //bot right
         neighborPos = new Point(node.getPosition().x+1, node.getPosition().y + 1);
-        if(!isChunkBlocked(neighborPos)) {
+        if(!isChunkBlocked(neighborPos)&& !isPathTaken(neighborPos)) {
             neighbors.add(new Node(neighborPos, calculateHeuristic(neighborPos, goal), node.getG() + 1.414f, node));
         }
         return neighbors;

@@ -4,10 +4,15 @@ import game.entities.Spawner;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
+import game.graphics.sprite.Sprite;
+import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AiManager {
 
@@ -15,35 +20,45 @@ public class AiManager {
     private Screen screen;
     private PathFinder pathFinder;
 
-    private long pathFindLastTime;
-    private float pathFindInterval; //in seconds
+    private long pathFindLastTime, spawnLastTime;
+    private float pathFindInterval, spawnInterval; //in seconds
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<ArrayList<Point>> moveSet;
-    private int moveCounter[];
+    private ArrayList<Integer> moveCounter;
+    //private int moveCounter[];
 
-    private int numberOfZombies = 3;
-    private int numberOfEnemyWiz = 3;
+    private int numberOfZombies = 2;
+    private int numberOfEnemyWiz = 1;
 
     public AiManager(Player friendPlayer, Level level, Screen screen){
-        this.level = level;
-        this.screen = screen;
-        initializeEnemies();
-        this.moveCounter = new int[numberOfEnemyWiz + numberOfZombies];
-        this.pathFinder = new PathFinder(friendPlayer, enemies, level);
-        pathFindLastTime = System.currentTimeMillis();
-        pathFindInterval = 0.3f;
-        moveSet = pathFinder.getEnemyPaths();
-    }
+            this.level = level;
+            this.screen = screen;
+            initializeEnemies();
+            this.moveCounter = new ArrayList<>();
+            this.pathFinder = new PathFinder(friendPlayer, enemies, level);
+            pathFindLastTime = System.currentTimeMillis();
+            pathFindInterval = 0.3f;
+            spawnInterval = 2.0f;
+            moveSet = pathFinder.getEnemyPaths();
+        }
 
     public void tick(){
-        //Recalculate the path every so often as described by the pathFindInterval
+
         long currentTime = System.currentTimeMillis();
+        if((currentTime - spawnLastTime)/1000.0f >= spawnLastTime){
+            spawnLastTime = currentTime;
+            level.spawnEnemiesInLevel(-10, -10, Spawner.Type.ENEMY_WIZARD,1);
+        }
+
+
+        //Recalculate the path every so often as described by the pathFindInterval
+        currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
             moveSet = pathFinder.getEnemyPaths();
             pathFindLastTime = currentTime;
             for(int i = 0; i < enemies.size(); i++){
-                moveCounter[i] = 0;
+                moveCounter.add(0);
             }
         }
 
@@ -58,21 +73,21 @@ public class AiManager {
             currentTileY = (int)enemies.get(i).getY();
 
             if(moveSet.isEmpty() || moveSet.get(i) == null || moveSet.get(i).isEmpty() ) continue;
-            int tileX = moveSet.get(i).get(moveCounter[i]).x;
-            int tileY = moveSet.get(i).get(moveCounter[i]).y;
+            int tileX = moveSet.get(i).get(moveCounter.get(i)).x;
+            int tileY = moveSet.get(i).get(moveCounter.get(i)).y;
 
             if(tileX == currentTileX && tileY == currentTileY){
-                if (moveCounter[i] >= moveSet.get(i).size() - 1){
-                    moveCounter[i] = 0;
+                if (moveCounter.get(i) >= moveSet.get(i).size() - 1){
+                    moveCounter.set(i, 0);
                 }else{
-                    moveCounter[i]++;
+                    moveCounter.set(i, moveCounter.get(i));
                 }
             }else {
                 if (moveSet.isEmpty()){
                     continue;
                 }
-                tileX = moveSet.get(i).get(moveCounter[i]).x;
-                tileY = moveSet.get(i).get(moveCounter[i]).y;
+                tileX = moveSet.get(i).get(moveCounter.get(i)).x;
+                tileY = moveSet.get(i).get(moveCounter.get(i)).y;
 
                 if (tileX > currentTileX) {
                     enemies.get(i).moveRight();
