@@ -89,8 +89,10 @@ public class Game extends Canvas implements Runnable{
         input = new InputHandler(this);
         level = new Level("/levels/TestingArena.png", screen);
         player = new Player(150, 150, level, screen, input);
-        ai = new AiManager(player, level, screen);
-        ui = new UserInterface(screen, player, ai);
+        ui = new UserInterface(screen, player);
+        ai = new AiManager(player, level, screen, ui);
+
+        ui.setAiManager(ai);
         input.setUi(ui);
         level.add(player);
     }

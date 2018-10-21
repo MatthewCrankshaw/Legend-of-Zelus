@@ -33,16 +33,16 @@ public class UserInterface {
     private ArrayList<UIButton> pauseButtons;
     private ArrayList<UIButton> settingsButtons;
 
+    private ArrayList<UILabel> labels;
+
     //Menu options
     private boolean showEnemyPath, showPositions;
 
     private boolean gamePaused;
 
-    public UserInterface(Screen screen, Player player, AiManager ai){
+    public UserInterface(Screen screen, Player player){
         this.screen = screen;
         this.player = player;
-        this.enemies = ai.getEnemies();
-        this.ai = ai;
         gamePaused = false;
         init();
     }
@@ -83,6 +83,13 @@ public class UserInterface {
         pauseButtons = setupMenuButtons(pauseButtonNames);
         settingsButtons = setupMenuButtons(settingsButtonNames);
 
+        labels = new ArrayList<>();
+        labels.add(new UILabel(screen, 100, 500, "Hello World", true, true, -1));
+    }
+
+    public void setAiManager(AiManager ai){
+        this.enemies = ai.getEnemies();
+        this.ai = ai;
         enemyHealthBars = setupEnemyHealthBars();
     }
 
@@ -91,10 +98,12 @@ public class UserInterface {
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
         experienceBar.setCurrentBarPercentage(player.getMaxExperience(), player.getCurrentExperience());
         abilityBar.setCurrentBarPercentage(100, 50);
-        for(int i = 0; i < enemies.size(); i++){
-            enemyHealthBars.get(i).setPos((int)enemies.get(i).getX() - 3, (int)enemies.get(i).getY() - 8);
+        for(int i = 0; i < enemies.size(); i++) {
+            enemyHealthBars.get(i).setPos((int) enemies.get(i).getX() - 3, (int) enemies.get(i).getY() - 8);
             enemyHealthBars.get(i).setCurrentBarPercentage(enemies.get(i).getMaxLife(), enemies.get(i).getLife());
         }
+
+        checkAliveUiLabels();
     }
 
     public void render() {
@@ -121,6 +130,10 @@ public class UserInterface {
                     }
                     break;
             }
+        }
+
+        for(UILabel label : labels) {
+            label.render();
         }
     }
 
@@ -217,6 +230,32 @@ public class UserInterface {
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
             screen.renderString(x, yp, s, false, 0xaa0000, 1, false);
         }
+    }
+
+
+    // ===========================================================
+    // Label Management Code
+    // ===========================================================
+
+    private void checkAliveUiLabels(){
+        ArrayList<UILabel> delLabels = new ArrayList<>();
+        for(int i = 0; i < labels.size(); i++) {
+            UILabel l = labels.get(i);
+            l.tick();
+            if(!l.isAlive()){
+                delLabels.add(l);
+            }
+        }
+
+        for(int i = 0; i < delLabels.size(); i++){
+            labels.remove(delLabels.get(i));
+        }
+    }
+
+    public void addLabel(Screen screen, int x, int y, String text, boolean fixed, boolean center, long lifeSpan, int colour){
+        UILabel newLabel = new UILabel(screen, x, y, text, fixed, center, lifeSpan);
+        newLabel.setColour(colour);
+        labels.add(newLabel);
     }
 
     private void showEnemyPaths(){

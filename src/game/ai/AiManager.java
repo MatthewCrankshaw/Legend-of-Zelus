@@ -6,6 +6,7 @@ import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
+import game.graphics.ui.UserInterface;
 import game.levels.Level;
 
 import java.awt.*;
@@ -18,6 +19,7 @@ public class AiManager {
 
     private Level level;
     private Screen screen;
+    private UserInterface ui;
     private PathFinder pathFinder;
 
     private long pathFindLastTime;
@@ -27,9 +29,10 @@ public class AiManager {
     private ArrayList<ArrayList<Point>> moveSet;
     private ArrayList<Integer> moveCounter;
 
-    public AiManager(Player friendPlayer, Level level, Screen screen){
+    public AiManager(Player friendPlayer, Level level, Screen screen, UserInterface ui){
             this.level = level;
             this.screen = screen;
+            this.ui = ui;
             initializeEnemies();
             this.moveCounter = new ArrayList<>();
             this.pathFinder = new PathFinder(friendPlayer, enemies, level);
@@ -52,6 +55,7 @@ public class AiManager {
         for(int i = 0; i < enemies.size(); i++) {
             if (!enemies.get(i).isAlive()){
                 level.removeEntity(enemies.get(i));
+                ui.addLabel(screen, (int)enemies.get(i).getX(), (int)enemies.get(i).getY(),"10 Exp", true, true, 1000, 0xff000000);
                 enemies.remove(i);
                 continue;
             }
