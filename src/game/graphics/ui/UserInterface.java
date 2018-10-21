@@ -184,7 +184,6 @@ public class UserInterface {
             int xpos = (screen.getWidth()/2) - (width/2);
             int ypos = screen.getHeight()/2 + ((height+5)*i) - ((buttonNames.length*20)/2 + height);
             buttons.add(new UIButton(screen, xpos, ypos, width, height, buttonNames[i], clickable));
-            buttons.get(i).setTextSize(2);
             buttons.get(i).setColour(0xaa0000, 0xffff00);
         }
         return buttons;

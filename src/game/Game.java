@@ -34,23 +34,31 @@ public class Game extends Canvas implements Runnable{
     private AiManager ai;
 
     public static void main(String[] args) {
-        //Adjust the scale, width and height based off of the monitor user is viewing it on
-        if(screensize.width == 1366 && screensize.height == 768) {
+        int numpixels = screensize.width * screensize.height;
+        System.out.println("Screen Width: " + screensize.width + " Screen Height: " + screensize.height + " Number of Pixels: " + numpixels);
+
+
+        if(numpixels < 1000000){
             WIDTH = screensize.width;
             HEIGHT = screensize.height;
             SCALE = 1;
-        }else if(screensize.width < 1280 && screensize.height < 720){
-            WIDTH = screensize.width;
-            HEIGHT = screensize.height;
-            SCALE = 1;
-        }else if(screensize.width < 1920 && screensize.height < 1080){
-            WIDTH = screensize.width;
-            HEIGHT = screensize.height;
-            SCALE = 2;
-        }else{
+            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
+
+        }else if(numpixels > 1000000 && numpixels < 2000000){
             WIDTH = (screensize.width/2);
             HEIGHT = (screensize.height/2);
             SCALE = 2;
+            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
+        }else if(numpixels > 2000000 && numpixels < 4000000){
+            WIDTH = (screensize.width/4);
+            HEIGHT = (screensize.height/4);
+            SCALE = 4;
+            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
+        }else if(numpixels > 4000000 && numpixels < 8000000){
+            WIDTH = (screensize.width/8);
+            HEIGHT = (screensize.height/8);
+            SCALE = 8;
+            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
         }
 
         //Start the game

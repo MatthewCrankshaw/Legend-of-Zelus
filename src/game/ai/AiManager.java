@@ -20,16 +20,12 @@ public class AiManager {
     private Screen screen;
     private PathFinder pathFinder;
 
-    private long pathFindLastTime, spawnLastTime;
-    private float pathFindInterval, spawnInterval; //in seconds
+    private long pathFindLastTime;
+    private float pathFindInterval; //in seconds
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<ArrayList<Point>> moveSet;
     private ArrayList<Integer> moveCounter;
-    //private int moveCounter[];
-
-    private int numberOfZombies = 2;
-    private int numberOfEnemyWiz = 1;
 
     public AiManager(Player friendPlayer, Level level, Screen screen){
             this.level = level;
@@ -38,22 +34,13 @@ public class AiManager {
             this.moveCounter = new ArrayList<>();
             this.pathFinder = new PathFinder(friendPlayer, enemies, level);
             pathFindLastTime = System.currentTimeMillis();
-            pathFindInterval = 0.3f;
-            spawnInterval = 2.0f;
+            pathFindInterval = 0.1f;
             moveSet = pathFinder.getEnemyPaths();
         }
 
     public void tick(){
-
-        long currentTime = System.currentTimeMillis();
-        if((currentTime - spawnLastTime)/1000.0f >= spawnLastTime){
-            spawnLastTime = currentTime;
-            level.spawnEnemiesInLevel(-10, -10, Spawner.Type.ENEMY_WIZARD,1);
-        }
-
-
         //Recalculate the path every so often as described by the pathFindInterval
-        currentTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
             moveSet = pathFinder.getEnemyPaths();
             pathFindLastTime = currentTime;
@@ -83,9 +70,6 @@ public class AiManager {
                     moveCounter.set(i, moveCounter.get(i));
                 }
             }else {
-                if (moveSet.isEmpty()){
-                    continue;
-                }
                 tileX = moveSet.get(i).get(moveCounter.get(i)).x;
                 tileY = moveSet.get(i).get(moveCounter.get(i)).y;
 
@@ -105,6 +89,9 @@ public class AiManager {
     }
 
     private void initializeEnemies(){
+        int numberOfZombies = 2;
+        int numberOfEnemyWiz = 1;
+
         enemies.addAll(level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
         enemies.addAll(level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
     }
