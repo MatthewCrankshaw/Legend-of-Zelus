@@ -4,9 +4,8 @@ import game.entities.Entity;
 import game.entities.Spawner;
 import game.entities.mob.Enemy;
 import game.entities.mob.Mob;
-import game.entities.particles.Particles;
+import game.entities.particles.Particle;
 import game.graphics.Screen;
-import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 
@@ -26,7 +25,7 @@ public class Level {
     private int height;
 
     private List<Entity> entities = new ArrayList<>();
-    private List<Particles> particles = new ArrayList<>();
+    private List<Particle> particles = new ArrayList<>();
     public static TileManager TILE_MANAGER;
 
     private Screen screen;
@@ -53,15 +52,11 @@ public class Level {
     }
 
     public void add(Entity entity){
-        if (entity instanceof Particles) {
-            particles.add((Particles) entity);
+        if (entity instanceof Particle) {
+            particles.add((Particle) entity);
         }else if (entity instanceof Mob){
             entities.add(entity);
         }
-    }
-
-    public void spawnEntitiesInLevel(int x, int y, Spawner.Type type, int amount, Sprite particleSprite){
-        spawner.spawnEntities(x, y, type, amount, particleSprite);
     }
 
     public ArrayList<Enemy> spawnEnemiesInLevel(int x, int y, Spawner.Type type, int amount){
@@ -99,6 +94,7 @@ public class Level {
             e.render(screen);
         }
         for (Entity e: particles) {
+            System.out.println(e.getX()+ " " + e.getY());
             e.render(screen);
         }
     }

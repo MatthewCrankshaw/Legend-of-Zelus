@@ -32,32 +32,32 @@ public class PathFinder {
         return paths;
     }
 
-    // A* algorithm for finding a path
-    private ArrayList<Point> aStar(Enemy enemy){
-        ArrayList<Node> openSet = new ArrayList<>();
-        ArrayList<Node> closeSet = new ArrayList<>();
+                // A* algorithm for finding a path
+                private ArrayList<Point> aStar(Enemy enemy){
+                    ArrayList<Node> openSet = new ArrayList<>();
+                    ArrayList<Node> closeSet = new ArrayList<>();
 
-        Point start = pixelPosToChunkPos((int)enemy.getX(), (int)enemy.getY());
-        Point goal = pixelPosToChunkPos((int)player.getX(), (int)player.getY());
+                    Point start = pixelPosToChunkPos((int)enemy.getX(), (int)enemy.getY());
+                    Point goal = pixelPosToChunkPos((int)player.getX(), (int)player.getY());
 
-        Node startNode = new Node(start, calculateHeuristic(start, goal), 0, null);
-        openSet.add(startNode);
+                    Node startNode = new Node(start, calculateHeuristic(start, goal), 0, null);
+                    openSet.add(startNode);
 
-        int maxIter = 500, currentIter = 0;
-        while(!openSet.isEmpty() && currentIter < maxIter){
-            currentIter++;
-            Node currentNode = openSet.get(lowestFcostNodeId(openSet));
-            if(currentNode.getPosition().equals(goal)){
-                //Goal Found
-                return constructPath(currentNode);
+                    int maxIter = 500, currentIter = 0;
+                    while(!openSet.isEmpty() && currentIter < maxIter){
+                        currentIter++;
+                        Node currentNode = openSet.get(lowestFcostNodeId(openSet));
+                        if(currentNode.getPosition().equals(goal)){
+                            //Goal Found
+                            return constructPath(currentNode);
 
-            }
-            openSet.remove(lowestFcostNodeId(openSet));
-            closeSet.add(currentNode);
+                        }
+                        openSet.remove(lowestFcostNodeId(openSet));
+                        closeSet.add(currentNode);
 
-            // Look at each neighbour
-            ArrayList<Node> neighbours = getNeighbors(currentNode, goal);
-            for(Node n : neighbours) {
+                        // Look at each neighbour
+                        ArrayList<Node> neighbours = getNeighbors(currentNode, goal);
+                        for(Node n : neighbours) {
                 if (!isNodeInList(n, closeSet)) {
                     if (!isNodeInList(n, openSet)) {
                         openSet.add(n);

@@ -8,7 +8,7 @@ import game.levels.Level;
 /**
  * Created by Matthew.c on 08/02/2017.
  */
-public class Particles extends Entity{
+public class Particle extends Entity{
     private Sprite sprite;
 
     private long currentTime;
@@ -20,7 +20,7 @@ public class Particles extends Entity{
     protected double xx, yy, zz;
     protected double xa, ya, za;
 
-    public Particles(Level level, int x, int y, int life, Sprite particleSprite){
+    public Particle(Level level, int x, int y, int life, Sprite particleSprite){
         super(level);
         this.x = x;
         this.y = y;
@@ -30,7 +30,6 @@ public class Particles extends Entity{
         sprite = particleSprite;
         alive = true;
         this.createdTime = System.currentTimeMillis();
-
         this.xa = random.nextGaussian();
         this.ya = random.nextGaussian();
         this.zz = random.nextFloat() + 2.0;

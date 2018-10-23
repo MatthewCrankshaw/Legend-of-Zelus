@@ -4,16 +4,12 @@ import game.entities.Spawner;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
-import game.graphics.sprite.Sprite;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
+
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AiManager {
 
@@ -63,7 +59,7 @@ public class AiManager {
             currentTileX = (int)enemies.get(i).getX();
             currentTileY = (int)enemies.get(i).getY();
 
-            if(moveSet.isEmpty() || moveSet.get(i) == null || moveSet.get(i).isEmpty() ) continue;
+            if(moveSet.isEmpty() || moveSet.get(i) == null || moveSet.get(i).isEmpty() || moveCounter.isEmpty() ) continue;
             int tileX = moveSet.get(i).get(moveCounter.get(i)).x;
             int tileY = moveSet.get(i).get(moveCounter.get(i)).y;
 
@@ -96,8 +92,8 @@ public class AiManager {
         int numberOfZombies = 2;
         int numberOfEnemyWiz = 1;
 
-        enemies.addAll(level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
-        enemies.addAll(level.spawnEnemiesInLevel(-20, -20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
+        enemies.addAll(level.spawnEnemiesInLevel(20, 20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
+        enemies.addAll(level.spawnEnemiesInLevel(20, 20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
     }
 
     public ArrayList<Point> getAIPath(int character) {

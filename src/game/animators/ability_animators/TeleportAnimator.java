@@ -9,16 +9,20 @@ import game.graphics.sprite.Sprite;
  * Created by Matthew.c on 07/02/2017.
  */
 public class TeleportAnimator extends AbilityAnimator {
-    public TeleportAnimator(Screen screen, int numOfAnims, Sprite[] basicSprite, AbilityManager abilityManager, int timeForAnim) {
-        super(screen, numOfAnims, basicSprite, abilityManager);
-        timeBetweenAnim = timeForAnim;
+
+    private Sprite teleportSprites;
+
+    public TeleportAnimator(Screen screen, int numOfAnims, Sprite[] charactorSprites, Sprite teleportSprites, AbilityManager abilityManager, int timeForAnim) {
+        super(screen, numOfAnims, charactorSprites, abilityManager);
+        this.teleportSprites = teleportSprites;
+        this.timeBetweenAnim = timeForAnim;
     }
 
     @Override
     public void renderSprite(int x, int y) {
         long currentTime = System.currentTimeMillis();
 
-        screen.renderSprite(x -8, y-4, Sprite.teleportFloorSign, true, -1, 1);
+        screen.renderSprite(x -8, y-4, teleportSprites, true, -1, 1);
         if (currentTime - lastTime >= timeBetweenAnim * 6) {
             currentSprite = basicSprite[0];
             lastTime = currentTime;

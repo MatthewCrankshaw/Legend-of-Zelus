@@ -1,10 +1,12 @@
 package game.entities.ability.ability_managers;
 
+import game.InputHandler;
 import game.animators.ability_animators.TeleportAnimator;
 import game.entities.mob.Enemy;
 import game.entities.mob.Mob;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
+import game.levels.Level;
 
 import java.util.Random;
 
@@ -14,11 +16,11 @@ public class AITeleportManager extends AbilityManager{
 
     private boolean alreadyTP;
 
-    public AITeleportManager(Screen screen, Mob mob){
-        super(screen, 6);
+    public AITeleportManager(Screen screen, InputHandler input, Level level, Mob mob){
+        super(screen, input, level, 6);
         timeBetweenAnim = (Enemy.ENEMY_TELEPORT_SPEED)/numOfAnim;
         this.mob = mob;
-        teleportAnimator = new TeleportAnimator(screen, 6, Sprite.teleportSprite, this, timeBetweenAnim);
+        teleportAnimator = new TeleportAnimator(screen, 6, Sprite.teleportSprite, Sprite.teleportFloorSign, this, timeBetweenAnim);
         inAnimation = false;
     }
 

@@ -13,7 +13,6 @@ public class Enemy extends Mob{
 
     public static int ENEMY_TELEPORT_SPEED = 1200;
     private CharacterAnimator characterAnimator;
-    private AITeleportManager teleportManager;
     private int movX, movY = 0;
     private int currentLife, maxLife;
 
@@ -24,7 +23,6 @@ public class Enemy extends Mob{
         currentLife = 100;
         maxLife = 100;
         characterAnimator = new CharacterAnimator(screen, 4, spriteName, this, 120, mobScale);
-        teleportManager = new AITeleportManager(screen, this);
     }
 
     @Override
@@ -42,10 +40,7 @@ public class Enemy extends Mob{
             alive = false;
         }
 
-        teleportManager.tick();
-
         Tile.swimming.tick();
-        if (!stuck) {
         int xa = 0;
         int ya = 0;
         if (movY == 1) {
@@ -60,8 +55,6 @@ public class Enemy extends Mob{
         if (movX == 1) {
             xa++;
         }
-
-        if (!teleportManager.isInAnimation()) {
             if (xa != 0 || ya != 0) {
                 move(xa, ya);
                 moving = true;
@@ -71,25 +64,11 @@ public class Enemy extends Mob{
 
             movX = 0;
             movY = 0;
-        }
-
-        }else {
-            if (!teleportManager.isInAnimation()) {
-                teleportManager.reset();
-                teleportManager.setInAnimation(true);
-            }
-        }
-
-        isStuck();
     }
 
     @Override
     public void render(Screen screen) {
-        if (teleportManager.isInAnimation()){
-            teleportManager.renderSprite(x, y);
-        }else{
             characterAnimator.renderSprite((int)x,(int)y);
-        }
     }
 
     private int isHit(int x, int y, int damage){

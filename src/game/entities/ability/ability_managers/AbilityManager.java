@@ -3,6 +3,7 @@ package game.entities.ability.ability_managers;
 import game.InputHandler;
 import game.entities.ability.Ability;
 import game.graphics.Screen;
+import game.levels.Level;
 
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class AbilityManager {
     protected Screen screen;
+    protected Level level;
     protected InputHandler input;
 
     protected boolean inAnimation;
@@ -20,8 +22,10 @@ public abstract class AbilityManager {
 
     public static ArrayList<Ability> abilityList = new ArrayList<>();
 
-    public AbilityManager(Screen screen, int numOfAnim){
+    public AbilityManager(Screen screen, InputHandler input, Level level, int numOfAnim){
         this.screen = screen;
+        this.input = input;
+        this.level = level;
         this.numOfAnim = numOfAnim; // number of animation frames in the whole animation
         inAnimation = false;
     }

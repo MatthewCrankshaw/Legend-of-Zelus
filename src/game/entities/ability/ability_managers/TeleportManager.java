@@ -7,6 +7,7 @@ import game.entities.mob.Mob;
 import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
+import game.levels.Level;
 
 /**
  * Created by Matthew.c on 02/02/2017.
@@ -20,13 +21,17 @@ public class TeleportManager extends AbilityManager{
 
     public static int MANA_COST = 100;
 
-    public TeleportManager(Screen screen, Mob mob, InputHandler input){
-        super(screen, 6);
-        timeBetweenAnim = Player.TELEPORT_CAST_SPEED/numOfAnim;
+    public TeleportManager(Screen screen, InputHandler input, Level level, Mob mob, Sprite[] characterSprites, Sprite teleportSprite){
+        super(screen, input, level, 6);
+        this.timeBetweenAnim = Player.TELEPORT_CAST_SPEED/numOfAnim;
         this.input = input;
         this.mob = mob;
-        teleportAnimator = new TeleportAnimator(screen, 6, Sprite.teleportSprite, this, timeBetweenAnim);
-        inAnimation = false;
+        this.teleportAnimator = new TeleportAnimator(screen, 6, characterSprites, teleportSprite, this, timeBetweenAnim);
+        this.inAnimation = false;
+    }
+
+    @Override
+    public void tick() {
     }
 
     @Override
@@ -45,9 +50,5 @@ public class TeleportManager extends AbilityManager{
     public void reset(){
         teleportAnimator.resetAnimation();
         alreadyTP = false;
-    }
-
-    @Override
-    public void tick() {
     }
 }
