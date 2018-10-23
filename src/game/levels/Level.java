@@ -28,12 +28,10 @@ public class Level {
     private List<Particle> particles = new ArrayList<>();
     public static TileManager TILE_MANAGER;
 
-    private Screen screen;
     private Spawner spawner;
 
     public Level(String path, Screen screen){
         loadLevelFromFile(path);
-        this.screen = screen;
         TILE_MANAGER = new TileManager(width, height);
         spawner = new Spawner(this, screen);
     }
@@ -57,10 +55,6 @@ public class Level {
         }else if (entity instanceof Mob){
             entities.add(entity);
         }
-    }
-
-    public ArrayList<Enemy> spawnEnemiesInLevel(int x, int y, Spawner.Type type, int amount){
-        return spawner.spawnEnemies(x, y, type, amount);
     }
 
     public void tick(){
@@ -94,7 +88,6 @@ public class Level {
             e.render(screen);
         }
         for (Entity e: particles) {
-            System.out.println(e.getX()+ " " + e.getY());
             e.render(screen);
         }
     }

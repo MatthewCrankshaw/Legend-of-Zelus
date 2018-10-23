@@ -17,6 +17,7 @@ public class AiManager {
     private Screen screen;
     private UserInterface ui;
     private PathFinder pathFinder;
+    private Spawner spawner;
 
     private long pathFindLastTime;
     private float pathFindInterval; //in seconds
@@ -29,6 +30,7 @@ public class AiManager {
             this.level = level;
             this.screen = screen;
             this.ui = ui;
+            this.spawner = new Spawner(level, screen);
             initializeEnemies();
             this.moveCounter = new ArrayList<>();
             this.pathFinder = new PathFinder(friendPlayer, enemies, level);
@@ -51,7 +53,7 @@ public class AiManager {
         for(int i = 0; i < enemies.size(); i++) {
             if (!enemies.get(i).isAlive()){
                 level.removeEntity(enemies.get(i));
-                ui.addLabel(screen, (int)enemies.get(i).getX(), (int)enemies.get(i).getY(),"10 Exp", true, true, 1000, 0xff000000);
+                ui.addLabel(screen, (int)enemies.get(i).getX(), (int)enemies.get(i).getY(),"10 Exp", true, true, 1000, 0xffffff00);
                 enemies.remove(i);
                 continue;
             }
@@ -92,8 +94,8 @@ public class AiManager {
         int numberOfZombies = 2;
         int numberOfEnemyWiz = 1;
 
-        enemies.addAll(level.spawnEnemiesInLevel(20, 20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
-        enemies.addAll(level.spawnEnemiesInLevel(20, 20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
+        enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
+        enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
     }
 
     public ArrayList<Point> getAIPath(int character) {

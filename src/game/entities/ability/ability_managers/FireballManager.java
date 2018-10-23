@@ -17,6 +17,7 @@ public class FireballManager extends AbilityManager {
     private FireballAnimator fireballAnimator;
     private long lastAbilityCreated;
     private Sprite fireballSprite[];
+    private Sprite particleSprite;
     private Spawner spawner;
 
     private boolean readyToShoot;
@@ -31,6 +32,7 @@ public class FireballManager extends AbilityManager {
         this.inAnimation = false;
         this.readyToShoot = true;
         this.fireballSprite = fireballSprite;
+        this.particleSprite = Sprite.particle_red;
         this.fireballAnimator = new FireballAnimator(screen, 4, attackSprites, this);
         this.spawner = new Spawner(level, screen);
     }
@@ -77,7 +79,7 @@ public class FireballManager extends AbilityManager {
         for (int i = 0; i < abilityList.size(); i++) {
             if (abilityList.get(i).isExploding()) {
                 abilityList.get(i).explode();
-                spawner.spawnEntities((int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100, Sprite.particle_red );
+                spawner.spawnEntities((int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100, particleSprite );
                 abilityList.remove(abilityList.get(i));
             }else if (!abilityList.get(i).isAlive()) {
                 abilityList.get(i).fizzleOut();
@@ -88,11 +90,17 @@ public class FireballManager extends AbilityManager {
         }
     }
 
-    public void addAbilityInstance(Ability ability){
+    public void setParticleSprite(Sprite sprite){
+        this.particleSprite = sprite;
+    }
+
+    private void addAbilityInstance(Ability ability){
         if (readyToShoot){
             abilityList.add(ability);
             lastAbilityCreated = System.currentTimeMillis();
             readyToShoot = false;
         }
     }
+
+
 }

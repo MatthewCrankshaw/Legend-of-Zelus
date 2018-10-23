@@ -30,6 +30,7 @@ public class UserInterface {
 
     private final String[] pauseButtonNames = {"Paused", "Settings", "Back", "Quit"};
     private final String[] settingsButtonNames = {"Settings", "Draw Positions", "Draw Paths", "Back"};
+
     private ArrayList<UIButton> pauseButtons;
     private ArrayList<UIButton> settingsButtons;
 
@@ -84,7 +85,6 @@ public class UserInterface {
         settingsButtons = setupMenuButtons(settingsButtonNames);
 
         labels = new ArrayList<>();
-        labels.add(new UILabel(screen, 100, 500, "Hello World", true, true, -1));
     }
 
     public void setAiManager(AiManager ai){
