@@ -50,7 +50,7 @@ public class Player extends Mob {
 
         fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, PlayerSprite.playerAttackSprites);
         teleportManager = new TeleportManager(screen, input, level, this, Sprite.teleportSprite, Sprite.teleportFloorSign);
-        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.playerSprites, this, 100, mobScale);
+        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, this, 100, mobScale);
     }
 
     @Override
