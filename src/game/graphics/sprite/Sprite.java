@@ -33,9 +33,6 @@ public class Sprite {
 
     public static Sprite teleportFloorSign = new Sprite(32, 0, 0, SpriteSheet.abilityEffects32);
 
-    public static Sprite[] teleportSprite = AnimatedSprite.loadAnimatedSprite(16, 3, 0, 4, SpriteSheet.characterAnimations16);
-
-    public static Sprite[] fireballFloorSign = AnimatedSprite.loadAnimatedSprite(32, 4, 1, 5, SpriteSheet.abilityEffects32);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet){
         SIZE = size;

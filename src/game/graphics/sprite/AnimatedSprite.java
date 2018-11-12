@@ -7,7 +7,12 @@ import game.levels.tile.Tile;
 /**
  * Created by Matthew.c on 02/02/2017.
  */
-public class AnimatedSprite extends Sprite {
+public class AnimatedSprite extends Sprite{
+
+    public static Sprite[] playerAttackSprites = loadAnimatedSprite(Tile.TILE_SIZE*2, new int[]{0,1,2}, new int[]{0,0,0}, SpriteSheet.characterAnimations16);
+    public static Sprite[] swimming = loadAnimatedSprite(16, 0, 0, 3, SpriteSheet.statusEffects_16);
+    public static Sprite[] teleportSprite = loadAnimatedSprite(16, 3, 0, 4, SpriteSheet.characterAnimations16);
+    public static Sprite[] fireballFloorSign = loadAnimatedSprite(32, 4, 1, 5, SpriteSheet.abilityEffects32);
 
     public AnimatedSprite(int size, int x, int y, SpriteSheet sheet){
         super(size, x, y , sheet);

@@ -37,7 +37,6 @@ public class SpriteSheet {
     public static SpriteSheet abilityEffects32 = new SpriteSheet("/AbilityEffects/AbilityEffects-32.png", 288);
 
     //Status Effects ***************************************************************************
-
     public static SpriteSheet statusEffects_16 = new SpriteSheet("/StatusEffects/StatusEffects-16.png", 256);
 
     //Text Fonts *******************************************************************************

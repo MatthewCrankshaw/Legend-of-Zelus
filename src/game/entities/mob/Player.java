@@ -6,6 +6,7 @@ import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.ability.ability_managers.FireballManager;
 import game.graphics.Screen;
+import game.graphics.sprite.AnimatedSprite;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
@@ -49,7 +50,7 @@ public class Player extends Mob {
         this.input = input;
 
         fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, PlayerSprite.playerAttackSprites);
-        teleportManager = new TeleportManager(screen, input, level, this, Sprite.teleportSprite, Sprite.teleportFloorSign);
+        teleportManager = new TeleportManager(screen, input, level, this, AnimatedSprite.teleportSprite, Sprite.teleportFloorSign);
         characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, this, 100, mobScale);
     }
 

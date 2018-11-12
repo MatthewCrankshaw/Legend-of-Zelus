@@ -5,6 +5,7 @@ import game.animators.ability_animators.TeleportAnimator;
 import game.entities.mob.Enemy;
 import game.entities.mob.Mob;
 import game.graphics.Screen;
+import game.graphics.sprite.AnimatedSprite;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 
@@ -20,7 +21,7 @@ public class AITeleportManager extends AbilityManager{
         super(screen, input, level, 6);
         timeBetweenAnim = (Enemy.ENEMY_TELEPORT_SPEED)/numOfAnim;
         this.mob = mob;
-        teleportAnimator = new TeleportAnimator(screen, 6, Sprite.teleportSprite, Sprite.teleportFloorSign, this, timeBetweenAnim);
+        teleportAnimator = new TeleportAnimator(screen, 6, AnimatedSprite.teleportSprite, Sprite.teleportFloorSign, this, timeBetweenAnim);
         inAnimation = false;
     }
 
