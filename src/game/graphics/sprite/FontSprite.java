@@ -20,11 +20,11 @@ public class FontSprite extends Sprite{
         ArrayList<FontSprite> font = new ArrayList<>();
         //Letters
         for(int i = 0; i < 26; i++){
-            font.add( new FontSprite(8, i, 30, SpriteSheet.spriteSheet));
+            font.add( new FontSprite(8, i, 0, SpriteSheet.text));
         }
         //Digits and Signs
         for(int i = 0; i < 26; i++){
-            font.add(new FontSprite(8, i, 31, SpriteSheet.spriteSheet));
+            font.add(new FontSprite(8, i, 1, SpriteSheet.text));
         }
         return font;
     }

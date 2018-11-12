@@ -20,9 +20,9 @@ public class Sprite {
 
     //Projectile Sprites
     public static Sprite[] fireballSprites = {
-            new Sprite(8,0, 0, SpriteSheet.abilityEffects8),
-            new Sprite(8,1, 0, SpriteSheet.abilityEffects8),
-            new Sprite(8,2, 0, SpriteSheet.abilityEffects8)
+            new Sprite(8, 0, 0, SpriteSheet.abilityEffects8),
+            new Sprite(8, 1, 0, SpriteSheet.abilityEffects8),
+            new Sprite(8, 2, 0, SpriteSheet.abilityEffects8)
     };
 
     public static Sprite[] greenballSprites = {

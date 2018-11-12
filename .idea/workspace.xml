@@ -6,20 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="ec28eedc-2dcd-4b2b-87bc-8199667112a8" name="Default" comment="Fixed Issues with uncommited changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/CharacterMovement-16.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/CharacterMovement-16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/ai/AiManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/ai/AiManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/ai/PathFinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/ai/PathFinder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/CharacterAnimations-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/CharacterMovement-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/Environment-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/Environment-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/Environment-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/SpriteSheet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/StatusEffects-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/Text.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/entities/mob/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/entities/mob/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/sprite/mob_sprites/PlayerSprite.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/sprite/mob_sprites/PlayerSprite.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/CharacterMovement-16.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/CharacterMovement-16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ResInProgress/SpriteSheet.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ResInProgress/blank_Sheet.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ResInProgress/oceanMap.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ResInProgress/projectile_Sprite_Sheet.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/ai/AiManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/ai/AiManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/ai/PathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/ai/PathFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/entities/mob/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/entities/mob/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/SpriteSheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/SpriteSheet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/sprite/FontSprite.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaGame2D/game/graphics/sprite/FontSprite.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/AbilityEffects-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/AbilityEffects-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/AbilityEffects-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/CharacterAnimations-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/CharacterMovement-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Environment-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Environment-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Environment-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/SpriteSheet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/StatusEffects-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/graphics/SpriteSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/graphics/SpriteSheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java" afterDir="false" />
     </list>
     <ignored path="JavaGame2D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,22 +61,22 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="15" />
-          <entry key="java" value="6554" />
+          <entry key="java" value="6928" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="15" />
+          <entry key="java" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="15" />
+          <entry key="JAVA" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="6554" />
+          <entry key="JAVA" value="6928" />
           <entry key="PLAIN_TEXT" value="15" />
         </counts>
       </usages-collector>
@@ -104,26 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1170">
-              <caret line="52" column="87" selection-start-line="52" selection-start-column="87" selection-end-line="52" selection-end-column="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="35" column="97" lean-forward="true" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
+            <state relative-caret-position="113">
+              <caret line="50" column="100" selection-start-line="50" selection-start-column="100" selection-end-line="50" selection-end-column="100" />
             </state>
           </provider>
         </entry>
@@ -131,8 +124,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/SpriteSheet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-144">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="113">
+              <caret line="35" column="76" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -199,8 +210,6 @@
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UIManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/CircleStatusBar.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/sprite/Font.java" />
-        <option value="$PROJECT_DIR$/src/game/graphics/SpriteSheet.java" />
-        <option value="$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/static_tiles/VoidTile.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/static_tiles/BasicSolidTile.java" />
         <option value="$PROJECT_DIR$/src/game/levels/tile/animated_tiles/AnimatedTile.java" />
@@ -239,6 +248,9 @@
         <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
+        <option value="$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java" />
+        <option value="$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java" />
+        <option value="$PROJECT_DIR$/src/game/graphics/SpriteSheet.java" />
       </list>
     </option>
   </component>
@@ -314,7 +326,7 @@
     <property name="SearchEverywhereHistoryKey" value="System.out&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542005249936" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542008080942" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
@@ -468,7 +480,7 @@
       <workItem from="1540265663827" duration="7449000" />
       <workItem from="1541058375088" duration="1222000" />
       <workItem from="1541628145071" duration="1503000" />
-      <workItem from="1541995713990" duration="3799000" />
+      <workItem from="1541995713990" duration="6383000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1521600697203</created>
@@ -488,7 +500,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="288844000" />
+    <option name="totallyTimeSpent" value="291428000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -503,7 +515,7 @@
     <frame x="41" y="25" width="1325" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.049257234" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.049257234" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -512,7 +524,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960908" visible="true" weight="0.10766721" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960908" visible="true" weight="0.36215335" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -892,31 +904,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1170">
-          <caret line="52" column="87" selection-start-line="52" selection-start-column="87" selection-end-line="52" selection-end-column="87" />
+        <state relative-caret-position="5">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/mob_sprites/PlayerSprite.java">
+    <entry file="file://$PROJECT_DIR$/src/game/entities/mob/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        <state relative-caret-position="113">
+          <caret line="50" column="100" selection-start-line="50" selection-start-column="100" selection-end-line="50" selection-end-column="100" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="35" column="97" lean-forward="true" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
+        <state relative-caret-position="306">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/sprite/FontSprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/graphics/SpriteSheet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-144">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="113">
+          <caret line="35" column="76" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
         </state>
       </provider>
     </entry>
