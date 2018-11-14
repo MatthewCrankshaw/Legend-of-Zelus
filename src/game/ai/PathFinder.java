@@ -5,7 +5,10 @@ import game.entities.mob.Player;
 import game.levels.Level;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PathFinder {
 
@@ -22,18 +25,22 @@ public class PathFinder {
     }
 
     // Loop through all enemies and calculate their path
-    public ArrayList<ArrayList<Point>> getEnemyPaths(){
+    public ArrayList<Queue<Point>> getEnemyPaths(){
+        ArrayList<Queue<Point>> pths = new ArrayList<>();
+
         paths.clear();
         for(Enemy e : enemies) {
-            ArrayList<Point> p;
+            Queue<Point> p;
             p = aStar(e);
-            paths.add(p);
+            pths.add(p);
+            if(p == null) continue;
+            paths.add(new ArrayList<>(p));
         }
-        return paths;
+        return pths;
     }
 
     // A* algorithm for finding a path
-    private ArrayList<Point> aStar(Enemy enemy){
+    private Queue<Point> aStar(Enemy enemy){
         ArrayList<Node> openSet = new ArrayList<>();
         ArrayList<Node> closeSet = new ArrayList<>();
 
@@ -90,9 +97,10 @@ public class PathFinder {
         return p;
     }
 
-    private ArrayList<Point> constructPath(Node n){
+    private Queue<Point> constructPath(Node n){
         ArrayList<Node> pathNodes = new ArrayList<>();
-        ArrayList<Point> pathPoints = new ArrayList<>();
+        Queue<Point> pathPoints = new LinkedList<>();
+
         pathNodes.add(n);
         while(n.getParent() != null){
             n = n.getParent();
@@ -168,8 +176,6 @@ public class PathFinder {
 
 //     check if a path is already taken by another character or an enemy is in the way
     private boolean isPathTaken(Point pos){
-
-
         for(int i = 0; i < paths.size(); i++){
             if(paths == null)return false;
             if(paths.get(i) == null) return false;

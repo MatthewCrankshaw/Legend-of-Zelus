@@ -7,9 +7,11 @@ import game.graphics.Screen;
 
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
+import org.omg.PortableServer.POA;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class AiManager {
 
@@ -23,8 +25,11 @@ public class AiManager {
     private float pathFindInterval; //in seconds
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<ArrayList<Point>> moveSet;
-    private ArrayList<Integer> moveCounter;
+
+//    private ArrayList<ArrayList<Point>> moveSet;
+//    private ArrayList<Integer> moveCounter;
+
+    private ArrayList<Queue<Point>> moveSets;
 
     public AiManager(Player friendPlayer, Level level, Screen screen, UserInterface ui){
             this.level = level;
@@ -32,22 +37,18 @@ public class AiManager {
             this.ui = ui;
             this.spawner = new Spawner(level, screen);
             initializeEnemies();
-            this.moveCounter = new ArrayList<>();
             this.pathFinder = new PathFinder(friendPlayer, enemies, level);
             pathFindLastTime = System.currentTimeMillis();
             pathFindInterval = 0.05f;
-            moveSet = pathFinder.getEnemyPaths();
+            moveSets = pathFinder.getEnemyPaths();
         }
 
     public void tick(){
         //Recalculate the path every so often as described by the pathFindInterval
         long currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
-            moveSet = pathFinder.getEnemyPaths();
+            moveSets = pathFinder.getEnemyPaths();
             pathFindLastTime = currentTime;
-            for(int i = 0; i < enemies.size(); i++){
-                moveCounter.add(0);
-            }
         }
 
         for(int i = 0; i < enemies.size(); i++) {
@@ -57,33 +58,29 @@ public class AiManager {
                 enemies.remove(i);
                 continue;
             }
+
             int currentTileX, currentTileY;
             currentTileX = (int)enemies.get(i).getX();
             currentTileY = (int)enemies.get(i).getY();
 
-            if(moveSet.isEmpty() || moveSet.get(i) == null || moveSet.get(i).isEmpty() || moveCounter.isEmpty() ) continue;
-            int tileX = moveSet.get(i).get(moveCounter.get(i)).x;
-            int tileY = moveSet.get(i).get(moveCounter.get(i)).y;
+            if(moveSets.get(i) == null || moveSets == null || moveSets.isEmpty() || moveSets.get(i).isEmpty()) continue;
 
-            if(tileX == currentTileX && tileY == currentTileY){
-                if (moveCounter.get(i) >= moveSet.get(i).size() - 1){
-                    moveCounter.set(i, 0);
-                }else{
-                    moveCounter.set(i, moveCounter.get(i));
+            Point tilexy = moveSets.get(i).peek();
+
+            if(tilexy.x == currentTileX && tilexy.y == currentTileY){
+                if(moveSets.get(i).size() > 1) {
+                    moveSets.get(i).remove();
                 }
             }else {
-                tileX = moveSet.get(i).get(moveCounter.get(i)).x;
-                tileY = moveSet.get(i).get(moveCounter.get(i)).y;
-
-                if (tileX > currentTileX) {
+                if (tilexy.x> currentTileX) {
                     enemies.get(i).moveRight();
-                } else if (tileX < currentTileX) {
+                } else if (tilexy.x < currentTileX) {
                     enemies.get(i).moveLeft();
                 }
 
-                if (tileY > currentTileY) {
+                if (tilexy.y > currentTileY) {
                     enemies.get(i).moveDown();
-                } else if (tileY < currentTileY) {
+                } else if (tilexy.y < currentTileY) {
                     enemies.get(i).moveUp();
                 }
             }
@@ -101,7 +98,8 @@ public class AiManager {
     }
 
     public ArrayList<Point> getAIPath(int character) {
-        return moveSet.get(character);
+        if(moveSets.get(character) == null){return null;}
+        return new ArrayList<>(moveSets.get(character));
     }
 
     public ArrayList<Enemy> getEnemies() {
