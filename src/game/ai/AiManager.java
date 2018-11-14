@@ -91,11 +91,13 @@ public class AiManager {
     }
 
     private void initializeEnemies(){
-        int numberOfZombies = 2;
+        int numberOfZombies = 1;
         int numberOfEnemyWiz = 1;
+        int numberOfDeathKeepers = 1;
 
         enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
         enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
+        enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_DEATH_KEEPER, numberOfDeathKeepers));
     }
 
     public ArrayList<Point> getAIPath(int character) {

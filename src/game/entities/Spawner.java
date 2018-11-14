@@ -1,6 +1,7 @@
 package game.entities;
 
 import game.entities.mob.Enemy;
+import game.entities.mob.Player;
 import game.entities.particles.Particle;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
@@ -18,7 +19,7 @@ public class Spawner{
     private Level level;
 
     public enum Type {
-        ENEMY_WIZARD, ENEMY_ZOMBIE, PARTICAL
+        ENEMY_WIZARD, ENEMY_ZOMBIE, ENEMY_DEATH_KEEPER,PARTICAL
     }
 
     public Spawner(Level level, Screen screen){
@@ -50,6 +51,11 @@ public class Spawner{
                     break;
                 case ENEMY_ZOMBIE:
                     e = new Enemy(x, y, level, screen, "Name", 1, PlayerSprite.zombieSprites);
+                    enemies.add(e);
+                    level.add(e);
+                    break;
+                case ENEMY_DEATH_KEEPER:
+                    e = new Enemy(x, y, level, screen, "Name", 1, PlayerSprite.deathkeeperSprites);
                     enemies.add(e);
                     level.add(e);
                     break;
