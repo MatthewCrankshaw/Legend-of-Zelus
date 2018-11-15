@@ -186,12 +186,12 @@ public class UserInterface {
         boolean clickable;
         ArrayList<UIButton> buttons = new ArrayList<>();
         for(int i = 0; i < buttonNames.length; i++){
-            width = screen.getWidth() / 5;
-            height = screen.getHeight() /20;
+            width = screen.getWidth() / 4;
+            height = screen.getHeight() /15;
             clickable = true;
             if(i == 0){
-                width = screen.getWidth() / 3;
-                height = screen.getHeight() / 17;
+                width = screen.getWidth() / 2;
+                height = screen.getHeight() / 15;
                 clickable = false;
             }
             int xpos = (screen.getWidth()/2) - (width/2);

@@ -32,16 +32,16 @@ public class AiManager {
     private ArrayList<Queue<Point>> moveSets;
 
     public AiManager(Player friendPlayer, Level level, Screen screen, UserInterface ui){
-            this.level = level;
-            this.screen = screen;
-            this.ui = ui;
-            this.spawner = new Spawner(level, screen);
-            initializeEnemies();
-            this.pathFinder = new PathFinder(friendPlayer, enemies, level);
-            pathFindLastTime = System.currentTimeMillis();
-            pathFindInterval = 0.05f;
-            moveSets = pathFinder.getEnemyPaths();
-        }
+        this.level = level;
+        this.screen = screen;
+        this.ui = ui;
+        this.spawner = new Spawner(level, screen);
+        initializeEnemies();
+        this.pathFinder = new PathFinder(friendPlayer, enemies, level);
+        pathFindLastTime = System.currentTimeMillis();
+        pathFindInterval = 0.6f;
+        moveSets = pathFinder.getEnemyPaths();
+    }
 
     public void tick(){
         //Recalculate the path every so often as described by the pathFindInterval

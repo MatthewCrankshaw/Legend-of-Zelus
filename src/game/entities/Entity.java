@@ -8,8 +8,8 @@ import java.util.Random;
 /**
  * Created by Matthew.c on 21/01/2017.
  */
-public abstract class Entity {
 
+public abstract class Entity {
     protected double x,y;
     protected Level level;
     protected boolean alive;
@@ -21,13 +21,11 @@ public abstract class Entity {
     }
 
     public abstract void tick();
-
     public abstract void render(Screen screen);
 
     public boolean isAlive(){
         return alive;
     }
-
     public void kill(){
         alive = false;
     }
@@ -35,7 +33,6 @@ public abstract class Entity {
     public double getX() {
         return x;
     }
-
     public double getY() {
         return y;
     }

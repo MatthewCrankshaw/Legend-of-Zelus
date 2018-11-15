@@ -179,7 +179,8 @@ public class PathFinder {
         for(int i = 0; i < paths.size(); i++){
             if(paths == null)return false;
             if(paths.get(i) == null) return false;
-            for(int j = 0; j < paths.get(i).size(); j++){
+            for(int j = 0; j < paths.get(i).size() - 1; j++){
+
                 if (pos.equals(new Point(paths.get(i).get(j).x/16, paths.get(i).get(j).y/16))){
                     return true;
                 }
