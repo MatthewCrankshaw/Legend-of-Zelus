@@ -85,16 +85,16 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void init(){
-        screen = new Screen(WIDTH, HEIGHT, SCALE);
-        input = new InputHandler(this);
-        level = new Level("/levels/TestingArena.png", screen);
-        player = new Player(150, 150, level, screen, input);
-        ui = new UserInterface(screen, player);
-        ai = new AiManager(player, level, screen, ui);
+        this.screen = new Screen(WIDTH, HEIGHT, SCALE);
+        this.input = new InputHandler(this);
+        this.level = new Level("/levels/TestingArena.png", screen);
+        this.player = new Player(150, 150, level, screen, input);
+        this.ui = new UserInterface(screen, player);
+        this.ai = new AiManager(player, level, screen, ui);
 
-        ui.setAiManager(ai);
-        input.setUi(ui);
-        level.add(player);
+        this.ui.setAiManager(ai);
+        this.input.setUi(ui);
+        this.level.add(player);
     }
 
 
@@ -125,19 +125,14 @@ public class Game extends Canvas implements Runnable{
                 if(!input.escape.isPressed()) tick();
                 delta -= 1;
             }
-
             try{
-                Thread.sleep(2);
-            }
-
-            catch (InterruptedException e ) {
+                Thread.sleep(1);
+            }catch (InterruptedException e ) {
                 e.printStackTrace();
             }
 
-
             frames++;
             render();
-
 
             if (System.currentTimeMillis() - lastTimer >= 1000) {
                 lastTimer += 1000;
