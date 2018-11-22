@@ -25,7 +25,8 @@ public class PathFinder {
     }
 
     // Loop through all enemies and calculate their path
-    public ArrayList<Queue<Point>> getEnemyPaths(){
+    public ArrayList<Queue<Point>> getEnemyPaths(ArrayList<Enemy> enemies){
+        this.enemies = enemies;
         ArrayList<Queue<Point>> pths = new ArrayList<>();
 
         paths.clear();

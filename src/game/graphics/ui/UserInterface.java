@@ -98,6 +98,16 @@ public class UserInterface {
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
         experienceBar.setCurrentBarPercentage(player.getMaxExperience(), player.getCurrentExperience());
         abilityBar.setCurrentBarPercentage(100, 50);
+
+        enemies = ai.getEnemies();
+
+        //If a new enemy has been created then create a new health bar for it.
+        if(enemyHealthBars.size() < enemies.size()){
+            enemyHealthBars.add(new RectangleProgressBar(screen, (int)enemies.get(enemies.size() - 1).getX() - 3, (int)enemies.get(enemies.size() - 1).getY() - 8, 20, 6));
+            enemyHealthBars.get(enemyHealthBars.size()-1).setFixed(true);
+            enemyHealthBars.get(enemyHealthBars.size()-1).setBarColours(0x000055, 0xffffff);
+        }
+
         for(int i = 0; i < enemies.size(); i++) {
             enemyHealthBars.get(i).setPos((int) enemies.get(i).getX() - 3, (int) enemies.get(i).getY() - 8);
             enemyHealthBars.get(i).setCurrentBarPercentage(enemies.get(i).getMaxLife(), enemies.get(i).getLife());

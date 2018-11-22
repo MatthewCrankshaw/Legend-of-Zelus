@@ -7,11 +7,11 @@ import game.graphics.Screen;
 
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
-import org.omg.PortableServer.POA;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.Random;
 
 public class AiManager {
 
@@ -23,6 +23,9 @@ public class AiManager {
 
     private long pathFindLastTime;
     private float pathFindInterval; //in seconds
+
+    private long enemySpawnLastTime;
+    private float enemySpawnInterval;
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
@@ -38,16 +41,28 @@ public class AiManager {
         this.spawner = new Spawner(level, screen);
         initializeEnemies();
         this.pathFinder = new PathFinder(friendPlayer, enemies, level);
+
         pathFindLastTime = System.currentTimeMillis();
         pathFindInterval = 0.6f;
-        moveSets = pathFinder.getEnemyPaths();
+
+        enemySpawnLastTime = System.currentTimeMillis();
+        enemySpawnInterval = 5.5f;
+
+        moveSets = pathFinder.getEnemyPaths(enemies);
     }
 
     public void tick(){
         //Recalculate the path every so often as described by the pathFindInterval
         long currentTime = System.currentTimeMillis();
+        if((currentTime - enemySpawnLastTime)/1000.0f >= enemySpawnInterval){
+            spawnZombieAI();
+            enemySpawnLastTime = currentTime;
+            moveSets = pathFinder.getEnemyPaths(enemies);
+        }
+
+        currentTime = System.currentTimeMillis();
         if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
-            moveSets = pathFinder.getEnemyPaths();
+            moveSets = pathFinder.getEnemyPaths(enemies);
             pathFindLastTime = currentTime;
         }
 
@@ -104,5 +119,24 @@ public class AiManager {
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    private void spawnZombieAI(){
+        Random rand = new Random();
+        int x = Math.abs(rand.nextInt() % 300);
+        int y = Math.abs(rand.nextInt() % 500);
+        int type = Math.abs(rand.nextInt() % 3);
+
+        switch (type){
+            case 0:
+                enemies.addAll(spawner.spawnEnemies(x, y, Spawner.Type.ENEMY_ZOMBIE, 1));
+                break;
+            case 1:
+                enemies.addAll(spawner.spawnEnemies(x, y, Spawner.Type.ENEMY_WIZARD, 1));
+                break;
+            case 2:
+                enemies.addAll(spawner.spawnEnemies(x, y, Spawner.Type.ENEMY_DEATH_KEEPER, 1));
+                break;
+        }
     }
 }
