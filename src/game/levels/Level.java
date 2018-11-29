@@ -1,11 +1,14 @@
 package game.levels;
 
 import game.entities.Entity;
+import game.entities.EnvironmentEntity;
 import game.entities.Spawner;
 import game.entities.mob.Enemy;
 import game.entities.mob.Mob;
 import game.entities.particles.Particle;
 import game.graphics.Screen;
+import game.graphics.SpriteSheet;
+import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 
@@ -24,6 +27,8 @@ public class Level {
     private int width;
     private int height;
 
+    private BufferedImage environmentMap;
+
     private List<Entity> entities = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
     public static TileManager TILE_MANAGER;
@@ -34,6 +39,11 @@ public class Level {
         loadLevelFromFile(path);
         TILE_MANAGER = new TileManager(width, height);
         spawner = new Spawner(this, screen);
+        init();
+    }
+
+    private void init(){
+        spawner.spawnEnvironmentEntitiesInArea(20, 200, 400, 200, Spawner.Type.ENVIRONMENT_TREE,10, Sprite.tree_sprite);
     }
 
     protected void loadLevelFromFile(String path){
@@ -52,7 +62,7 @@ public class Level {
     public void add(Entity entity){
         if (entity instanceof Particle) {
             particles.add((Particle) entity);
-        }else if (entity instanceof Mob){
+        }else{
             entities.add(entity);
         }
     }

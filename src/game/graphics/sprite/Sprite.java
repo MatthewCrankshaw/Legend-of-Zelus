@@ -17,6 +17,8 @@ public class Sprite {
     public static Sprite particle_green = new Sprite(1, 0x00aa00);
     public static Sprite particle_red2 = new Sprite(2, 0xff0000);
 
+    public static Sprite tree_sprite = new Sprite(32,0, 0, SpriteSheet.environment_32);
+
 
     //Projectile Sprites
     public static Sprite[] fireballSprites = {
