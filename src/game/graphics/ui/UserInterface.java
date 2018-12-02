@@ -105,7 +105,7 @@ public class UserInterface {
         if(enemyHealthBars.size() < enemies.size()){
             enemyHealthBars.add(new RectangleProgressBar(screen, (int)enemies.get(enemies.size() - 1).getX() - 3, (int)enemies.get(enemies.size() - 1).getY() - 8, 20, 6));
             enemyHealthBars.get(enemyHealthBars.size()-1).setFixed(true);
-            enemyHealthBars.get(enemyHealthBars.size()-1).setBarColours(0x000055, 0xffffff);
+            enemyHealthBars.get(enemyHealthBars.size()-1).setBarColours(0x00ff00, 0xffffff);
         }
 
         for(int i = 0; i < enemies.size(); i++) {
@@ -217,7 +217,7 @@ public class UserInterface {
         for(int i = 0; i < enemies.size(); i++) {
             enemybars.add(new RectangleProgressBar(screen, (int)enemies.get(i).getX(), (int)enemies.get(i).getY(), 20, 6));
             enemybars.get(i).setFixed(true);
-            enemybars.get(i).setBarColours(0x000055, 0xffffff);
+            enemybars.get(i).setBarColours(0x00ff00, 0xffffff);
         }
         return enemybars;
     }

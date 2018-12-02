@@ -29,9 +29,6 @@ public class AiManager {
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
-//    private ArrayList<ArrayList<Point>> moveSet;
-//    private ArrayList<Integer> moveCounter;
-
     private ArrayList<Queue<Point>> moveSets;
 
     public AiManager(Player friendPlayer, Level level, Screen screen, UserInterface ui){
