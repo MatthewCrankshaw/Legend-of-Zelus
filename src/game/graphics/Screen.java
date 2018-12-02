@@ -1,5 +1,4 @@
 package game.graphics;
-
 import game.graphics.sprite.FontSprite;
 import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
@@ -7,6 +6,8 @@ import game.levels.tile.animated_tiles.AnimatedTile;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * Created by Matthew.c on 25/01/2017.
@@ -254,5 +255,128 @@ public class Screen {
 
     public double getyOffset() {
         return yOffset;
+    }
+
+    public int getPixelsNoFilter(int i) {
+        return pixels[i];
+    }
+
+    public int getPixelsSmoothingFilter(int i){
+        int row;
+        row = i/ width;
+        int col = i% width;
+
+        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return 0;
+
+        int[] kernel = new int[9];
+        int[] rkernel = new int[9];
+        int[] gkernel = new int[9];
+        int[] bkernel = new int[9];
+
+        kernel[0] = pixels[((row - 1) * width) + (col - 1)];
+        kernel[1] = pixels[((row - 1) * width) + (col)];
+        kernel[2] = pixels[((row - 1) * width) + (col + 1)];
+        kernel[3] = pixels[((row) * width) + (col - 1)];
+        kernel[4] = pixels[((row) * width) + (col)];
+        kernel[5] = pixels[((row) * width) + (col + 1)];
+        kernel[6] = pixels[((row + 1) * width)+ (col - 1)];
+        kernel[7] = pixels[((row + 1) * width) + (col)];
+        kernel[8] = pixels[((row + 1) * width) + (col + 1)];
+
+        for(int a = 0; a < 9; a++){
+            rkernel[a] = (kernel[a] >> 16) & 0xff;
+            gkernel[a] = (kernel[a] >> 8) & 0xff;
+            bkernel[a] = kernel[a] & 0xff;
+        }
+
+        int avgr = 0, avgg = 0, avgb = 0, rtot = 0, gtot = 0, btot = 0;
+        for(int a = 0; a < 9; a++){
+            rtot += rkernel[a];
+            gtot += gkernel[a];
+            btot += bkernel[a];
+        }
+
+        avgr = rtot/9;
+        avgg = gtot/9;
+        avgb = btot/9;
+
+        return new Color(avgr, avgg, avgb).getRGB();
+    }
+
+
+    public int getPixelsSimpleAAFilter(int i) {
+
+        int row = i/width;
+        int col = i%width;
+
+        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return 0;
+
+        int[] kernel = new int[9];
+        int[] rkernel = new int[9];
+        int[] gkernel = new int[9];
+        int[] bkernel = new int[9];
+        float[] weight = {0.3f, 0.3f, 0.3f, 0.3f,6.6f,0.3f,0.3f,0.3f,0.3f};
+
+        kernel[0] = pixels[((row - 1) * width) + (col - 1)];
+        kernel[1] = pixels[((row - 1) * width) + (col)];
+        kernel[2] = pixels[((row - 1) * width) + (col + 1)];
+        kernel[3] = pixels[((row) * width) + (col - 1)];
+        kernel[4] = pixels[((row) * width) + (col)];
+        kernel[5] = pixels[((row) * width) + (col + 1)];
+        kernel[6] = pixels[((row + 1) * width)+ (col - 1)];
+        kernel[7] = pixels[((row + 1) * width) + (col)];
+        kernel[8] = pixels[((row + 1) * width) + (col + 1)];
+
+        for(int a = 0; a < 9; a++){
+            rkernel[a] = (kernel[a] >> 16) & 0xff;
+            gkernel[a] = (kernel[a] >> 8) & 0xff;
+            bkernel[a] = kernel[a] & 0xff;
+        }
+
+        int avgr, avgg, avgb, rtot = 0, gtot = 0, btot = 0;
+                for(int a = 0; a < 9; a++){
+            rtot += rkernel[a] * weight[a];
+            gtot += gkernel[a] * weight[a];
+            btot += bkernel[a] * weight[a];
+        }
+
+        avgr = rtot/9;
+        avgg = gtot/9;
+        avgb = btot/9;
+
+        return new Color(avgr, avgg, avgb).getRGB();
+    }
+
+    public int getPixelsMedianBlur(int i){
+        int row = i/width;
+        int col = i%width;
+
+        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return 0;
+        int[] kernel = new int[9];
+        int[] rkernel = new int[9];
+        int[] gkernel = new int[9];
+        int[] bkernel = new int[9];
+
+        kernel[0] = pixels[((row - 1) * width) + (col - 1)];
+        kernel[1] = pixels[((row - 1) * width) + (col)];
+        kernel[2] = pixels[((row - 1) * width) + (col + 1)];
+        kernel[3] = pixels[((row) * width) + (col - 1)];
+        kernel[4] = pixels[((row) * width) + (col)];
+        kernel[5] = pixels[((row) * width) + (col + 1)];
+        kernel[6] = pixels[((row + 1) * width)+ (col - 1)];
+        kernel[7] = pixels[((row + 1) * width) + (col)];
+        kernel[8] = pixels[((row + 1) * width) + (col + 1)];
+
+        for(int a = 0; a < 9; a++){
+            rkernel[a] = (kernel[a] >> 16) & 0xff;
+            gkernel[a] = (kernel[a] >> 8) & 0xff;
+            bkernel[a] = kernel[a] & 0xff;
+        }
+
+        Arrays.sort(rkernel);
+        Arrays.sort(gkernel);
+        Arrays.sort(bkernel);
+
+        return new Color(rkernel[4], gkernel[4], bkernel[4]).getRGB();
     }
 }

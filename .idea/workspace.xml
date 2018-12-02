@@ -87,9 +87,14 @@
       <find>tick</find>
       <find>initial</find>
       <find>enemyHealthBars</find>
+      <find>init</find>
+      <find>WIDTH</find>
+      <find>HEIGHT</find>
     </findStrings>
     <replaceStrings>
       <replace>enemies</replace>
+      <replace>width</replace>
+      <replace>height</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -134,7 +139,6 @@
         <option value="$PROJECT_DIR$/src/game/animators/mob_animators/MobAnimator.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Mob.java" />
         <option value="$PROJECT_DIR$/src/game/animators/mob_animators/CharacterAnimator.java" />
-        <option value="$PROJECT_DIR$/src/game/graphics/Screen.java" />
         <option value="$PROJECT_DIR$/src/game/ai/Node.java" />
         <option value="$PROJECT_DIR$/src/game/entities/ability/ability_managers/AbilityManager.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Enemy.java" />
@@ -146,8 +150,8 @@
         <option value="$PROJECT_DIR$/src/game/entities/ability/ability_managers/FireballManager.java" />
         <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
         <option value="$PROJECT_DIR$/src/game/entities/Entity.java" />
-        <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/ai/PathFinder.java" />
+        <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
         <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java" />
@@ -158,10 +162,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-740" />
-    <option name="y" value="36" />
-    <option name="width" value="2529" />
-    <option name="height" value="1129" />
+    <option name="x" value="1984" />
+    <option name="y" value="162" />
+    <option name="width" value="2213" />
+    <option name="height" value="1097" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -815,6 +819,17 @@
           <folding>
             <element signature="e#5583#5584#0" expanded="true" />
             <element signature="e#5617#5618#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="180" column="12" lean-forward="false" selection-start-line="180" selection-start-column="12" selection-end-line="180" selection-end-column="12" />
+          <folding>
+            <element signature="e#3779#3780#0" expanded="true" />
+            <element signature="e#3819#3820#0" expanded="true" />
           </folding>
         </state>
       </provider>

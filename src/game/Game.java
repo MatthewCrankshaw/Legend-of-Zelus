@@ -12,19 +12,21 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
 
     private static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private static int WIDTH = (screensize.width/2)-(screensize.width/15);
-    private static int HEIGHT = (screensize.height/2)-(screensize.height/15);
+    private static int WIDTH = (screensize.width / 2) - (screensize.width / 15);
+    private static int HEIGHT = (screensize.height / 2) - (screensize.height / 15);
     private static int SCALE;
     private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
     private UserInterface ui;
     private InputHandler input;
@@ -38,25 +40,25 @@ public class Game extends Canvas implements Runnable{
         System.out.println("Screen Width: " + screensize.width + " Screen Height: " + screensize.height + " Number of Pixels: " + numpixels);
 
 
-        if(numpixels < 1000000){
+        if (numpixels < 1000000) {
             WIDTH = screensize.width;
             HEIGHT = screensize.height;
             SCALE = 1;
             System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
 
-        }else if(numpixels > 1000000 && numpixels < 2000000){
-            WIDTH = (screensize.width/2);
-            HEIGHT = (screensize.height/2);
+        } else if (numpixels > 1000000 && numpixels < 2000000) {
+            WIDTH = (screensize.width / 2);
+            HEIGHT = (screensize.height / 2);
             SCALE = 2;
             System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
-        }else if(numpixels > 2000000 && numpixels < 4000000){
-            WIDTH = (screensize.width/4);
-            HEIGHT = (screensize.height/4);
+        } else if (numpixels > 2000000 && numpixels < 4000000) {
+            WIDTH = (screensize.width / 4);
+            HEIGHT = (screensize.height / 4);
             SCALE = 4;
             System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
-        }else if(numpixels > 4000000 && numpixels < 8000000){
-            WIDTH = (screensize.width/8);
-            HEIGHT = (screensize.height/8);
+        } else if (numpixels > 4000000 && numpixels < 8000000) {
+            WIDTH = (screensize.width / 8);
+            HEIGHT = (screensize.height / 8);
             SCALE = 8;
             System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
         }
@@ -65,10 +67,10 @@ public class Game extends Canvas implements Runnable{
         new Game().start();
     }
 
-    public Game(){
-        setMinimumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
-        setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
-        setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
+    public Game() {
+        setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
         JFrame frame = new JFrame(NAME);
 
@@ -84,7 +86,7 @@ public class Game extends Canvas implements Runnable{
         frame.setVisible(true);
     }
 
-    private void init(){
+    private void init() {
         this.screen = new Screen(WIDTH, HEIGHT, SCALE);
         this.input = new InputHandler(this);
         this.level = new Level("/levels/TestingArena.png", screen);
@@ -98,14 +100,14 @@ public class Game extends Canvas implements Runnable{
     }
 
 
-    private synchronized void start(){
+    private synchronized void start() {
         new Thread(this).start();
     }
 
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        double nsPerTick = 1000000000D/60;
+        double nsPerTick = 1000000000D / 60;
 
         int frames = 0;
         int ticks = 0;
@@ -116,18 +118,18 @@ public class Game extends Canvas implements Runnable{
 
         init();
 
-        while(true){
+        while (true) {
             long now = System.nanoTime();
             delta += (now - lastTime) / nsPerTick;
             lastTime = now;
-            while(delta >= 1) {
+            while (delta >= 1) {
                 ticks++;
-                if(!input.escape.isPressed()) tick();
+                if (!input.escape.isPressed()) tick();
                 delta -= 1;
             }
-            try{
+            try {
                 Thread.sleep(1);
-            }catch (InterruptedException e ) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -143,10 +145,10 @@ public class Game extends Canvas implements Runnable{
         }
     }
 
-    public void tick(){
+    public void tick() {
         //tickCount++;
         //if paused don't update these
-        if(!ui.isGamePaused()) {
+        if (!ui.isGamePaused()) {
             level.tick();
             ai.tick();
         }
@@ -154,7 +156,7 @@ public class Game extends Canvas implements Runnable{
     }
 
 
-    public void render(){
+    public void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
@@ -164,24 +166,31 @@ public class Game extends Canvas implements Runnable{
         screen.clear();
 
         //Make sure game is not paused
-        if(!ui.isGamePaused()){
+        if (!ui.isGamePaused()) {
             ui.setGamePaused(false);
             int playerx = (int) player.getX() - screen.getWidth() / 2;
             int playery = (int) player.getY() - screen.getHeight() / 2;
             level.render(screen, playerx, playery);
-        }else{
+        } else {
             ui.setGamePaused(true);
         }
         ui.render();
 
-        for (int i = 0; i < pixels.length; i ++) {
-            pixels[i] = screen.pixels[i];
+
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = screen.getPixelsNoFilter(i);
+            //pixels[i] = screen.getPixelsSmoothingFilter(i);
+            //pixels[i] = screen.getPixelsSimpleAAFilter(i);
+            //pixels[i] = screen.getPixelsMedianBlur(i);
         }
 
+        //getPixelsSimpleAAFilter();
+        //getPixelsMedianBlur();
+
         Graphics g = bs.getDrawGraphics();
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
         g2.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-        g2.drawImage(image, 0,0,getWidth(), getHeight(), null);
+        g2.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g2.dispose();
         bs.show();
     }
