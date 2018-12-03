@@ -178,10 +178,7 @@ public class Game extends Canvas implements Runnable {
 
 
         for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = screen.getPixelsNoFilter(i);
-            //pixels[i] = screen.getPixelsSmoothingFilter(i);
-            //pixels[i] = screen.getPixelsSimpleAAFilter(i);
-            //pixels[i] = screen.getPixelsMedianBlur(i);
+            pixels[i] = screen.getPixels(i);
         }
 
         //getPixelsSimpleAAFilter();

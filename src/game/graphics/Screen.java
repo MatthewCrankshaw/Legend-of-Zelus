@@ -22,12 +22,19 @@ public class Screen {
 
     public int[] pixels;
 
+    // Filters
+    private boolean AAFilterEnabled, MedianBlurEnabled, SmoothingFilterEnabled;
+
 
     public Screen(int width, int height, int scale){
         this.width = width;
         this.height = height;
         this.scale = scale;
-        pixels = new int[width * height];
+        this.pixels = new int[width * height];
+
+        this.AAFilterEnabled = false;
+        this.MedianBlurEnabled = false;
+        this.SmoothingFilterEnabled = false;
     }
 
     public void clear(){
@@ -257,16 +264,42 @@ public class Screen {
         return yOffset;
     }
 
-    public int getPixelsNoFilter(int i) {
+
+    //===================================================================
+    // Filters
+    //===================================================================
+
+    public int getPixels(int i) {
+        if(SmoothingFilterEnabled){
+            getPixelsSmoothingFilter(i);
+        }
+        if(MedianBlurEnabled){
+            getPixelsMedianBlur(i);
+        }
+        if(AAFilterEnabled){
+            getPixelsSimpleAAFilter(i);
+        }
         return pixels[i];
     }
 
-    public int getPixelsSmoothingFilter(int i){
+    public void setAAFilterEnabled(boolean AAFilterEnabled) {
+        this.AAFilterEnabled = AAFilterEnabled;
+    }
+
+    public void setMedianBlurEnabled(boolean medianBlurEnabled) {
+        MedianBlurEnabled = medianBlurEnabled;
+    }
+
+    public void setSmoothingFilterEnabled(boolean smoothingFilterEnabled) {
+        SmoothingFilterEnabled = smoothingFilterEnabled;
+    }
+
+    private void getPixelsSmoothingFilter(int i){
         int row;
         row = i/ width;
         int col = i% width;
 
-        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return 0;
+        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return;
 
         int[] kernel = new int[9];
         int[] rkernel = new int[9];
@@ -300,16 +333,16 @@ public class Screen {
         avgg = gtot/9;
         avgb = btot/9;
 
-        return new Color(avgr, avgg, avgb).getRGB();
+        pixels[i] = new Color(avgr, avgg, avgb).getRGB();
     }
 
 
-    public int getPixelsSimpleAAFilter(int i) {
+    private void getPixelsSimpleAAFilter(int i) {
 
         int row = i/width;
         int col = i%width;
 
-        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return 0;
+        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return;
 
         int[] kernel = new int[9];
         int[] rkernel = new int[9];
@@ -344,14 +377,14 @@ public class Screen {
         avgg = gtot/9;
         avgb = btot/9;
 
-        return new Color(avgr, avgg, avgb).getRGB();
+        pixels[i] = new Color(avgr, avgg, avgb).getRGB();
     }
 
-    public int getPixelsMedianBlur(int i){
+    private void getPixelsMedianBlur(int i){
         int row = i/width;
         int col = i%width;
 
-        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return 0;
+        if(row == 0 || col == 0 || row == height - 1 || col == width -1) return;
         int[] kernel = new int[9];
         int[] rkernel = new int[9];
         int[] gkernel = new int[9];
@@ -377,6 +410,6 @@ public class Screen {
         Arrays.sort(gkernel);
         Arrays.sort(bkernel);
 
-        return new Color(rkernel[4], gkernel[4], bkernel[4]).getRGB();
+       pixels[i] = new Color(rkernel[4], gkernel[4], bkernel[4]).getRGB();
     }
 }
