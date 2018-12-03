@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class UserInterface {
 
-    public enum MenuLevel{NONE ,PAUSE, SETTINGS}
+    public enum MenuLevel{NONE ,PAUSE, SETTINGS, VIDEO}
 
     protected Screen screen;
     protected Player player;
@@ -29,10 +29,12 @@ public class UserInterface {
     private UIButton menuButton;
 
     private final String[] pauseButtonNames = {"Paused", "Settings", "Back", "Quit"};
-    private final String[] settingsButtonNames = {"Settings", "Draw Positions", "Draw Paths", "Back"};
+    private final String[] settingsButtonNames = {"Settings", "Video", "Draw Positions", "Draw Paths", "Back"};
+    private final String[] videoButtonNames = {"Video", "AA Filter", "Median Blur Filter", "Smoothing Filter", "Back"};
 
     private ArrayList<UIButton> pauseButtons;
     private ArrayList<UIButton> settingsButtons;
+    private ArrayList<UIButton> videoButtons;
 
     private ArrayList<UILabel> labels;
 
@@ -83,6 +85,7 @@ public class UserInterface {
         //========================================================================================
         pauseButtons = setupMenuButtons(pauseButtonNames);
         settingsButtons = setupMenuButtons(settingsButtonNames);
+        videoButtons = setupMenuButtons(videoButtonNames);
 
         labels = new ArrayList<>();
     }
@@ -139,6 +142,10 @@ public class UserInterface {
                         b.render();
                     }
                     break;
+                case VIDEO:
+                    for(UIButton b: videoButtons){
+                        b.render();
+                    }
             }
         }
 
@@ -160,30 +167,59 @@ public class UserInterface {
         if(currentManuLevel == MenuLevel.PAUSE) {
             for (UIButton b : pauseButtons) {
                 if (b.isPressed(x, y)) {
-                    if (b.getLabel().equals("Settings")) {
-                        currentManuLevel = MenuLevel.SETTINGS;
-                    } else if (b.getLabel().equals("Back")) {
-                        setGamePaused(false);
-                        return -1;
-                    } else if (b.getLabel().equals("Quit")) {
-                        System.out.println("INFO: User has exited program!");
-                        System.exit(0);
+                    switch (b.getLabel()) {
+                        case "Settings":
+                            currentManuLevel = MenuLevel.SETTINGS;
+                            break;
+                        case "Back":
+                            setGamePaused(false);
+                            return -1;
+                        case "Quit":
+                            System.out.println("INFO: User has exited program!");
+                            System.exit(0);
                     }
                 }
             }
         }else if(currentManuLevel == MenuLevel.SETTINGS) {
             for (UIButton b : settingsButtons) {
                 if (b.isPressed(x, y)) {
-                    if (b.getLabel().equals("Back")) {
-                        currentManuLevel = MenuLevel.PAUSE;
-                    }else if(b.getLabel().equals("Draw Paths")){
-                        showEnemyPath = !showEnemyPath;
-                        setGamePaused(false);
-                        return -1;
-                    }else if(b.getLabel().equals("Draw Positions")){
-                        showPositions = !showPositions;
-                        setGamePaused(false);
-                        return -1;
+                    switch (b.getLabel()) {
+                        case "Back":
+                            currentManuLevel = MenuLevel.PAUSE;
+                            break;
+                        case "Video":
+                            currentManuLevel = MenuLevel.VIDEO;
+                            break;
+                        case "Draw Paths":
+                            showEnemyPath = !showEnemyPath;
+                            setGamePaused(false);
+                            return -1;
+                        case "Draw Positions":
+                            showPositions = !showPositions;
+                            setGamePaused(false);
+                            return -1;
+                    }
+                }
+            }
+        }else if(currentManuLevel == MenuLevel.VIDEO){
+            for(UIButton b : videoButtons){
+                if(b.isPressed(x, y)){
+                    switch (b.getLabel()) {
+                        case "Back":
+                            currentManuLevel = MenuLevel.SETTINGS;
+                            break;
+                        case "AA Filter":
+                            screen.switchAAFilterEnabled();
+                            setGamePaused(false);
+                            return -1;
+                        case "Median Blur Filter":
+                            screen.switchMedianBlurEnabled();
+                            setGamePaused(false);
+                            return -1;
+                        case "Smoothing Filter":
+                            screen.switchSmoothingFilterEnabled();
+                            setGamePaused(false);
+                            return -1;
                     }
                 }
             }
@@ -196,7 +232,7 @@ public class UserInterface {
         boolean clickable;
         ArrayList<UIButton> buttons = new ArrayList<>();
         for(int i = 0; i < buttonNames.length; i++){
-            width = screen.getWidth() / 4;
+            width = screen.getWidth() / 3;
             height = screen.getHeight() /15;
             clickable = true;
             if(i == 0){

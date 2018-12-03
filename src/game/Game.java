@@ -181,9 +181,6 @@ public class Game extends Canvas implements Runnable {
             pixels[i] = screen.getPixels(i);
         }
 
-        //getPixelsSimpleAAFilter();
-        //getPixelsMedianBlur();
-
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2 = (Graphics2D) g;
         g2.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));

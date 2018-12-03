@@ -282,12 +282,28 @@ public class Screen {
         return pixels[i];
     }
 
-    public void setAAFilterEnabled(boolean AAFilterEnabled) {
-        this.AAFilterEnabled = AAFilterEnabled;
+    public void switchAAFilterEnabled(){
+        if (AAFilterEnabled){
+            AAFilterEnabled = false;
+        }else{
+            AAFilterEnabled = true;
+        }
     }
 
-    public void setMedianBlurEnabled(boolean medianBlurEnabled) {
-        MedianBlurEnabled = medianBlurEnabled;
+    public void switchMedianBlurEnabled(){
+        if(MedianBlurEnabled){
+            MedianBlurEnabled = false;
+        }else{
+            MedianBlurEnabled = true;
+        }
+    }
+
+    public void switchSmoothingFilterEnabled(){
+        if(SmoothingFilterEnabled){
+            SmoothingFilterEnabled = false;
+        }else{
+            SmoothingFilterEnabled = true;
+        }
     }
 
     public void setSmoothingFilterEnabled(boolean smoothingFilterEnabled) {

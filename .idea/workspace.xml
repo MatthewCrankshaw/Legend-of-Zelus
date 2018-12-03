@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec28eedc-2dcd-4b2b-87bc-8199667112a8" name="Default" comment="Fixed Issues with uncommited changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/game/Game.java" afterPath="$PROJECT_DIR$/src/game/Game.java" />
       <change beforePath="$PROJECT_DIR$/src/game/graphics/Screen.java" afterPath="$PROJECT_DIR$/src/game/graphics/Screen.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" afterPath="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
     </list>
     <ignored path="JavaGame2D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +30,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="179" column="49" lean-forward="false" selection-start-line="179" selection-start-column="49" selection-end-line="179" selection-end-column="49" />
+            <state relative-caret-position="352">
+              <caret line="181" column="9" lean-forward="false" selection-start-line="181" selection-start-column="9" selection-end-line="181" selection-end-column="9" />
               <folding>
                 <element signature="e#3779#3780#0" expanded="true" />
                 <element signature="e#3819#3820#0" expanded="true" />
@@ -40,50 +40,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Screen.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Screen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
-              <folding>
-                <element signature="e#9015#9016#0" expanded="true" />
-                <element signature="e#9069#9070#0" expanded="true" />
-                <element signature="e#9136#9137#0" expanded="true" />
-                <element signature="e#9189#9190#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="483">
+              <caret line="307" column="0" lean-forward="false" selection-start-line="307" selection-start-column="0" selection-end-line="307" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AiManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/ai/AiManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5">
-              <caret line="109" column="5" lean-forward="true" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
-              <folding>
-                <element signature="e#3951#3952#0" expanded="true" />
-                <element signature="e#3981#3982#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="219" column="49" lean-forward="false" selection-start-line="219" selection-start-column="49" selection-end-line="219" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Level.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/levels/Level.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="85" column="38" lean-forward="false" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="508">
+              <caret line="257" column="25" lean-forward="true" selection-start-line="234" selection-start-column="41" selection-end-line="257" selection-end-column="25" />
+              <folding>
+                <element signature="e#12454#12455#0" expanded="true" />
+                <element signature="e#12492#12493#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -165,7 +140,6 @@
         <option value="$PROJECT_DIR$/src/game/entities/mob/Player.java" />
         <option value="$PROJECT_DIR$/src/game/entities/Entity.java" />
         <option value="$PROJECT_DIR$/src/game/ai/PathFinder.java" />
-        <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
         <option value="$PROJECT_DIR$/src/game/ai/AiManager.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/sprite/Sprite.java" />
         <option value="$PROJECT_DIR$/src/game/entities/EnvironmentEntity.java" />
@@ -173,6 +147,7 @@
         <option value="$PROJECT_DIR$/src/game/levels/Level.java" />
         <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/graphics/Screen.java" />
+        <option value="$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java" />
       </list>
     </option>
   </component>
@@ -424,7 +399,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="328555000" />
+    <option name="totallyTimeSpent" value="329903000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -816,25 +791,6 @@
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/awt/image/BufferedImage.class" />
-    <entry file="file://$PROJECT_DIR$/src/game/levels/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="85" column="38" lean-forward="false" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="179" column="49" lean-forward="false" selection-start-line="179" selection-start-column="49" selection-end-line="179" selection-end-column="49" />
-          <folding>
-            <element signature="e#3779#3780#0" expanded="true" />
-            <element signature="e#3819#3820#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/ai/AiManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5">
@@ -846,23 +802,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
+    <entry file="file://$PROJECT_DIR$/src/game/levels/Level.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="219" column="49" lean-forward="false" selection-start-line="219" selection-start-column="49" selection-end-line="219" selection-end-column="49" />
+        <state relative-caret-position="185">
+          <caret line="85" column="38" lean-forward="false" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="181" column="9" lean-forward="false" selection-start-line="181" selection-start-column="9" selection-end-line="181" selection-end-column="9" />
+          <folding>
+            <element signature="e#3779#3780#0" expanded="true" />
+            <element signature="e#3819#3820#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/graphics/Screen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+        <state relative-caret-position="483">
+          <caret line="307" column="0" lean-forward="false" selection-start-line="307" selection-start-column="0" selection-end-line="307" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/graphics/ui/UserInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="257" column="25" lean-forward="true" selection-start-line="234" selection-start-column="41" selection-end-line="257" selection-end-column="25" />
           <folding>
-            <element signature="e#9015#9016#0" expanded="true" />
-            <element signature="e#9069#9070#0" expanded="true" />
-            <element signature="e#9136#9137#0" expanded="true" />
-            <element signature="e#9189#9190#0" expanded="true" />
+            <element signature="e#12454#12455#0" expanded="true" />
+            <element signature="e#12492#12493#0" expanded="true" />
           </folding>
         </state>
       </provider>
