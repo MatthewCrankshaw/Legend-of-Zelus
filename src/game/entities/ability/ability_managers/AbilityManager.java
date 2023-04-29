@@ -34,7 +34,7 @@ public abstract class AbilityManager {
 
     public abstract void renderSprite(double x, double y);
 
-    public abstract void castAbility(int x, int y);
+    protected abstract void castAbility(int x, int y);
 
     public boolean isInAnimation(){
         return inAnimation;

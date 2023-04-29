@@ -14,30 +14,25 @@ import java.util.Queue;
 import java.util.Random;
 
 public class AiManager {
-
     private Level level;
     private Screen screen;
     private UserInterface ui;
     private PathFinder pathFinder;
     private Spawner spawner;
-
     private long pathFindLastTime;
     private float pathFindInterval; //in seconds
-
     private long enemySpawnLastTime;
     private float enemySpawnInterval;
-
     private ArrayList<Enemy> enemies = new ArrayList<>();
-
     private ArrayList<Queue<Point>> moveSets;
 
-    public AiManager(Player friendPlayer, Level level, Screen screen, UserInterface ui){
+    public AiManager(Level level, Screen screen, UserInterface ui, Spawner spawner, PathFinder pathFinder, ArrayList<Enemy> enemies){
         this.level = level;
         this.screen = screen;
         this.ui = ui;
-        this.spawner = new Spawner(level, screen);
-        initializeEnemies();
-        this.pathFinder = new PathFinder(friendPlayer, enemies, level);
+        this.spawner = spawner;
+        this.pathFinder = pathFinder;
+        this.enemies = enemies;
 
         pathFindLastTime = System.currentTimeMillis();
         pathFindInterval = 0.6f;
@@ -48,43 +43,44 @@ public class AiManager {
         moveSets = pathFinder.getEnemyPaths(enemies);
     }
 
-    public void tick(){
+    public void tick() {
         //Recalculate the path every so often as described by the pathFindInterval
         long currentTime = System.currentTimeMillis();
-        if((currentTime - enemySpawnLastTime)/1000.0f >= enemySpawnInterval){
+        if ((currentTime - enemySpawnLastTime) / 1000.0f >= enemySpawnInterval) {
             spawnZombieAI();
             enemySpawnLastTime = currentTime;
             moveSets = pathFinder.getEnemyPaths(enemies);
         }
 
         currentTime = System.currentTimeMillis();
-        if((currentTime - pathFindLastTime)/1000.0f  >= pathFindInterval) {
+        if ((currentTime - pathFindLastTime) / 1000.0f >= pathFindInterval) {
             moveSets = pathFinder.getEnemyPaths(enemies);
             pathFindLastTime = currentTime;
         }
 
-        for(int i = 0; i < enemies.size(); i++) {
-            if (!enemies.get(i).isAlive()){
+        for (int i = 0; i < enemies.size(); i++) {
+            if (!enemies.get(i).isAlive()) {
                 level.removeEntity(enemies.get(i));
-                ui.addLabel(screen, (int)enemies.get(i).getX(), (int)enemies.get(i).getY(),"10 Exp", true, true, 1000, 0xffffff00);
+                ui.addLabel(screen, (int) enemies.get(i).getX(), (int) enemies.get(i).getY(), "10 Exp", true, true, 1000, 0xffffff00);
                 enemies.remove(i);
                 continue;
             }
 
             int currentTileX, currentTileY;
-            currentTileX = (int)enemies.get(i).getX();
-            currentTileY = (int)enemies.get(i).getY();
+            currentTileX = (int) enemies.get(i).getX();
+            currentTileY = (int) enemies.get(i).getY();
 
-            if(moveSets.get(i) == null || moveSets == null || moveSets.isEmpty() || moveSets.get(i).isEmpty()) continue;
+            if (moveSets.get(i) == null || moveSets == null || moveSets.isEmpty() || moveSets.get(i).isEmpty())
+                continue;
 
             Point tilexy = moveSets.get(i).peek();
 
-            if(tilexy.x == currentTileX && tilexy.y == currentTileY){
-                if(moveSets.get(i).size() > 1) {
+            if (tilexy.x == currentTileX && tilexy.y == currentTileY) {
+                if (moveSets.get(i).size() > 1) {
                     moveSets.get(i).remove();
                 }
-            }else {
-                if (tilexy.x> currentTileX) {
+            } else {
+                if (tilexy.x > currentTileX) {
                     enemies.get(i).moveRight();
                 } else if (tilexy.x < currentTileX) {
                     enemies.get(i).moveLeft();
@@ -97,16 +93,6 @@ public class AiManager {
                 }
             }
         }
-    }
-
-    private void initializeEnemies(){
-        int numberOfZombies = 1;
-        int numberOfEnemyWiz = 1;
-        int numberOfDeathKeepers = 1;
-
-        enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
-        enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
-        enemies.addAll(spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_DEATH_KEEPER, numberOfDeathKeepers));
     }
 
     public ArrayList<Point> getAIPath(int character) {

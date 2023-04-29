@@ -2,6 +2,8 @@ package game.entities.mob;
 
 import game.InputHandler;
 
+import game.animators.ability_animators.FireballAnimator;
+import game.animators.ability_animators.TeleportAnimator;
 import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.ability.ability_managers.FireballManager;
@@ -11,7 +13,6 @@ import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
-import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyEvent;
 
@@ -52,8 +53,17 @@ public class Player extends Mob {
         this.y = y;
         this.input = input;
 
-        fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, PlayerSprite.playerAttackSprites);
-        teleportManager = new TeleportManager(screen, input, level, this, AnimatedSprite.teleportSprite, Sprite.teleportFloorSign);
+        FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);
+        fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, PlayerSprite.playerAttackSprites, fireballAnimator);
+
+        TeleportAnimator teleportAnimator = new TeleportAnimator(
+                screen,
+                6,
+                AnimatedSprite.teleportSprite,
+                Sprite.teleportFloorSign,
+                Player.TELEPORT_CAST_SPEED/6
+        );
+        teleportManager = new TeleportManager(screen, input, level, this, AnimatedSprite.teleportSprite, Sprite.teleportFloorSign, teleportAnimator);
         characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, this, 100, mobScale);
     }
 

@@ -14,7 +14,7 @@ import game.levels.Level;
  * Created by Matthew.c on 02/02/2017.
  */
 public class FireballManager extends AbilityManager {
-    private FireballAnimator fireballAnimator;
+    private FireballAnimator animator;
     private long lastAbilityCreated;
     private Sprite fireballSprite[];
     private Sprite particleSprite;
@@ -25,7 +25,7 @@ public class FireballManager extends AbilityManager {
     public static int MANA_COST = 40;
 
 
-    public FireballManager(Screen screen, InputHandler input, Level level, Sprite fireballSprite[], Sprite attackSprites[]){
+    public FireballManager(Screen screen, InputHandler input, Level level, Sprite fireballSprite[], Sprite attackSprites[], FireballAnimator animator){
         super(screen, input, level, 5);
         this.timeBetweenAnim = Player.FIREBALL_CAST_SPEED/numOfAnim;
         this.input = input;
@@ -33,7 +33,7 @@ public class FireballManager extends AbilityManager {
         this.readyToShoot = true;
         this.fireballSprite = fireballSprite;
         this.particleSprite = Sprite.particle_red;
-        this.fireballAnimator = new FireballAnimator(screen, 4, attackSprites, this);
+        this.animator = animator;
         this.spawner = new Spawner(level, screen);
     }
 
@@ -55,11 +55,15 @@ public class FireballManager extends AbilityManager {
     }
 
     public void renderSprite(double x, double y){
-        fireballAnimator.renderSprite((int) x, (int) y);
+        animator.renderSprite((int) x, (int) y);
+        setInAnimation(animator.isInAnimation());
+        if (animator.castAbility()) {
+            castAbility((int)x, (int)y);
+        }
     }
 
     @Override
-    public void castAbility(int x, int y) {
+    protected void castAbility(int x, int y) {
         addAbilityInstance(new FireballProjectile(level, screen, x, y, getDir(), fireballSprite));
     }
 

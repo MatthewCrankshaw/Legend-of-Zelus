@@ -14,14 +14,13 @@ public class PathFinder {
 
     private Player player;
     private ArrayList<Enemy> enemies;
-    private ArrayList<ArrayList<Point> > paths;
+    private ArrayList<ArrayList<Point> > paths = new ArrayList<>();
     private Level level;
 
     public PathFinder(Player player, ArrayList<Enemy> enemies, Level level){
         this.player = player;
         this.enemies = enemies;
         this.level = level;
-        this.paths = new ArrayList<>();
     }
 
     // Loop through all enemies and calculate their path

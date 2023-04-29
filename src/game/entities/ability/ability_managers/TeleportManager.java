@@ -1,6 +1,5 @@
 package game.entities.ability.ability_managers;
 
-import game.Game;
 import game.InputHandler;
 import game.animators.ability_animators.TeleportAnimator;
 import game.entities.mob.Mob;
@@ -15,18 +14,18 @@ import game.levels.Level;
 public class TeleportManager extends AbilityManager{
 
     private Mob mob;
-    private TeleportAnimator teleportAnimator;
+    private TeleportAnimator animator;
 
     private boolean alreadyTP;
 
     public static int MANA_COST = 100;
 
-    public TeleportManager(Screen screen, InputHandler input, Level level, Mob mob, Sprite[] characterSprites, Sprite teleportSprite){
+    public TeleportManager(Screen screen, InputHandler input, Level level, Mob mob, Sprite[] characterSprites, Sprite teleportSprite, TeleportAnimator animator){
         super(screen, input, level, 6);
         this.timeBetweenAnim = Player.TELEPORT_CAST_SPEED/numOfAnim;
         this.input = input;
         this.mob = mob;
-        this.teleportAnimator = new TeleportAnimator(screen, 6, characterSprites, teleportSprite, this, timeBetweenAnim);
+        this.animator = animator;
         this.inAnimation = false;
     }
 
@@ -36,11 +35,15 @@ public class TeleportManager extends AbilityManager{
 
     @Override
     public void renderSprite(double x, double y) {
-        teleportAnimator.renderSprite((int)x, (int)y);
+        animator.renderSprite((int)x, (int)y);
+        this.setInAnimation(animator.isInAnimation());
+        if (animator.castAbility()) {
+            castAbility((int)x, (int)y);
+        }
     }
 
     @Override
-    public void castAbility(int x, int y) {
+    protected void castAbility(int x, int y) {
         if (!alreadyTP){
             mob.changeLocation(((input.getMouseX() - (screen.getWidth()*screen.getScale())/2)/3) -8 , ((input.getMouseY() - (screen.getHeight()*screen.getScale())/2)/3) - 8);
             alreadyTP = true;
@@ -48,7 +51,7 @@ public class TeleportManager extends AbilityManager{
     }
 
     public void reset(){
-        teleportAnimator.resetAnimation();
+        animator.resetAnimation();
         alreadyTP = false;
     }
 }

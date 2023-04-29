@@ -1,6 +1,9 @@
 package game;
 
 import game.ai.AiManager;
+import game.ai.PathFinder;
+import game.entities.Spawner;
+import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.*;
 
@@ -14,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
@@ -34,6 +38,8 @@ public class Game extends Canvas implements Runnable {
     private Screen screen;
     private Player player;
     private AiManager ai;
+
+    private Spawner spawner;
 
     public static void main(String[] args) {
         int numpixels = screensize.width * screensize.height;
@@ -99,12 +105,29 @@ public class Game extends Canvas implements Runnable {
         this.input.registerKey(new Key(MouseEvent.BUTTON1));
         this.level = new Level("/levels/TestingArena.png", screen);
         this.player = new Player(150, 150, level, screen, input);
+
         this.ui = new UserInterface(screen, player);
-        this.ai = new AiManager(player, level, screen, ui);
+        this.spawner = new Spawner(level, screen);
+
+        ArrayList<Enemy> enemies = initializeEnemies();
+        PathFinder pathFinder = new PathFinder(player, enemies, level);
+        this.ai = new AiManager(this.level, this.screen, this.ui, this.spawner, pathFinder, enemies);
 
         this.ui.setAiManager(ai);
         this.input.setUi(ui);
         this.level.add(player);
+    }
+
+    private ArrayList<Enemy> initializeEnemies(){
+        int numberOfZombies = 1;
+        int numberOfEnemyWiz = 1;
+        int numberOfDeathKeepers = 1;
+
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        enemies.addAll(this.spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_ZOMBIE, numberOfZombies));
+        enemies.addAll(this.spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_WIZARD, numberOfEnemyWiz));
+        enemies.addAll(this.spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_DEATH_KEEPER, numberOfDeathKeepers));
+        return enemies;
     }
 
 

@@ -2,7 +2,6 @@ package game.entities.mob;
 
 import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.Ability;
-import game.entities.ability.ability_managers.AITeleportManager;
 import game.entities.ability.ability_managers.AbilityManager;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
