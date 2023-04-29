@@ -9,11 +9,11 @@ import game.levels.Level;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
@@ -89,6 +89,14 @@ public class Game extends Canvas implements Runnable {
     private void init() {
         this.screen = new Screen(WIDTH, HEIGHT, SCALE);
         this.input = new InputHandler(this);
+        this.input.registerKey(new Key(KeyEvent.VK_UP));
+        this.input.registerKey(new Key(KeyEvent.VK_DOWN));
+        this.input.registerKey(new Key(KeyEvent.VK_LEFT));
+        this.input.registerKey(new Key(KeyEvent.VK_RIGHT));
+        this.input.registerKey(new Key(KeyEvent.VK_E));
+        this.input.registerKey(new Key(KeyEvent.VK_ESCAPE));
+        this.input.registerKey(new Key(KeyEvent.VK_SPACE));
+        this.input.registerKey(new Key(MouseEvent.BUTTON1));
         this.level = new Level("/levels/TestingArena.png", screen);
         this.player = new Player(150, 150, level, screen, input);
         this.ui = new UserInterface(screen, player);
@@ -124,7 +132,7 @@ public class Game extends Canvas implements Runnable {
             lastTime = now;
             while (delta >= 1) {
                 ticks++;
-                if (!input.escape.isPressed()) tick();
+                if (!input.isKeyPressed(KeyEvent.VK_ESCAPE)) tick();
                 delta -= 1;
             }
             try {

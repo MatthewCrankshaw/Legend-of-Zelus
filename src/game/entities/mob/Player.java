@@ -11,6 +11,9 @@ import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
+import javafx.scene.input.KeyCode;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Created by Matthew.c on 21/01/2017.
@@ -75,25 +78,25 @@ public class Player extends Mob {
 
         int xa = 0;
         int ya = 0;
-        if (input.up.isPressed()) {
+        if (input.isKeyPressed(KeyEvent.VK_UP)) {
             ya--;
         }
-        if (input.down.isPressed()) {
+        if (input.isKeyPressed(KeyEvent.VK_DOWN)) {
             ya++;
         }
-        if (input.left.isPressed()) {
+        if (input.isKeyPressed(KeyEvent.VK_LEFT)) {
             xa--;
         }
-        if (input.right.isPressed()) {
+        if (input.isKeyPressed(KeyEvent.VK_RIGHT)) {
             xa++;
         }
-        if (input.space.isPressed() && currentMana > FireballManager.MANA_COST){
+        if (input.isKeyPressed(KeyEvent.VK_SPACE) && currentMana > FireballManager.MANA_COST){
             if(!fireballManager.isInAnimation()) {
                 currentMana -= FireballManager.MANA_COST;
             }
             fireballManager.setInAnimation(true);
         }
-        if (input.e_teleport.isPressed() && currentMana > TeleportManager.MANA_COST) {
+        if (input.isKeyPressed(KeyEvent.VK_E) && currentMana > TeleportManager.MANA_COST) {
             if (!teleportManager.isInAnimation()) {
                 currentMana -= TeleportManager.MANA_COST;
                 teleportManager.reset();
@@ -110,8 +113,6 @@ public class Player extends Mob {
             }
         }
     }
-
-
 
     @Override
     public void render(Screen screen) {

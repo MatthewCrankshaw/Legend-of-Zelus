@@ -3,19 +3,14 @@ package game;
 import game.graphics.ui.UserInterface;
 
 import java.awt.event.*;
+import java.util.Vector;
 
 /**
  * Created by Matthew.c on 19/01/2017.
  */
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener {
 
-    public Key up = new Key();
-    public Key down = new Key();
-    public Key left = new Key();
-    public Key right = new Key();
-    public Key space = new Key();
-    public Key e_teleport = new Key();
-    public Key escape = new Key();
+    protected Vector<Key> keys;
 
     private int mouseX = 0;
     private int mouseY = 0;
@@ -23,30 +18,28 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     private UserInterface ui;
 
     public InputHandler(Game game) {
+        keys = new Vector<>();
         game.addKeyListener(this);
         game.addMouseMotionListener(this);
         game.addMouseListener(this);
     }
 
-    //========================================================================
-    //Key Listeners
+    public void registerKey(Key key) {
+        this.keys.add(key);
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        toggleKey(e.getKeyCode(), true);
+        setKey(e.getKeyCode(), true);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        toggleKey(e.getKeyCode(), false);
+        setKey(e.getKeyCode(), false);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {}
-
-
-    //========================================================================
-    //Mouse Listeners
 
     @Override
     public void mouseDragged(MouseEvent e) {}
@@ -65,15 +58,15 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         }
 
         if (uiPressed == 0) {
-            toggleMouse(true);
+            setKey(e.getButton(), true);
         }else if(uiPressed == -1){
-            escape.swtch();
+            setToggleKey(e.getButton());
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        toggleMouse(false);
+        setKey(e.getButton(),false);
     }
 
     @Override
@@ -85,61 +78,17 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
     @Override
     public void mouseExited(MouseEvent e) {}
 
-    //========================================================================
-    //Mouse toggling
-    private void toggleMouse(boolean isPressed){
-        space.toggle(isPressed);
-    }
-
-    private void toggleKey(int KeyCode, boolean isPressed) {
-        switch(KeyCode){
-            //Directional Keys for movement
-            case KeyEvent.VK_UP:
-                up.toggle(isPressed);
-                break;
-            case KeyEvent.VK_DOWN:
-                down.toggle(isPressed);
-                break;
-            case KeyEvent.VK_LEFT:
-                left.toggle(isPressed);
-                break;
-            case KeyEvent.VK_RIGHT:
-                right.toggle(isPressed);
-                break;
-
-            //WASD For movement
-            case KeyEvent.VK_W:
-                up.toggle(isPressed);
-                break;
-            case KeyEvent.VK_S:
-                down.toggle(isPressed);
-                break;
-            case KeyEvent.VK_A:
-                left.toggle(isPressed);
-                break;
-            case KeyEvent.VK_D:
-                right.toggle(isPressed);
-                break;
-
-            //Ability keys
-            case KeyEvent.VK_E:
-                e_teleport.toggle(isPressed);
-                break;
-
-            //Menu
-            case KeyEvent.VK_ESCAPE:
-                escape.swtch();
-                if (escape.isPressed()){
-                    ui.setGamePaused(true);
-                }else{
-                    ui.setGamePaused(false);
-                }
-                break;
+    private void setKey(int KeyCode, boolean isPressed) {
+        for (Key key : this.keys) {
+            key.set(KeyCode, isPressed);
         }
     }
 
-    //===============================================================
-    //Getters and Setters
+    private void setToggleKey(int KeyCode) {
+        for (Key key : this.keys) {
+            key.toggle(KeyCode);
+        }
+    }
 
     public int getMouseX(){
         return mouseX;
@@ -149,41 +98,17 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         return mouseY;
     }
 
-    //************************************************************
-    //Key Class to store data for different types of keys
-    //*************************************************************
-
-    public class Key {
-        private int numTimesPressed = 0;
-        private boolean pressed = false;
-        private long lastTimePressed;
-
-        //used for movement
-        //isPressed for as long as user holds down key
-        private void toggle(boolean isPressed) {
-            pressed = isPressed;
-            if(isPressed) {
-                numTimesPressed++;
-            }
-        }
-
-        //clicked once of on and once for off
-        //isPressed until user presses again
-        private void swtch(){
-            // only switch if it has been 500ms since last time pressed
-            if(System.currentTimeMillis() - lastTimePressed > 500){
-                pressed = !pressed;
-                lastTimePressed = System.currentTimeMillis();
-            }
-        }
-
-        public boolean isPressed(){
-            return pressed;
-        }
-    }
-
     public void setUi(UserInterface ui) {
         this.ui = ui;
+    }
+
+    public boolean isKeyPressed(int keyCode) {
+        for (Key key : keys) {
+            if (key.getKey() == keyCode) {
+                return key.isPressed();
+            }
+        }
+        return false;
     }
 }
 
