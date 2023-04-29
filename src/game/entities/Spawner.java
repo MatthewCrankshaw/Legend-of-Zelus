@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * Created by Matthew.c on 08/02/2017.
  */
-public class Spawner{
+public class Spawner {
 
     private Screen screen;
     private Level level;

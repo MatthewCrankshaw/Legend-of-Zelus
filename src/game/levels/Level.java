@@ -1,14 +1,8 @@
 package game.levels;
 
 import game.entities.Entity;
-import game.entities.EnvironmentEntity;
-import game.entities.Spawner;
-import game.entities.mob.Enemy;
-import game.entities.mob.Mob;
 import game.entities.particles.Particle;
 import game.graphics.Screen;
-import game.graphics.SpriteSheet;
-import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 
@@ -31,19 +25,16 @@ public class Level {
 
     private List<Entity> entities = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
-    public static TileManager TILE_MANAGER;
+    protected TileManager tileManager;
 
-    private Spawner spawner;
-
-    public Level(String path, Screen screen){
+    public Level(String path, Screen screen, TileManager tileManager){
         loadLevelFromFile(path);
-        TILE_MANAGER = new TileManager(width, height);
-        spawner = new Spawner(this, screen);
-        init();
+        this.tileManager = tileManager;
+        this.tileManager.setDimensions(width, height);
     }
 
-    private void init(){
-        spawner.spawnEnvironmentEntitiesInArea(20, 200, 400, 200, Spawner.Type.ENVIRONMENT_TREE,10, Sprite.tree_sprite);
+    public TileManager getTileManager() {
+        return this.tileManager;
     }
 
     protected void loadLevelFromFile(String path){
@@ -89,8 +80,8 @@ public class Level {
 
         for(int y = y0; y < y1; y++) {
             for (int x = x0; x < x1; x++) {
-                TILE_MANAGER.getTile(x,y).render(x, y, screen);
-                TILE_MANAGER.getTile(x,y).tick();
+                tileManager.getTile(x,y).render(x, y, screen);
+                tileManager.getTile(x,y).tick();
             }
         }
 
@@ -113,25 +104,25 @@ public class Level {
 
         //if object is moving we need to check only the moving direction
         if (movingDir == 0) { //up
-            if(TILE_MANAGER.getTile(corners[0].x >> 3, corners[0].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[1].x >> 3, corners[1].y >> 3).isSolid()){
+            if(tileManager.getTile(corners[0].x >> 3, corners[0].y >> 3).isSolid() && tileManager.getTile(corners[1].x >> 3, corners[1].y >> 3).isSolid()){
                 solid = true;
             }
         } else if (movingDir == 1) { //down
-            if(TILE_MANAGER.getTile(corners[2].x >> 3, corners[2].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[3].x >> 3, corners[3].y >> 3).isSolid()){
+            if(tileManager.getTile(corners[2].x >> 3, corners[2].y >> 3).isSolid() && tileManager.getTile(corners[3].x >> 3, corners[3].y >> 3).isSolid()){
                 solid = true;
             }
         } else if (movingDir == 2) { //left
-            if(TILE_MANAGER.getTile(corners[0].x >> 3, corners[0].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[2].x >> 3, corners[2].y >> 3).isSolid()){
+            if(tileManager.getTile(corners[0].x >> 3, corners[0].y >> 3).isSolid() && tileManager.getTile(corners[2].x >> 3, corners[2].y >> 3).isSolid()){
                 solid = true;
             }
         } else if (movingDir == 3) { //right
-            if(TILE_MANAGER.getTile(corners[1].x >> 3, corners[1].y >> 3).isSolid() && TILE_MANAGER.getTile(corners[3].x >> 3, corners[3].y >> 3).isSolid()){
+            if(tileManager.getTile(corners[1].x >> 3, corners[1].y >> 3).isSolid() && tileManager.getTile(corners[3].x >> 3, corners[3].y >> 3).isSolid()){
                 solid = true;
             }
         } else {//Check all directions
 
             for (int i = 0; i < 3; i++) {
-                if (TILE_MANAGER.getTile(corners[i].x >> 3, corners[i].y >> 3).isSolid()) {
+                if (tileManager.getTile(corners[i].x >> 3, corners[i].y >> 3).isSolid()) {
                     solid = true;
                 }
             }

@@ -16,6 +16,7 @@ import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
+import game.levels.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,11 +112,11 @@ public class Game extends Canvas implements Runnable {
         this.input.registerKey(new Key(KeyEvent.VK_SPACE));
         this.input.registerKey(new Key(MouseEvent.BUTTON1));
 
-        this.level = new Level("/levels/TestingArena.png", screen);
+        TileManager tileManager = new TileManager();
+        this.level = new Level("/levels/TestingArena.png", screen, tileManager);
+        Spawner spawner = new Spawner(level, screen);
 
         FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);
-
-        Spawner spawner = new Spawner(level, screen);
         FireballManager fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, fireballAnimator, spawner);
 
         TeleportAnimator teleportAnimator = new TeleportAnimator(

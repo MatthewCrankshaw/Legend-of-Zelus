@@ -81,7 +81,7 @@ public class Particle extends Entity{
             int iy = (int) Math.ceil(yt);
             if (c % 2 == 0)ix = (int) Math.floor(xt);
             if (c / 2 == 0)iy = (int) Math.floor(yt);
-            if (Level.TILE_MANAGER.getTile(ix, iy).isSolid()) solid = true;
+            if (level.getTileManager().getTile(ix, iy).isSolid()) solid = true;
         }
         return solid;
     }

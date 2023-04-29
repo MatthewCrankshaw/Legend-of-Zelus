@@ -93,29 +93,29 @@ public abstract class Mob extends Entity {
     //todo make this more efficient
     public boolean isSwimming(){
         for(Tile t : Tile.sandToWaterTiles.solidTile1) {
-            if (Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
+            if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
                 return true;
             }
             else {
                 for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
-                    if (Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
+                    if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
                         return true;
                     }
                 }
             }
         }
-        return Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT,(int)y >> Tile.TILE_SHIFT_BIT).equals(Tile.mud);
+        return level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT,(int)y >> Tile.TILE_SHIFT_BIT).equals(Tile.mud);
     }
 
     //todo make this more efficient
     public float getTileMovementImparement(){
         for(Tile t : Tile.sandToWaterTiles.solidTile1) {
-            if (Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
+            if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
                 return t.getSpeedImparement();
             }
             else {
                 for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
-                    if (Level.TILE_MANAGER.getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
+                    if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
                         return t.getSpeedImparement();
                     }
                 }

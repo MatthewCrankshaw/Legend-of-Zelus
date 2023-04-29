@@ -1,12 +1,8 @@
 package game.levels.tile;
 
 import game.animators.tile_animators.TransitionTileAnimator;
-import game.levels.Level;
 import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
-import game.levels.tile.static_tiles.VoidTile;
 import game.levels.tile.transition_tiles.TransitionTiles;
-
-import static game.levels.tile.TileManager.tileType.*;
 
 /**
  * Created by Matthew.c on 02/03/2017.
@@ -33,14 +29,13 @@ public class TileManager {
 
     TransitionTileAnimator tileAnimator = new TransitionTileAnimator();
 
-
     private int numXTiles;
     private int numYTiles;
     public static int[] tiles;
 
-    public TileManager(int numXTiles, int numYTiles){
-        this.numXTiles = numXTiles;
-        this.numYTiles = numYTiles;
+    public void setDimensions(int x, int y) {
+        this.numXTiles = x;
+        this.numYTiles = y;
     }
 
     public Tile getTile(int x , int y){
@@ -64,7 +59,6 @@ public class TileManager {
             return Tile.voidTile;
         }
     }
-
 
     private Tile getAnimatedTransitionTileVariant(int x, int y, int colour, int transitionTileCol, AnimatedTransitionTiles tile){
         switch (findTileType(x, y, colour, transitionTileCol)){
