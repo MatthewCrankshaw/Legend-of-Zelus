@@ -5,7 +5,6 @@ import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.ability_managers.FireballManager;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.graphics.Screen;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
 
@@ -31,7 +30,7 @@ public class Player extends Mob {
     private CharacterAnimator characterAnimator;
 
 
-    public Player(int x, int y, Level level, Screen screen, InputHandler input, FireballManager fireballManager, TeleportManager teleportManager){
+    public Player(int x, int y, Level level, Screen screen, InputHandler input, FireballManager fireballManager, TeleportManager teleportManager, CharacterAnimator animator){
         super(level, screen, "Player", 2, 1);
 
         maxLife = 1000;
@@ -57,7 +56,7 @@ public class Player extends Mob {
             return point;
         });
 
-        characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, this, 100, mobScale);
+        this.characterAnimator = animator;
     }
 
     @Override
@@ -126,7 +125,7 @@ public class Player extends Mob {
         }else if (teleportManager.isInAnimation()){
             teleportManager.renderSprite(x,y);
         }else{
-            characterAnimator.renderSprite((int)x,(int)y);
+            characterAnimator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming());
         }
         //render Pre-existing fireballs
         fireballManager.renderFireballs();

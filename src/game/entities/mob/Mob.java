@@ -6,7 +6,6 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
-import game.levels.tile.animated_tiles.AnimatedTile;
 
 /**
  * Created by Matthew.c on 21/01/2017.
@@ -90,7 +89,6 @@ public abstract class Mob extends Entity {
         this.x = x;
         this.y = y;
     }
-
 
     //todo make this more efficient
     public boolean isSwimming(){

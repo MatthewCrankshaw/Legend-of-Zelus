@@ -4,24 +4,21 @@ import game.animators.mob_animators.CharacterAnimator;
 import game.entities.ability.Ability;
 import game.entities.ability.ability_managers.AbilityManager;
 import game.graphics.Screen;
-import game.graphics.sprite.Sprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
 
-public class Enemy extends Mob{
-
-    public static int ENEMY_TELEPORT_SPEED = 1200;
-    private CharacterAnimator characterAnimator;
+public class Enemy extends Mob {
+    private CharacterAnimator animator;
     private int movX, movY = 0;
     private int currentLife, maxLife;
 
-    public Enemy(int x, int y, Level level, Screen screen, String name, int speed, Sprite[][] spriteName){
+    public Enemy(int x, int y, Level level, Screen screen, String name, int speed, CharacterAnimator animator){
         super(level, screen, name, speed, 1);
         this.x  = x;
         this.y = y;
         currentLife = 100;
         maxLife = 100;
-        characterAnimator = new CharacterAnimator(screen, 4, spriteName, this, 120, mobScale);
+        this.animator = animator;
     }
 
     @Override
@@ -67,7 +64,7 @@ public class Enemy extends Mob{
 
     @Override
     public void render(Screen screen) {
-            characterAnimator.renderSprite((int)x,(int)y);
+        animator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming());
     }
 
     private int isHit(int x, int y, int damage){

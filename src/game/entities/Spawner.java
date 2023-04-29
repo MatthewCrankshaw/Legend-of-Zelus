@@ -1,7 +1,7 @@
 package game.entities;
 
+import game.animators.mob_animators.CharacterAnimator;
 import game.entities.mob.Enemy;
-import game.entities.mob.Player;
 import game.entities.particles.Particle;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
@@ -59,19 +59,23 @@ public class Spawner{
         ArrayList<Enemy> enemies = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             Enemy e;
+            CharacterAnimator animator;
             switch (type){
                 case ENEMY_WIZARD:
-                    e = new Enemy(x, y, level, screen, "Name", 1, PlayerSprite.enemySprites);
+                    animator = new CharacterAnimator(screen, 4, PlayerSprite.enemySprites, 120, 1);
+                    e = new Enemy(x, y, level, screen, "Name", 1, animator);
                     enemies.add(e);
                     level.add(e);
                     break;
                 case ENEMY_ZOMBIE:
-                    e = new Enemy(x, y, level, screen, "Name", 1, PlayerSprite.zombieSprites);
+                    animator = new CharacterAnimator(screen, 4, PlayerSprite.zombieSprites, 120, 1);
+                    e = new Enemy(x, y, level, screen, "Name", 1, animator);
                     enemies.add(e);
                     level.add(e);
                     break;
                 case ENEMY_DEATH_KEEPER:
-                    e = new Enemy(x, y, level, screen, "Name", 1, PlayerSprite.deathkeeperSprites);
+                    animator = new CharacterAnimator(screen, 4, PlayerSprite.deathkeeperSprites, 120, 1);
+                    e = new Enemy(x, y, level, screen, "Name", 1, animator);
                     enemies.add(e);
                     level.add(e);
                     break;

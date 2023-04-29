@@ -4,6 +4,7 @@ import game.ai.AiManager;
 import game.ai.PathFinder;
 import game.animators.ability_animators.FireballAnimator;
 import game.animators.ability_animators.TeleportAnimator;
+import game.animators.mob_animators.CharacterAnimator;
 import game.entities.Spawner;
 import game.entities.ability.ability_managers.FireballManager;
 import game.entities.ability.ability_managers.TeleportManager;
@@ -126,7 +127,8 @@ public class Game extends Canvas implements Runnable {
         );
         TeleportManager teleportManager = new TeleportManager(screen, input, level, teleportAnimator);
 
-        this.player = new Player(150, 150, level, screen, input, fireballManager, teleportManager);
+        CharacterAnimator characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, 100, 1);
+        this.player = new Player(150, 150, level, screen, input, fireballManager, teleportManager, characterAnimator);
 
         this.ui = new UserInterface(screen, player);
         this.spawner = new Spawner(level, screen);
@@ -207,7 +209,6 @@ public class Game extends Canvas implements Runnable {
         }
         ui.tick();
     }
-
 
     public void render() {
         BufferStrategy bs = getBufferStrategy();
