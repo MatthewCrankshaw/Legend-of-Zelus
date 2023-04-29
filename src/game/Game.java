@@ -2,11 +2,17 @@ package game;
 
 import game.ai.AiManager;
 import game.ai.PathFinder;
+import game.animators.ability_animators.FireballAnimator;
+import game.animators.ability_animators.TeleportAnimator;
 import game.entities.Spawner;
+import game.entities.ability.ability_managers.FireballManager;
+import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
-import game.graphics.*;
-
+import game.graphics.Screen;
+import game.graphics.sprite.AnimatedSprite;
+import game.graphics.sprite.Sprite;
+import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
 
@@ -103,8 +109,24 @@ public class Game extends Canvas implements Runnable {
         this.input.registerKey(new Key(KeyEvent.VK_ESCAPE));
         this.input.registerKey(new Key(KeyEvent.VK_SPACE));
         this.input.registerKey(new Key(MouseEvent.BUTTON1));
+
         this.level = new Level("/levels/TestingArena.png", screen);
-        this.player = new Player(150, 150, level, screen, input);
+
+        FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);
+
+        Spawner spawner = new Spawner(level, screen);
+        FireballManager fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, fireballAnimator, spawner);
+
+        TeleportAnimator teleportAnimator = new TeleportAnimator(
+            screen,
+            6,
+            AnimatedSprite.teleportSprite,
+            Sprite.teleportFloorSign,
+            Player.TELEPORT_CAST_SPEED/6
+        );
+        TeleportManager teleportManager = new TeleportManager(screen, input, level, teleportAnimator);
+
+        this.player = new Player(150, 150, level, screen, input, fireballManager, teleportManager);
 
         this.ui = new UserInterface(screen, player);
         this.spawner = new Spawner(level, screen);

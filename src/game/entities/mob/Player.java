@@ -1,19 +1,15 @@
 package game.entities.mob;
 
 import game.InputHandler;
-
-import game.animators.ability_animators.FireballAnimator;
-import game.animators.ability_animators.TeleportAnimator;
 import game.animators.mob_animators.CharacterAnimator;
-import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.ability.ability_managers.FireballManager;
+import game.entities.ability.ability_managers.TeleportManager;
 import game.graphics.Screen;
-import game.graphics.sprite.AnimatedSprite;
-import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**
@@ -35,7 +31,7 @@ public class Player extends Mob {
     private CharacterAnimator characterAnimator;
 
 
-    public Player(int x, int y, Level level, Screen screen, InputHandler input){
+    public Player(int x, int y, Level level, Screen screen, InputHandler input, FireballManager fireballManager, TeleportManager teleportManager){
         super(level, screen, "Player", 2, 1);
 
         maxLife = 1000;
@@ -53,17 +49,14 @@ public class Player extends Mob {
         this.y = y;
         this.input = input;
 
-        FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);
-        fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, PlayerSprite.playerAttackSprites, fireballAnimator);
+        this.fireballManager = fireballManager;
+        this.teleportManager = teleportManager;
+        this.teleportManager.registerCallback((Point point) -> {
+            this.x = point.getX();
+            this.y = point.getY();
+            return point;
+        });
 
-        TeleportAnimator teleportAnimator = new TeleportAnimator(
-                screen,
-                6,
-                AnimatedSprite.teleportSprite,
-                Sprite.teleportFloorSign,
-                Player.TELEPORT_CAST_SPEED/6
-        );
-        teleportManager = new TeleportManager(screen, input, level, this, AnimatedSprite.teleportSprite, Sprite.teleportFloorSign, teleportAnimator);
         characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, this, 100, mobScale);
     }
 

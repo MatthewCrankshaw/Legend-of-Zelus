@@ -25,7 +25,7 @@ public class FireballManager extends AbilityManager {
     public static int MANA_COST = 40;
 
 
-    public FireballManager(Screen screen, InputHandler input, Level level, Sprite fireballSprite[], Sprite attackSprites[], FireballAnimator animator){
+    public FireballManager(Screen screen, InputHandler input, Level level, Sprite[] fireballSprite, FireballAnimator animator, Spawner spawner){
         super(screen, input, level, 5);
         this.timeBetweenAnim = Player.FIREBALL_CAST_SPEED/numOfAnim;
         this.input = input;
@@ -34,7 +34,7 @@ public class FireballManager extends AbilityManager {
         this.fireballSprite = fireballSprite;
         this.particleSprite = Sprite.particle_red;
         this.animator = animator;
-        this.spawner = new Spawner(level, screen);
+        this.spawner = spawner;
     }
 
     public void tick(){
@@ -73,8 +73,8 @@ public class FireballManager extends AbilityManager {
         mouseX = input.getMouseX();
         mouseY = input.getMouseY();
 
-        double dx = mouseX - (screen.getWidth()*screen.getScale())/2;
-        double dy = mouseY - (screen.getHeight()*screen.getScale())/2;
+        double dx = mouseX - (double) (screen.getWidth() * screen.getScale()) /2;
+        double dy = mouseY - (double) (screen.getHeight() * screen.getScale()) /2;
 
         return Math.atan2(dy, dx);
     }
