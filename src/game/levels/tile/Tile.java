@@ -1,32 +1,29 @@
 package game.levels.tile;
 
 import game.graphics.Screen;
-import game.graphics.sprite.environment_sprites.FloorTileSprite;
 import game.graphics.sprite.Sprite;
-import game.graphics.sprite.environment_sprites.SandToWaterSprites;
+import game.graphics.sprite.environment_sprites.FloorTileSprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.tile.animated_tiles.AnimatedTile;
+import game.levels.tile.animated_transition_tiles.SandToWaterTiles;
 import game.levels.tile.static_tiles.BasicSolidTile;
 import game.levels.tile.static_tiles.BasicTile;
 import game.levels.tile.static_tiles.VoidTile;
 import game.levels.tile.transition_tiles.DirtToGrassTiles;
 import game.levels.tile.transition_tiles.GrassToDirtTiles;
 import game.levels.tile.transition_tiles.GrassToSandTiles;
-import game.levels.tile.animated_transition_tiles.SandToWaterTiles;
 
 /**
  * Created by Matthew.c on 26/01/2017.
  */
 public abstract class Tile {
-    public int x, y;
-    public static final int TILE_SIZE = 8;
-    public static final int TILE_SHIFT_BIT = 3;
+    protected int x, y;
     private float speedImparement;
     private boolean solid;
     private boolean emitter;
 
-    public Sprite currentSprite;
-    public Sprite[] animatedSprite;
+    protected Sprite currentSprite;
+    protected Sprite[] animatedSprite;
 
     //terrain tiles
     public static VoidTile voidTile = new VoidTile(FloorTileSprite.voidSprite);
@@ -48,9 +45,6 @@ public abstract class Tile {
     //animated player tiles
     public static AnimatedTile swimming = new AnimatedTile(PlayerSprite.swimming, false, false, 0.0f, 500  );
 
-
-
-
     public Tile(Sprite currentSprite, boolean solid, boolean emitter, float speedImparement){
         this.currentSprite = currentSprite;
         this.solid = solid;
@@ -63,6 +57,10 @@ public abstract class Tile {
         this.solid = solid;
         this.emitter = emitter;
         this.speedImparement = speedImparement;
+    }
+
+    public Sprite getCurrentSprite() {
+        return this.currentSprite;
     }
 
     public abstract void render(int x, int y, Screen screen);

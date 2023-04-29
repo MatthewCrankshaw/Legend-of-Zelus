@@ -29,24 +29,19 @@ import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
-
     private static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-
     private static int WIDTH = (screensize.width / 2) - (screensize.width / 15);
     private static int HEIGHT = (screensize.height / 2) - (screensize.height / 15);
     private static int SCALE;
     private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
-
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
     private UserInterface ui;
     private InputHandler input;
     private Level level;
     private Screen screen;
     private Player player;
     private AiManager ai;
-
     private Spawner spawner;
 
     public static void main(String[] args) {
@@ -113,7 +108,7 @@ public class Game extends Canvas implements Runnable {
         this.input.registerKey(new Key(MouseEvent.BUTTON1));
 
         TileManager tileManager = new TileManager();
-        this.level = new Level("/levels/TestingArena.png", screen, tileManager);
+        this.level = new Level("/levels/TestingArena.png", tileManager);
         Spawner spawner = new Spawner(level, screen);
 
         FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);

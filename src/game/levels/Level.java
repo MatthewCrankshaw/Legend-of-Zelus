@@ -3,7 +3,7 @@ package game.levels;
 import game.entities.Entity;
 import game.entities.particles.Particle;
 import game.graphics.Screen;
-import game.levels.tile.Tile;
+import game.levels.tile.TileConstants;
 import game.levels.tile.TileManager;
 
 import javax.imageio.ImageIO;
@@ -21,15 +21,13 @@ public class Level {
     private int width;
     private int height;
 
-    private BufferedImage environmentMap;
-
     private List<Entity> entities = new ArrayList<>();
     private List<Particle> particles = new ArrayList<>();
     protected TileManager tileManager;
 
-    public Level(String path, Screen screen, TileManager tileManager){
-        loadLevelFromFile(path);
+    public Level(String path, TileManager tileManager){
         this.tileManager = tileManager;
+        loadLevelFromFile(path);
         this.tileManager.setDimensions(width, height);
     }
 
@@ -42,8 +40,8 @@ public class Level {
             BufferedImage image = ImageIO.read(Level.class.getResourceAsStream(path));
             int w = width = image.getWidth();
             int h = height = image.getHeight();
-            TileManager.tiles = new int[w*h];
-            image.getRGB(0,0,w,h,TileManager.tiles, 0, w);
+            this.tileManager.setTiles(new int[w*h]);
+            image.getRGB(0,0,w,h,this.tileManager.getTiles(), 0, w);
         }catch (IOException e) {
             System.err.println("Level file could not be found:");
             e.printStackTrace();
@@ -73,10 +71,10 @@ public class Level {
 
     public void render(Screen screen, int xScroll, int yScroll){
         screen.setOffset(xScroll, yScroll);
-        int x0 = xScroll >> Tile.TILE_SHIFT_BIT;
-        int x1 = (xScroll + screen.getWidth() + Tile.TILE_SIZE) >> Tile.TILE_SHIFT_BIT;
-        int y0 = yScroll >> Tile.TILE_SHIFT_BIT;
-        int y1 = (yScroll + screen.getHeight() + Tile.TILE_SIZE) >> Tile.TILE_SHIFT_BIT;
+        int x0 = xScroll >> TileConstants.TILE_SHIFT_BIT;
+        int x1 = (xScroll + screen.getWidth() + TileConstants.TILE_SIZE) >> TileConstants.TILE_SHIFT_BIT;
+        int y0 = yScroll >> TileConstants.TILE_SHIFT_BIT;
+        int y1 = (yScroll + screen.getHeight() + TileConstants.TILE_SIZE) >> TileConstants.TILE_SHIFT_BIT;
 
         for(int y = y0; y < y1; y++) {
             for (int x = x0; x < x1; x++) {

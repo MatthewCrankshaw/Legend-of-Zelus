@@ -2,6 +2,7 @@ package game.graphics;
 import game.graphics.sprite.FontSprite;
 import game.graphics.sprite.Sprite;
 import game.levels.tile.Tile;
+import game.levels.tile.TileConstants;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
 import java.awt.*;
@@ -16,15 +17,10 @@ public class Screen {
 
     private int width, height;
     private int scale;
-
     private double xOffset;
     private double yOffset;
-
     public int[] pixels;
-
-    // Filters
     private boolean AAFilterEnabled, MedianBlurEnabled, SmoothingFilterEnabled;
-
 
     public Screen(int width, int height, int scale){
         this.width = width;
@@ -95,13 +91,13 @@ public class Screen {
     public void renderTile(int xp, int yp, Tile tile){
         xp -= xOffset;
         yp -= yOffset;
-        for(int y = 0; y < tile.currentSprite.SIZE; y ++) {
+        for(int y = 0; y < tile.getCurrentSprite().SIZE; y ++) {
             int ya = y + yp;
-            for(int x = 0; x < tile.currentSprite.SIZE; x++) {
+            for(int x = 0; x < tile.getCurrentSprite().SIZE; x++) {
                 int xa = x + xp;
-                if (xa < -tile.currentSprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < -tile.getCurrentSprite().SIZE || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                pixels[xa+ya*width] = tile.currentSprite.pixels[x+ y * tile.currentSprite.SIZE];
+                pixels[xa+ya*width] = tile.getCurrentSprite().pixels[x+ y * tile.getCurrentSprite().SIZE];
             }
         }
         tile.tick();
@@ -119,9 +115,9 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite[animIndex].pixels[x+y*Tile.TILE_SIZE*2];
+                int col = sprite[animIndex].pixels[x+y* TileConstants.TILE_SIZE*2];
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite[animIndex].pixels[x + y * Tile.TILE_SIZE*2];
+                    pixels[xa+ya*width] = sprite[animIndex].pixels[x + y * TileConstants.TILE_SIZE*2];
                 }
             }
         }

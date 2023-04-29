@@ -6,6 +6,7 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
+import game.levels.tile.TileConstants;
 
 /**
  * Created by Matthew.c on 21/01/2017.
@@ -13,16 +14,13 @@ import game.levels.tile.Tile;
 public abstract class Mob extends Entity {
 
     protected Screen screen;
-
     protected String name;
     protected double speed;
     protected int numSteps;
     protected int movingDir = 1; // 0 is up 1 is down 2 is left 3 is right
     protected boolean moving;
-
     protected boolean stuck;
     protected Sprite sprite;
-
     protected int mobScale;
 
     public Mob(Level level, Screen screen, String name, int speed, int mobScale){
@@ -93,29 +91,29 @@ public abstract class Mob extends Entity {
     //todo make this more efficient
     public boolean isSwimming(){
         for(Tile t : Tile.sandToWaterTiles.solidTile1) {
-            if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
+            if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t)) {
                 return true;
             }
             else {
                 for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
-                    if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
+                    if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t2)) {
                         return true;
                     }
                 }
             }
         }
-        return level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT,(int)y >> Tile.TILE_SHIFT_BIT).equals(Tile.mud);
+        return level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT,(int)y >> TileConstants.TILE_SHIFT_BIT).equals(Tile.mud);
     }
 
     //todo make this more efficient
     public float getTileMovementImparement(){
         for(Tile t : Tile.sandToWaterTiles.solidTile1) {
-            if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t)) {
+            if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t)) {
                 return t.getSpeedImparement();
             }
             else {
                 for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
-                    if (level.getTileManager().getTile((int)x >> Tile.TILE_SHIFT_BIT, (int)y >> Tile.TILE_SHIFT_BIT).equals(t2)) {
+                    if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t2)) {
                         return t.getSpeedImparement();
                     }
                 }

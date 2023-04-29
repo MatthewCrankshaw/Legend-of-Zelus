@@ -31,11 +31,19 @@ public class TileManager {
 
     private int numXTiles;
     private int numYTiles;
-    public static int[] tiles;
+    protected int[] tiles;
 
     public void setDimensions(int x, int y) {
         this.numXTiles = x;
         this.numYTiles = y;
+    }
+
+    public int[] getTiles() {
+        return this.tiles;
+    }
+
+    public void setTiles(int[] tiles) {
+        this.tiles = tiles;
     }
 
     public Tile getTile(int x , int y){
