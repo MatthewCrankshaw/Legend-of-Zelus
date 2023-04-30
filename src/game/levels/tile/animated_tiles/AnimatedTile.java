@@ -13,8 +13,8 @@ public class AnimatedTile extends Tile{
     private long lastIterationTime;
     private int animationSwitchDelay;
 
-    public AnimatedTile(Sprite[] sprites, boolean solid, boolean emitter, float speedImparement, int animationSwitchDelay){
-        super(sprites, solid, emitter, speedImparement);
+    public AnimatedTile(Sprite[] sprites, boolean solid, float speedImparement, int animationSwitchDelay){
+        super(sprites, solid, speedImparement);
         currentSprite = animatedSprite[0];
         this.animationSwitchDelay = animationSwitchDelay;
     }

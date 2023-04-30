@@ -1,9 +1,7 @@
 package game.levels.tile.animated_transition_tiles;
 
 import game.graphics.sprite.environment_sprites.SandToWaterSprites;
-import game.levels.tile.Tile;
 import game.levels.tile.static_tiles.BasicTile;
-import game.levels.tile.transition_tiles.TransitionTiles;
 
 /**
  * Created by Matthew.c on 20/02/2017.

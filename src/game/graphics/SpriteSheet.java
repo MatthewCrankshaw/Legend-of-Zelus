@@ -1,7 +1,5 @@
 package game.graphics;
 
-import game.graphics.sprite.Sprite;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -41,8 +39,6 @@ public class SpriteSheet {
 
     //Text Fonts *******************************************************************************
     public static SpriteSheet text = new SpriteSheet("/Text/Text.png", 256);
-
-
 
     public SpriteSheet(String path, int size){
         System.out.println(path);

@@ -20,42 +20,30 @@ public abstract class Tile {
     protected int x, y;
     private float speedImparement;
     private boolean solid;
-    private boolean emitter;
 
     protected Sprite currentSprite;
     protected Sprite[] animatedSprite;
-
-    //terrain tiles
     public static VoidTile voidTile = new VoidTile(FloorTileSprite.voidSprite);
     public static BasicSolidTile stone = new BasicSolidTile(FloorTileSprite.stone);
     public static BasicTile grass = new BasicTile(FloorTileSprite.grass);
     public static BasicTile woodFloor = new BasicTile(FloorTileSprite.woodFloor);
     public static BasicTile sandStone = new BasicTile(FloorTileSprite.sandStone);
-
-    //transition terrain tiles
     public static GrassToSandTiles grassToSandTiles = new GrassToSandTiles();
     public static SandToWaterTiles sandToWaterTiles = new SandToWaterTiles();
     public static DirtToGrassTiles dirtToGrassTiles = new DirtToGrassTiles();
     public static GrassToDirtTiles grassToDirtTiles = new GrassToDirtTiles();
+    public static AnimatedTile mud = new AnimatedTile(FloorTileSprite.mud, false, 0.1f, 1000);
+    public static AnimatedTile swimming = new AnimatedTile(PlayerSprite.swimming, false, 0.0f, 500  );
 
-
-    //animated terrain tiles
-    public static AnimatedTile mud = new AnimatedTile(FloorTileSprite.mud, false, false, 0.1f, 1000);
-
-    //animated player tiles
-    public static AnimatedTile swimming = new AnimatedTile(PlayerSprite.swimming, false, false, 0.0f, 500  );
-
-    public Tile(Sprite currentSprite, boolean solid, boolean emitter, float speedImparement){
+    public Tile(Sprite currentSprite, boolean solid, float speedImparement){
         this.currentSprite = currentSprite;
         this.solid = solid;
-        this.emitter = emitter;
         this.speedImparement = speedImparement;
     }
 
-    public Tile(Sprite[] animatedsprite, boolean solid, boolean emitter, float speedImparement){
+    public Tile(Sprite[] animatedsprite, boolean solid, float speedImparement){
         this.animatedSprite = animatedsprite;
         this.solid = solid;
-        this.emitter = emitter;
         this.speedImparement = speedImparement;
     }
 
@@ -71,10 +59,5 @@ public abstract class Tile {
         return solid;
     }
 
-    public boolean isEmitter(){
-        return emitter;
-    }
-
     public float getSpeedImparement(){ return speedImparement; }
-
 }

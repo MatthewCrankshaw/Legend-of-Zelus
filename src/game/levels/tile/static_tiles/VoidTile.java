@@ -11,7 +11,7 @@ import game.levels.tile.TileConstants;
 public class VoidTile extends Tile {
 
     public VoidTile(Sprite sprite){
-        super(sprite, true, false, 0.0f);
+        super(sprite, true, 0.0f);
     }
 
     @Override
