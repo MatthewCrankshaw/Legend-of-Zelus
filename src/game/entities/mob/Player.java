@@ -30,8 +30,8 @@ public class Player extends Mob {
     private CharacterAnimator characterAnimator;
 
 
-    public Player(int x, int y, Level level, Screen screen, InputHandler input, FireballManager fireballManager, TeleportManager teleportManager, CharacterAnimator animator){
-        super(level, screen, "Player", 2, 1);
+    public Player(int x, int y, Level level, Screen screen, InputHandler input, FireballManager fireballManager, TeleportManager teleportManager, CharacterAnimator animator, TileManager tileManager){
+        super(level, screen, "Player", 2, 1, tileManager);
 
         maxLife = 1000;
         currentLife = 500;
@@ -115,7 +115,7 @@ public class Player extends Mob {
     }
 
     @Override
-    public void render(Screen screen, TileManager tileManager) {
+    public void render(Screen screen) {
         //render the character animations according to state
         if (!teleportManager.isInAnimation() && fireballManager.isInAnimation()) {
             fireballManager.renderSprite(x,y);

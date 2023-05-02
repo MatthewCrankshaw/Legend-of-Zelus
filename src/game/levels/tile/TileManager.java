@@ -44,20 +44,28 @@ public class TileManager {
         SWIMMING,
     }
 
+    public enum AnimatedTransitionTileTypes {
+        SAND_TO_WATER
+    }
+
     protected Map<TileType, Tile> tileTypes;
 
     protected Map<TransitionTileTypes, TransitionTiles> transitionTypes;
 
     protected Map<AnimatedTileTypes, AnimatedTile> animatedTypes;
 
+    protected Map<AnimatedTransitionTileTypes, AnimatedTransitionTiles> animatedTransitionTypes;
+
     public TileManager(
         Map<TileType, Tile> tileTypes,
         Map<TransitionTileTypes, TransitionTiles> transitionTypes,
-        Map<AnimatedTileTypes, AnimatedTile> animatedTypes
+        Map<AnimatedTileTypes, AnimatedTile> animatedTypes,
+        Map<AnimatedTransitionTileTypes, AnimatedTransitionTiles> animatedTransitionTypes
     ) {
         this.tileTypes = tileTypes;
         this.transitionTypes = transitionTypes;
         this.animatedTypes = animatedTypes;
+        this.animatedTransitionTypes = animatedTransitionTypes;
     }
 
     public void setDimensions(int x, int y) {
@@ -73,6 +81,10 @@ public class TileManager {
         return this.animatedTypes.get(type);
     }
 
+    public AnimatedTransitionTiles getAnimatedTransitionTiles(AnimatedTransitionTileTypes type) {
+        return this.animatedTransitionTypes.get(type);
+    }
+
     public void setTiles(int[] tiles) {
         this.tiles = tiles;
     }
@@ -85,7 +97,7 @@ public class TileManager {
         }else if(tiles[x+y*numXTiles] == GRASS){
             return tileTypes.get(TileType.GRASS);
         }else if(tiles[x+y*numXTiles] == SAND_TO_WATER){
-            return getAnimatedTransitionTileVariant(x,y, SAND_TO_WATER, GRASS_TO_SAND, Tile.sandToWaterTiles);
+            return getAnimatedTransitionTileVariant(x,y, SAND_TO_WATER, GRASS_TO_SAND, animatedTransitionTypes.get(AnimatedTransitionTileTypes.SAND_TO_WATER));
         }else if(tiles[x+y*numXTiles] == MUD){
             return animatedTypes.get(AnimatedTileTypes.MUD);
         }else if(tiles[x+y*numXTiles] == GRASS_TO_SAND) {

@@ -7,6 +7,7 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.levels.Level;
+import game.levels.tile.TileManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,13 +20,16 @@ public class Spawner {
     private Screen screen;
     private Level level;
 
+    protected TileManager tileManager;
+
     public enum Type {
         ENEMY_WIZARD, ENEMY_ZOMBIE, ENEMY_DEATH_KEEPER, PARTICAL, ENVIRONMENT_TREE
     }
 
-    public Spawner(Level level, Screen screen){
+    public Spawner(Level level, Screen screen, TileManager tileManager){
         this.level = level;
         this.screen = screen;
+        this.tileManager = tileManager;
     }
 
     public void spawnEntities(int x, int y, Type type, int amount, Sprite particleSprite){
@@ -63,19 +67,19 @@ public class Spawner {
             switch (type){
                 case ENEMY_WIZARD:
                     animator = new CharacterAnimator(screen, 4, PlayerSprite.enemySprites, 120, 1);
-                    e = new Enemy(x, y, level, screen, "Name", 1, animator);
+                    e = new Enemy(x, y, level, screen, "Name", 1, animator, tileManager);
                     enemies.add(e);
                     level.add(e);
                     break;
                 case ENEMY_ZOMBIE:
                     animator = new CharacterAnimator(screen, 4, PlayerSprite.zombieSprites, 120, 1);
-                    e = new Enemy(x, y, level, screen, "Name", 1, animator);
+                    e = new Enemy(x, y, level, screen, "Name", 1, animator, tileManager);
                     enemies.add(e);
                     level.add(e);
                     break;
                 case ENEMY_DEATH_KEEPER:
                     animator = new CharacterAnimator(screen, 4, PlayerSprite.deathkeeperSprites, 120, 1);
-                    e = new Enemy(x, y, level, screen, "Name", 1, animator);
+                    e = new Enemy(x, y, level, screen, "Name", 1, animator, tileManager);
                     enemies.add(e);
                     level.add(e);
                     break;

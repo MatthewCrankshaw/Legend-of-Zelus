@@ -20,6 +20,8 @@ import game.levels.Level;
 import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 import game.levels.tile.animated_tiles.AnimatedTile;
+import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
+import game.levels.tile.animated_transition_tiles.SandToWaterTiles;
 import game.levels.tile.static_tiles.BasicTile;
 import game.levels.tile.static_tiles.VoidTile;
 import game.levels.tile.transition_tiles.DirtToGrassTiles;
@@ -135,9 +137,12 @@ public class Game extends Canvas implements Runnable {
         animatedTiles.put(TileManager.AnimatedTileTypes.MUD, new AnimatedTile(FloorTileSprite.mud, false, 0.1f, 1000));
         animatedTiles.put(TileManager.AnimatedTileTypes.SWIMMING, new AnimatedTile(PlayerSprite.swimming, false, 0.0f, 500));
 
-        tileManager = new TileManager(tileTypes, transitionTiles, animatedTiles);
+        Map<TileManager.AnimatedTransitionTileTypes, AnimatedTransitionTiles> animatedTransitionTiles = new HashMap<>();
+        animatedTransitionTiles.put(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER, new SandToWaterTiles());
+
+        tileManager = new TileManager(tileTypes, transitionTiles, animatedTiles, animatedTransitionTiles);
         this.level = new Level("/levels/TestingArena.png", tileManager);
-        Spawner spawner = new Spawner(level, screen);
+        Spawner spawner = new Spawner(level, screen, tileManager);
 
         FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);
         FireballManager fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, fireballAnimator, spawner);
@@ -152,10 +157,10 @@ public class Game extends Canvas implements Runnable {
         TeleportManager teleportManager = new TeleportManager(screen, input, level, teleportAnimator);
 
         CharacterAnimator characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, 100, 1);
-        this.player = new Player(150, 150, level, screen, input, fireballManager, teleportManager, characterAnimator);
+        this.player = new Player(150, 150, level, screen, input, fireballManager, teleportManager, characterAnimator, tileManager);
 
         this.ui = new UserInterface(screen, player);
-        this.spawner = new Spawner(level, screen);
+        this.spawner = new Spawner(level, screen, tileManager);
 
         ArrayList<Enemy> enemies = initializeEnemies();
         PathFinder pathFinder = new PathFinder(player, enemies, level);
@@ -177,7 +182,6 @@ public class Game extends Canvas implements Runnable {
         enemies.addAll(this.spawner.spawnEnemies(20, 20, Spawner.Type.ENEMY_DEATH_KEEPER, numberOfDeathKeepers));
         return enemies;
     }
-
 
     private synchronized void start() {
         new Thread(this).start();

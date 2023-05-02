@@ -4,7 +4,6 @@ import game.entities.Entity;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
-import game.levels.tile.TileManager;
 
 /**
  * Created by Matthew.c on 08/02/2017.
@@ -88,7 +87,7 @@ public class Particle extends Entity{
     }
 
     @Override
-    public void render(Screen screen, TileManager tileManager) {
+    public void render(Screen screen) {
         screen.renderSprite((int) xx, (int) yy - (int)zz +3, sprite, true, -1, 1);
     }
 

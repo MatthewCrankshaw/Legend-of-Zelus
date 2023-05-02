@@ -84,10 +84,10 @@ public class Level {
         }
 
         for (Entity e: entities) {
-            e.render(screen, tileManager);
+            e.render(screen);
         }
         for (Entity e: particles) {
-            e.render(screen, tileManager);
+            e.render(screen);
         };
     }
 

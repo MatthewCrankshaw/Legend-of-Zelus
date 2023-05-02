@@ -12,8 +12,8 @@ public class Enemy extends Mob {
     private int movX, movY = 0;
     private int currentLife, maxLife;
 
-    public Enemy(int x, int y, Level level, Screen screen, String name, int speed, CharacterAnimator animator){
-        super(level, screen, name, speed, 1);
+    public Enemy(int x, int y, Level level, Screen screen, String name, int speed, CharacterAnimator animator, TileManager tileManager){
+        super(level, screen, name, speed, 1, tileManager);
         this.x  = x;
         this.y = y;
         currentLife = 100;
@@ -62,7 +62,7 @@ public class Enemy extends Mob {
     }
 
     @Override
-    public void render(Screen screen, TileManager tileManager) {
+    public void render(Screen screen) {
         animator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming(), tileManager);
     }
 

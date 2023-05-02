@@ -7,7 +7,9 @@ import game.graphics.sprite.Sprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
 import game.levels.tile.TileConstants;
+import game.levels.tile.TileManager;
 import game.levels.tile.animated_tiles.AnimatedTile;
+import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
 
 /**
  * Created by Matthew.c on 21/01/2017.
@@ -23,8 +25,9 @@ public abstract class Mob extends Entity {
     protected boolean stuck;
     protected Sprite sprite;
     protected int mobScale;
+    protected TileManager tileManager;
 
-    public Mob(Level level, Screen screen, String name, int speed, int mobScale){
+    public Mob(Level level, Screen screen, String name, int speed, int mobScale, TileManager tileManager){
         super(level);
         this.screen = screen;
         this.name = name;
@@ -32,6 +35,7 @@ public abstract class Mob extends Entity {
         this.mobScale = mobScale;
         moving = false;
         alive = true;
+        this.tileManager = tileManager;
     }
 
 
@@ -91,12 +95,13 @@ public abstract class Mob extends Entity {
 
     //todo make this more efficient
     public boolean isSwimming(){
-        for(Tile t : Tile.sandToWaterTiles.solidTile1) {
+        AnimatedTransitionTiles tiles = tileManager.getAnimatedTransitionTiles(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER);
+        for(Tile t : tiles.solidTile1) {
             if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t)) {
                 return true;
             }
             else {
-                for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
+                for(Tile t2 : tiles.solidTile2) {
                     if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t2)) {
                         return true;
                     }
@@ -108,12 +113,13 @@ public abstract class Mob extends Entity {
 
     //todo make this more efficient
     public float getTileMovementImparement(){
-        for(Tile t : Tile.sandToWaterTiles.solidTile1) {
+        AnimatedTransitionTiles tiles = tileManager.getAnimatedTransitionTiles(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER);
+        for(Tile t : tiles.solidTile1) {
             if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t)) {
                 return t.getSpeedImparement();
             }
             else {
-                for(Tile t2 : Tile.sandToWaterTiles.solidTile2) {
+                for(Tile t2 : tiles.solidTile2) {
                     if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t2)) {
                         return t.getSpeedImparement();
                     }

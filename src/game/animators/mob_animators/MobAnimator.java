@@ -22,6 +22,5 @@ public abstract class MobAnimator extends Animator {
         this.scale = scale;
     }
 
-
     public abstract void renderSprite(int x, int y, boolean isMoving, int movingDir, boolean isSwimming, TileManager tileManager);
 }

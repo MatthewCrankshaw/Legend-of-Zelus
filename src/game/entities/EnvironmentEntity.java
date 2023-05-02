@@ -3,7 +3,6 @@ package game.entities;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
-import game.levels.tile.TileManager;
 
 public class EnvironmentEntity extends Entity{
     private Sprite sprite;
@@ -23,7 +22,7 @@ public class EnvironmentEntity extends Entity{
     }
 
     @Override
-    public void render(Screen screen, TileManager tileManager) {
+    public void render(Screen screen) {
         screen.renderSprite((int)this.x, (int)this.y, sprite, true, -1, scale);
     }
 }

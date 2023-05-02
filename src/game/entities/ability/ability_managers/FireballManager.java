@@ -90,7 +90,7 @@ public class FireballManager extends AbilityManager {
                 abilityList.get(i).fizzleOut();
                 abilityList.remove(i);
             }else{
-                abilityList.get(i).render(screen, tileManager);
+                abilityList.get(i).render(screen);
             }
         }
     }
