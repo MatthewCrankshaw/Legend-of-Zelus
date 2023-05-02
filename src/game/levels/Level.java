@@ -84,11 +84,11 @@ public class Level {
         }
 
         for (Entity e: entities) {
-            e.render(screen);
+            e.render(screen, tileManager);
         }
         for (Entity e: particles) {
-            e.render(screen);
-        }
+            e.render(screen, tileManager);
+        };
     }
 
     public boolean tileCollision(int x, int y, int size, int topOffsetX, int topOffsetY, int botOffsetX, int botOffsetY, int movingDir) {

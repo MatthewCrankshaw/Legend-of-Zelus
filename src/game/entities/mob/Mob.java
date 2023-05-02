@@ -7,6 +7,7 @@ import game.graphics.sprite.Sprite;
 import game.levels.Level;
 import game.levels.tile.Tile;
 import game.levels.tile.TileConstants;
+import game.levels.tile.animated_tiles.AnimatedTile;
 
 /**
  * Created by Matthew.c on 21/01/2017.
@@ -102,7 +103,7 @@ public abstract class Mob extends Entity {
                 }
             }
         }
-        return level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT,(int)y >> TileConstants.TILE_SHIFT_BIT).equals(Tile.mud);
+        return level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT,(int)y >> TileConstants.TILE_SHIFT_BIT).getClass() == AnimatedTile.class;
     }
 
     //todo make this more efficient

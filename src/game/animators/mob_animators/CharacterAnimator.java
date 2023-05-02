@@ -3,21 +3,20 @@ package game.animators.mob_animators;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
-import game.levels.tile.Tile;
+import game.levels.tile.TileManager;
+import game.levels.tile.animated_tiles.AnimatedTile;
 
 /**
  * Created by Matthew.c on 06/02/2017.
  */
 public class CharacterAnimator extends MobAnimator {
-
-
     public CharacterAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, int animSpeed, int scale){
         super(screen, numOfAnims, sprite, scale);
         timeBetweenAnim = animSpeed;
     }
 
     @Override
-    public void renderSprite(int x, int y, boolean isMoving, int movingDir, boolean isSwimming) {
+    public void renderSprite(int x, int y, boolean isMoving, int movingDir, boolean isSwimming, TileManager tileManager) {
         currentTime = System.currentTimeMillis();
         if (isMoving) {
             if (movingDir == 0) {                           //forward
@@ -74,7 +73,8 @@ public class CharacterAnimator extends MobAnimator {
         }
 
         if (isSwimming) {
-            screen.renderAnimatedTile(x, y, Tile.swimming, PlayerSprite.swimming);
+            AnimatedTile tile = tileManager.getAnimatedTile(TileManager.AnimatedTileTypes.SWIMMING);
+            screen.renderAnimatedTile(x, y, tile, PlayerSprite.swimming);
             screen.renderPlayer(x, y, 16, 10, scale, currentSprite);
         }else{
             screen.renderPlayer(x, y, 16, 16, scale, currentSprite);

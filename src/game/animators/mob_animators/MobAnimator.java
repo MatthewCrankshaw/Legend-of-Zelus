@@ -3,13 +3,12 @@ package game.animators.mob_animators;
 import game.animators.Animator;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
+import game.levels.tile.TileManager;
 
 /**
  * Created by Matthew.c on 06/02/2017.
  */
 public abstract class MobAnimator extends Animator {
-
-
     protected  Screen screen;
     protected Sprite[][] mobSprite;
     protected Sprite currentSprite;
@@ -24,5 +23,5 @@ public abstract class MobAnimator extends Animator {
     }
 
 
-    public abstract void renderSprite(int x, int y, boolean isMoving, int movingDir, boolean isSwimming);
+    public abstract void renderSprite(int x, int y, boolean isMoving, int movingDir, boolean isSwimming, TileManager tileManager);
 }

@@ -8,14 +8,15 @@ import game.levels.tile.TileConstants;
 /**
  * Created by Matthew.c on 30/01/2017.
  */
-public class AnimatedTile extends Tile{
+public class AnimatedTile extends Tile {
     private int currentAnimationIndex;
     private long lastIterationTime;
     private int animationSwitchDelay;
+    protected Sprite[] animatedSprite;
 
     public AnimatedTile(Sprite[] sprites, boolean solid, float speedImparement, int animationSwitchDelay){
-        super(sprites, solid, speedImparement);
-        currentSprite = animatedSprite[0];
+        super(sprites[0], solid, speedImparement);
+        this.animatedSprite = sprites;
         this.animationSwitchDelay = animationSwitchDelay;
     }
 

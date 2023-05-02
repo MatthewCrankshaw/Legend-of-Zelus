@@ -2,6 +2,7 @@ package game.entities;
 
 import game.graphics.Screen;
 import game.levels.Level;
+import game.levels.tile.TileManager;
 
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public abstract class Entity {
     }
 
     public abstract void tick();
-    public abstract void render(Screen screen);
+    public abstract void render(Screen screen, TileManager tileManager);
 
     public boolean isAlive(){
         return alive;

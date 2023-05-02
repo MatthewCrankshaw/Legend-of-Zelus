@@ -9,6 +9,7 @@ import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
+import game.levels.tile.TileManager;
 
 /**
  * Created by Matthew.c on 02/02/2017.
@@ -79,7 +80,7 @@ public class FireballManager extends AbilityManager {
         return Math.atan2(dy, dx);
     }
 
-    public void renderFireballs(){
+    public void renderFireballs(TileManager tileManager){
         for (int i = 0; i < abilityList.size(); i++) {
             if (abilityList.get(i).isExploding()) {
                 abilityList.get(i).explode();
@@ -89,7 +90,7 @@ public class FireballManager extends AbilityManager {
                 abilityList.get(i).fizzleOut();
                 abilityList.remove(i);
             }else{
-                abilityList.get(i).render(screen);
+                abilityList.get(i).render(screen, tileManager);
             }
         }
     }

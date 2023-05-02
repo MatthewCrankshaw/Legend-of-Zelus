@@ -6,7 +6,7 @@ import game.entities.ability.ability_managers.FireballManager;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.graphics.Screen;
 import game.levels.Level;
-import game.levels.tile.Tile;
+import game.levels.tile.TileManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -76,8 +76,6 @@ public class Player extends Mob {
         fireballManager.tick();
         teleportManager.tick();
 
-        Tile.swimming.tick();
-
         int xa = 0;
         int ya = 0;
         if (input.isKeyPressed(KeyEvent.VK_UP)) {
@@ -117,18 +115,17 @@ public class Player extends Mob {
     }
 
     @Override
-    public void render(Screen screen) {
+    public void render(Screen screen, TileManager tileManager) {
         //render the character animations according to state
-
         if (!teleportManager.isInAnimation() && fireballManager.isInAnimation()) {
             fireballManager.renderSprite(x,y);
         }else if (teleportManager.isInAnimation()){
             teleportManager.renderSprite(x,y);
         }else{
-            characterAnimator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming());
+            characterAnimator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming(), tileManager);
         }
         //render Pre-existing fireballs
-        fireballManager.renderFireballs();
+        fireballManager.renderFireballs(tileManager);
     }
 
     public int getCurrentLife(){

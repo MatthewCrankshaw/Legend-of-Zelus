@@ -3,6 +3,7 @@ package game.entities.ability.projectiles;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
+import game.levels.tile.TileManager;
 
 /**
  * Created by Matthew.c on 25/01/2017.
@@ -44,7 +45,7 @@ public class FireballProjectile extends Projectile{
     }
 
     @Override
-    public void render(Screen screen) {
+    public void render(Screen screen, TileManager tileManager) {
         screen.renderSprite((int)x, (int)y, fireballSprite[0], true, -1, 1);
     }
 

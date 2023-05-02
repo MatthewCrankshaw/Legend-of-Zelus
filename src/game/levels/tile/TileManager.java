@@ -1,8 +1,11 @@
 package game.levels.tile;
 
 import game.animators.tile_animators.TransitionTileAnimator;
+import game.levels.tile.animated_tiles.AnimatedTile;
 import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
 import game.levels.tile.transition_tiles.TransitionTiles;
+
+import java.util.Map;
 
 /**
  * Created by Matthew.c on 02/03/2017.
@@ -13,17 +16,49 @@ public class TileManager {
     public static final int GRASS = 0xff0e7700;
     public static final int MUD = 0xff593000;
     public static final int VOIDTILE = 0xffff00ff;
-
     public static final int SAND_TO_WATER = 0xff0022ff;
     public static final int GRASS_TO_SAND = 0xffcfb579;
     public static final int GRASS_TO_DIRT = 0xff5c4500;
     public static final int DIRT_TO_GRASS = 0xff204600;
-
     TransitionTileAnimator tileAnimator = new TransitionTileAnimator();
-
     private int numXTiles;
     private int numYTiles;
     protected int[] tiles;
+
+    public enum TileType {
+        VOID,
+        STONE,
+        GRASS,
+        WOOD_FLOOR,
+        SAND_STONE
+    }
+
+    public enum TransitionTileTypes {
+        GRASS_TO_SAND,
+        DIRT_TO_GRASS,
+        GRASS_TO_DIRT
+    }
+
+    public enum AnimatedTileTypes {
+        MUD,
+        SWIMMING,
+    }
+
+    protected Map<TileType, Tile> tileTypes;
+
+    protected Map<TransitionTileTypes, TransitionTiles> transitionTypes;
+
+    protected Map<AnimatedTileTypes, AnimatedTile> animatedTypes;
+
+    public TileManager(
+        Map<TileType, Tile> tileTypes,
+        Map<TransitionTileTypes, TransitionTiles> transitionTypes,
+        Map<AnimatedTileTypes, AnimatedTile> animatedTypes
+    ) {
+        this.tileTypes = tileTypes;
+        this.transitionTypes = transitionTypes;
+        this.animatedTypes = animatedTypes;
+    }
 
     public void setDimensions(int x, int y) {
         this.numXTiles = x;
@@ -34,29 +69,33 @@ public class TileManager {
         return this.tiles;
     }
 
+    public AnimatedTile getAnimatedTile(AnimatedTileTypes type) {
+        return this.animatedTypes.get(type);
+    }
+
     public void setTiles(int[] tiles) {
         this.tiles = tiles;
     }
 
     public Tile getTile(int x , int y){
         if (x < 0 || y < 0 || x >= numXTiles || y >= numYTiles){
-            return Tile.voidTile;
+            return tileTypes.get(TileType.VOID);
         }else if(tiles[x+y*numXTiles] == STONE){
-            return Tile.stone;
+            return tileTypes.get(TileType.STONE);
         }else if(tiles[x+y*numXTiles] == GRASS){
-            return Tile.grass;
+            return tileTypes.get(TileType.GRASS);
         }else if(tiles[x+y*numXTiles] == SAND_TO_WATER){
             return getAnimatedTransitionTileVariant(x,y, SAND_TO_WATER, GRASS_TO_SAND, Tile.sandToWaterTiles);
         }else if(tiles[x+y*numXTiles] == MUD){
-            return Tile.mud;
+            return animatedTypes.get(AnimatedTileTypes.MUD);
         }else if(tiles[x+y*numXTiles] == GRASS_TO_SAND) {
-            return getTransitionTileVariant(x, y, GRASS_TO_SAND, GRASS, Tile.grassToSandTiles);
+            return getTransitionTileVariant(x, y, GRASS_TO_SAND, GRASS, transitionTypes.get(TransitionTileTypes.GRASS_TO_SAND));
         }else if(tiles[x+y*numXTiles] == GRASS_TO_DIRT) {
-            return getTransitionTileVariant(x, y, GRASS_TO_DIRT, GRASS,  Tile.grassToDirtTiles);
+            return getTransitionTileVariant(x, y, GRASS_TO_DIRT, GRASS, transitionTypes.get(TransitionTileTypes.GRASS_TO_DIRT));
         }else if(tiles[x+y*numXTiles] == DIRT_TO_GRASS){
-            return getTransitionTileVariant(x, y, DIRT_TO_GRASS, GRASS_TO_DIRT, Tile.dirtToGrassTiles);
+            return getTransitionTileVariant(x, y, DIRT_TO_GRASS, GRASS_TO_DIRT, transitionTypes.get(TransitionTileTypes.GRASS_TO_DIRT));
         }else{
-            return Tile.voidTile;
+            return tileTypes.get(TileType.VOID);
         }
     }
 
@@ -218,5 +257,11 @@ public class TileManager {
             return TransitionTiles.Variants.SED;
         }
         return TransitionTiles.Variants.S1;
+    }
+
+    public void tick() {
+        for (AnimatedTile tile : animatedTypes.values()) {
+            tile.tick();
+        }
     }
 }

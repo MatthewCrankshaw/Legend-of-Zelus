@@ -5,7 +5,7 @@ import game.entities.ability.Ability;
 import game.entities.ability.ability_managers.AbilityManager;
 import game.graphics.Screen;
 import game.levels.Level;
-import game.levels.tile.Tile;
+import game.levels.tile.TileManager;
 
 public class Enemy extends Mob {
     private CharacterAnimator animator;
@@ -36,7 +36,6 @@ public class Enemy extends Mob {
             alive = false;
         }
 
-        Tile.swimming.tick();
         int xa = 0;
         int ya = 0;
         if (movY == 1) {
@@ -63,8 +62,8 @@ public class Enemy extends Mob {
     }
 
     @Override
-    public void render(Screen screen) {
-        animator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming());
+    public void render(Screen screen, TileManager tileManager) {
+        animator.renderSprite((int)x,(int)y, this.isMoving(), this.getMovingDir(), this.isSwimming(), tileManager);
     }
 
     private int isHit(int x, int y, int damage){

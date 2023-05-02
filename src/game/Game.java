@@ -13,10 +13,19 @@ import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.sprite.AnimatedSprite;
 import game.graphics.sprite.Sprite;
+import game.graphics.sprite.environment_sprites.FloorTileSprite;
 import game.graphics.sprite.mob_sprites.PlayerSprite;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
+import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
+import game.levels.tile.animated_tiles.AnimatedTile;
+import game.levels.tile.static_tiles.BasicTile;
+import game.levels.tile.static_tiles.VoidTile;
+import game.levels.tile.transition_tiles.DirtToGrassTiles;
+import game.levels.tile.transition_tiles.GrassToDirtTiles;
+import game.levels.tile.transition_tiles.GrassToSandTiles;
+import game.levels.tile.transition_tiles.TransitionTiles;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +35,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
@@ -43,6 +54,7 @@ public class Game extends Canvas implements Runnable {
     private Player player;
     private AiManager ai;
     private Spawner spawner;
+    private TileManager tileManager;
 
     public static void main(String[] args) {
         int numpixels = screensize.width * screensize.height;
@@ -107,7 +119,23 @@ public class Game extends Canvas implements Runnable {
         this.input.registerKey(new Key(KeyEvent.VK_SPACE));
         this.input.registerKey(new Key(MouseEvent.BUTTON1));
 
-        TileManager tileManager = new TileManager();
+        Map<TileManager.TileType, Tile> tileTypes = new HashMap<>();
+        tileTypes.put(TileManager.TileType.VOID, new VoidTile(FloorTileSprite.voidSprite));
+        tileTypes.put(TileManager.TileType.STONE, new BasicTile(FloorTileSprite.stone));
+        tileTypes.put(TileManager.TileType.GRASS, new BasicTile(FloorTileSprite.grass));
+        tileTypes.put(TileManager.TileType.WOOD_FLOOR, new BasicTile(FloorTileSprite.woodFloor));
+        tileTypes.put(TileManager.TileType.SAND_STONE, new BasicTile(FloorTileSprite.sandStone));
+
+        Map<TileManager.TransitionTileTypes, TransitionTiles> transitionTiles = new HashMap<>();
+        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_SAND, new GrassToSandTiles());
+        transitionTiles.put(TileManager.TransitionTileTypes.DIRT_TO_GRASS, new DirtToGrassTiles());
+        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_DIRT, new GrassToDirtTiles());
+
+        Map<TileManager.AnimatedTileTypes, AnimatedTile> animatedTiles = new HashMap<>();
+        animatedTiles.put(TileManager.AnimatedTileTypes.MUD, new AnimatedTile(FloorTileSprite.mud, false, 0.1f, 1000));
+        animatedTiles.put(TileManager.AnimatedTileTypes.SWIMMING, new AnimatedTile(PlayerSprite.swimming, false, 0.0f, 500));
+
+        tileManager = new TileManager(tileTypes, transitionTiles, animatedTiles);
         this.level = new Level("/levels/TestingArena.png", tileManager);
         Spawner spawner = new Spawner(level, screen);
 
@@ -202,6 +230,7 @@ public class Game extends Canvas implements Runnable {
         if (!ui.isGamePaused()) {
             level.tick();
             ai.tick();
+            tileManager.tick();
         }
         ui.tick();
     }
