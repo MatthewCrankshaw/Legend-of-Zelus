@@ -20,6 +20,7 @@ import game.levels.tile.TileManager;
 import game.levels.tile.animated_tiles.AnimatedTile;
 import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
 import game.levels.tile.animated_transition_tiles.SandToWaterTileLoader;
+import game.levels.tile.static_tiles.BasicSolidTile;
 import game.levels.tile.static_tiles.BasicTile;
 import game.levels.tile.static_tiles.VoidTile;
 import game.levels.tile.transition_tiles.DirtToGrassTiles;
@@ -125,7 +126,7 @@ public class Game extends Canvas implements Runnable {
 
         Map<TileManager.TileType, Tile> tileTypes = new HashMap<>();
         tileTypes.put(TileManager.TileType.VOID, new VoidTile(spriteRegistry.get(SpriteRegistry.SpriteItem.VOID)));
-        tileTypes.put(TileManager.TileType.STONE, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.STONE)));
+        tileTypes.put(TileManager.TileType.STONE, new BasicSolidTile(spriteRegistry.get(SpriteRegistry.SpriteItem.STONE)));
         tileTypes.put(TileManager.TileType.GRASS, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.GRASS)));
         tileTypes.put(TileManager.TileType.WOOD_FLOOR, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.WOOD_FLOOR)));
         tileTypes.put(TileManager.TileType.SAND_STONE, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.SAND_STONE)));

@@ -48,9 +48,9 @@ public class SandToWaterTileLoader {
                 new BasicTile(NED[2])
         });
         sandToWaterSprites.setSWDiagonalTile(new BasicTile[]{
-                new BasicTile(NWD[0]),
-                new BasicTile(NWD[1]),
-                new BasicTile(NWD[2])
+                new BasicTile(SWD[0]),
+                new BasicTile(SWD[1]),
+                new BasicTile(SWD[2])
         });
         sandToWaterSprites.setSEDiagonalTile(new BasicTile[]{
                 new BasicTile(SED[0]),
