@@ -1,5 +1,6 @@
 package game.levels.tile.transition_tiles;
 
+import game.graphics.sprite.SpriteSheetRegistry;
 import game.levels.tile.static_tiles.BasicTile;
 
 import java.util.HashMap;
@@ -15,11 +16,15 @@ public abstract class TransitionTiles {
         NWC, NEC, SWC, SEC,
         NE, WE, EE, SE,
         S1, S2
-
     }
 
-    public TransitionTiles() {
+
+
+    protected SpriteSheetRegistry spriteSheet;
+
+    public TransitionTiles(SpriteSheetRegistry spriteSheet) {
         tiles = new HashMap<>();
+        this.spriteSheet = spriteSheet;
         setTiles();
     }
 

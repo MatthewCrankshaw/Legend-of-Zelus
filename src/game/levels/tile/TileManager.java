@@ -114,33 +114,33 @@ public class TileManager {
     private Tile getAnimatedTransitionTileVariant(int x, int y, int colour, int transitionTileCol, AnimatedTransitionTiles tile){
         switch (findTileType(x, y, colour, transitionTileCol)){
             case S1:
-                return tile.solidTile1[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSolidTile1()[tileAnimator.getCurrentAnimationIndex()];
             case S2:
-                return tile.solidTile2[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSolidTile2()[tileAnimator.getCurrentAnimationIndex()];
             case NWD:
-                return tile.NW_DiagonalTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getNWDiagonalTile()[tileAnimator.getCurrentAnimationIndex()];
             case NED:
-                return tile.NE_DiagonalTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getNEDiagonalTile()[tileAnimator.getCurrentAnimationIndex()];
             case SWD:
-                return tile.SW_DiagonalTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSWDiagonalTile()[tileAnimator.getCurrentAnimationIndex()];
             case SED:
-                return tile.SE_DiagonalTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSEDiagonalTile()[tileAnimator.getCurrentAnimationIndex()];
             case NWC:
-                return tile.NW_CornerTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getNWCornerTile()[tileAnimator.getCurrentAnimationIndex()];
             case NEC:
-                return tile.NE_CornerTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getNECornerTile()[tileAnimator.getCurrentAnimationIndex()];
             case SWC:
-                return tile.SW_CornerTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSWCornerTile()[tileAnimator.getCurrentAnimationIndex()];
             case SEC:
-                return tile.SE_CornerTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSECornerTile()[tileAnimator.getCurrentAnimationIndex()];
             case NE:
-                return tile.northEdgeTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getNorthEdgeTile()[tileAnimator.getCurrentAnimationIndex()];
             case SE:
-                return tile.southEdgeTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getSouthEdgeTile()[tileAnimator.getCurrentAnimationIndex()];
             case EE:
-                return tile.eastEdgeTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getEastEdgeTile()[tileAnimator.getCurrentAnimationIndex()];
             case WE:
-                return tile.westEdgeTile[tileAnimator.getCurrentAnimationIndex()];
+                return tile.getWestEdgeTile()[tileAnimator.getCurrentAnimationIndex()];
             default:
                 return null;
         }

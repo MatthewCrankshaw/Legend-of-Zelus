@@ -1,6 +1,6 @@
 package game.graphics;
-import game.graphics.sprite.FontSprite;
 import game.graphics.sprite.Sprite;
+import game.graphics.sprite.SpriteRegistry;
 import game.levels.tile.Tile;
 import game.levels.tile.TileConstants;
 import game.levels.tile.animated_tiles.AnimatedTile;
@@ -21,11 +21,13 @@ public class Screen {
     private double yOffset;
     public int[] pixels;
     private boolean AAFilterEnabled, MedianBlurEnabled, SmoothingFilterEnabled;
+    protected SpriteRegistry spriteRegistry;
 
-    public Screen(int width, int height, int scale){
+    public Screen(int width, int height, int scale, SpriteRegistry spriteRegistry){
         this.width = width;
         this.height = height;
         this.scale = scale;
+        this.spriteRegistry = spriteRegistry;
         this.pixels = new int[width * height];
 
         this.AAFilterEnabled = false;
@@ -84,7 +86,7 @@ public class Screen {
             if(center){
                 centerOffset = ((len*8)/2) * scale;
             }else centerOffset = 0;
-            renderSprite(xp + (i*8*scale) - centerOffset, yp, FontSprite.getCharacterSprite(string.charAt(i)), false, colour, scale);
+            renderSprite(xp + (i*8*scale) - centerOffset, yp, spriteRegistry.getCharacterSprite(string.charAt(i)), false, colour, scale);
         }
     }
 
@@ -102,7 +104,6 @@ public class Screen {
         }
         tile.tick();
     }
-
 
     public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile, Sprite[] sprite){
 

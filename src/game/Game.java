@@ -11,17 +11,15 @@ import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
-import game.graphics.sprite.AnimatedSprite;
-import game.graphics.sprite.Sprite;
-import game.graphics.sprite.environment_sprites.FloorTileSprite;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
+import game.graphics.sprite.SpriteRegistry;
+import game.graphics.sprite.SpriteSheetRegistry;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
 import game.levels.tile.Tile;
 import game.levels.tile.TileManager;
 import game.levels.tile.animated_tiles.AnimatedTile;
 import game.levels.tile.animated_transition_tiles.AnimatedTransitionTiles;
-import game.levels.tile.animated_transition_tiles.SandToWaterTiles;
+import game.levels.tile.animated_transition_tiles.SandToWaterTileLoader;
 import game.levels.tile.static_tiles.BasicTile;
 import game.levels.tile.static_tiles.VoidTile;
 import game.levels.tile.transition_tiles.DirtToGrassTiles;
@@ -86,7 +84,6 @@ public class Game extends Canvas implements Runnable {
             System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
         }
 
-        //Start the game
         new Game().start();
     }
 
@@ -110,7 +107,12 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void init() {
-        this.screen = new Screen(WIDTH, HEIGHT, SCALE);
+        SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry();
+        SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry);
+
+        this.screen = new Screen(WIDTH, HEIGHT, SCALE, spriteRegistry);
+
+
         this.input = new InputHandler(this);
         this.input.registerKey(new Key(KeyEvent.VK_UP));
         this.input.registerKey(new Key(KeyEvent.VK_DOWN));
@@ -122,45 +124,45 @@ public class Game extends Canvas implements Runnable {
         this.input.registerKey(new Key(MouseEvent.BUTTON1));
 
         Map<TileManager.TileType, Tile> tileTypes = new HashMap<>();
-        tileTypes.put(TileManager.TileType.VOID, new VoidTile(FloorTileSprite.voidSprite));
-        tileTypes.put(TileManager.TileType.STONE, new BasicTile(FloorTileSprite.stone));
-        tileTypes.put(TileManager.TileType.GRASS, new BasicTile(FloorTileSprite.grass));
-        tileTypes.put(TileManager.TileType.WOOD_FLOOR, new BasicTile(FloorTileSprite.woodFloor));
-        tileTypes.put(TileManager.TileType.SAND_STONE, new BasicTile(FloorTileSprite.sandStone));
+        tileTypes.put(TileManager.TileType.VOID, new VoidTile(spriteRegistry.get(SpriteRegistry.SpriteItem.VOID)));
+        tileTypes.put(TileManager.TileType.STONE, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.STONE)));
+        tileTypes.put(TileManager.TileType.GRASS, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.GRASS)));
+        tileTypes.put(TileManager.TileType.WOOD_FLOOR, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.WOOD_FLOOR)));
+        tileTypes.put(TileManager.TileType.SAND_STONE, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.SAND_STONE)));
 
         Map<TileManager.TransitionTileTypes, TransitionTiles> transitionTiles = new HashMap<>();
-        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_SAND, new GrassToSandTiles());
-        transitionTiles.put(TileManager.TransitionTileTypes.DIRT_TO_GRASS, new DirtToGrassTiles());
-        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_DIRT, new GrassToDirtTiles());
+        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_SAND, new GrassToSandTiles(spriteSheetRegistry));
+        transitionTiles.put(TileManager.TransitionTileTypes.DIRT_TO_GRASS, new DirtToGrassTiles(spriteSheetRegistry));
+        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_DIRT, new GrassToDirtTiles(spriteSheetRegistry));
 
         Map<TileManager.AnimatedTileTypes, AnimatedTile> animatedTiles = new HashMap<>();
-        animatedTiles.put(TileManager.AnimatedTileTypes.MUD, new AnimatedTile(FloorTileSprite.mud, false, 0.1f, 1000));
-        animatedTiles.put(TileManager.AnimatedTileTypes.SWIMMING, new AnimatedTile(PlayerSprite.swimming, false, 0.0f, 500));
+        animatedTiles.put(TileManager.AnimatedTileTypes.MUD, new AnimatedTile(spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.MUD), false, 0.1f, 1000));
+        animatedTiles.put(TileManager.AnimatedTileTypes.SWIMMING, new AnimatedTile(spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.SWIMMING), false, 0.0f, 500));
 
         Map<TileManager.AnimatedTransitionTileTypes, AnimatedTransitionTiles> animatedTransitionTiles = new HashMap<>();
-        animatedTransitionTiles.put(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER, new SandToWaterTiles());
+        animatedTransitionTiles.put(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER, new SandToWaterTileLoader(spriteRegistry).load());
 
-        tileManager = new TileManager(tileTypes, transitionTiles, animatedTiles, animatedTransitionTiles);
+        this.tileManager = new TileManager(tileTypes, transitionTiles, animatedTiles, animatedTransitionTiles);
         this.level = new Level("/levels/TestingArena.png", tileManager);
-        Spawner spawner = new Spawner(level, screen, tileManager);
+        Spawner spawner = new Spawner(level, screen, tileManager, spriteRegistry);
 
-        FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, PlayerSprite.playerAttackSprites);
-        FireballManager fireballManager = new FireballManager(screen, input, level, Sprite.fireballSprites, fireballAnimator, spawner);
+        FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.PLAYER_ATTACKS), spriteRegistry);
+        FireballManager fireballManager = new FireballManager(screen, input, level, spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.FIREBALL_SPRITES), fireballAnimator, spawner, spriteRegistry);
 
         TeleportAnimator teleportAnimator = new TeleportAnimator(
             screen,
             6,
-            AnimatedSprite.teleportSprite,
-            Sprite.teleportFloorSign,
+            spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.TELEPORT),
+            spriteRegistry.get(SpriteRegistry.SpriteItem.TELEPORT_FLOOR_SIGN),
             Player.TELEPORT_CAST_SPEED/6
         );
         TeleportManager teleportManager = new TeleportManager(screen, input, level, teleportAnimator);
 
-        CharacterAnimator characterAnimator = new CharacterAnimator(screen, 4, PlayerSprite.wizardSprites, 100, 1);
+        CharacterAnimator characterAnimator = new CharacterAnimator(screen, 4, spriteRegistry.getCharacter(SpriteRegistry.AnimatedCharacterSprites.WIZARD), 100, 1, spriteRegistry);
         this.player = new Player(150, 150, level, screen, input, fireballManager, teleportManager, characterAnimator, tileManager);
 
         this.ui = new UserInterface(screen, player);
-        this.spawner = new Spawner(level, screen, tileManager);
+        this.spawner = new Spawner(level, screen, tileManager, spriteRegistry);
 
         ArrayList<Enemy> enemies = initializeEnemies();
         PathFinder pathFinder = new PathFinder(player, enemies, level);

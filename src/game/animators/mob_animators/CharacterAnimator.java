@@ -2,7 +2,7 @@ package game.animators.mob_animators;
 
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
-import game.graphics.sprite.mob_sprites.PlayerSprite;
+import game.graphics.sprite.SpriteRegistry;
 import game.levels.tile.TileManager;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
@@ -10,8 +10,11 @@ import game.levels.tile.animated_tiles.AnimatedTile;
  * Created by Matthew.c on 06/02/2017.
  */
 public class CharacterAnimator extends MobAnimator {
-    public CharacterAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, int animSpeed, int scale){
+    protected SpriteRegistry spriteRegistry;
+
+    public CharacterAnimator(Screen screen, int numOfAnims, Sprite[][] sprite, int animSpeed, int scale, SpriteRegistry spriteRegistry){
         super(screen, numOfAnims, sprite, scale);
+        this.spriteRegistry = spriteRegistry;
         timeBetweenAnim = animSpeed;
     }
 
@@ -74,7 +77,7 @@ public class CharacterAnimator extends MobAnimator {
 
         if (isSwimming) {
             AnimatedTile tile = tileManager.getAnimatedTile(TileManager.AnimatedTileTypes.SWIMMING);
-            screen.renderAnimatedTile(x, y, tile, PlayerSprite.swimming);
+            screen.renderAnimatedTile(x, y, tile, spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.SWIMMING));
             screen.renderPlayer(x, y, 16, 10, scale, currentSprite);
         }else{
             screen.renderPlayer(x, y, 16, 16, scale, currentSprite);

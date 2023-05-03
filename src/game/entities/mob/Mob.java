@@ -96,12 +96,12 @@ public abstract class Mob extends Entity {
     //todo make this more efficient
     public boolean isSwimming(){
         AnimatedTransitionTiles tiles = tileManager.getAnimatedTransitionTiles(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER);
-        for(Tile t : tiles.solidTile1) {
+        for(Tile t : tiles.getSolidTile1()) {
             if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t)) {
                 return true;
             }
             else {
-                for(Tile t2 : tiles.solidTile2) {
+                for(Tile t2 : tiles.getSolidTile2()) {
                     if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t2)) {
                         return true;
                     }
@@ -114,12 +114,12 @@ public abstract class Mob extends Entity {
     //todo make this more efficient
     public float getTileMovementImparement(){
         AnimatedTransitionTiles tiles = tileManager.getAnimatedTransitionTiles(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER);
-        for(Tile t : tiles.solidTile1) {
+        for(Tile t : tiles.getSolidTile1()) {
             if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t)) {
                 return t.getSpeedImparement();
             }
             else {
-                for(Tile t2 : tiles.solidTile2) {
+                for(Tile t2 : tiles.getSolidTile2()) {
                     if (level.getTileManager().getTile((int)x >> TileConstants.TILE_SHIFT_BIT, (int)y >> TileConstants.TILE_SHIFT_BIT).equals(t2)) {
                         return t.getSpeedImparement();
                     }

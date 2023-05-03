@@ -8,6 +8,7 @@ import game.entities.ability.projectiles.FireballProjectile;
 import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
+import game.graphics.sprite.SpriteRegistry;
 import game.levels.Level;
 import game.levels.tile.TileManager;
 
@@ -26,14 +27,14 @@ public class FireballManager extends AbilityManager {
     public static int MANA_COST = 40;
 
 
-    public FireballManager(Screen screen, InputHandler input, Level level, Sprite[] fireballSprite, FireballAnimator animator, Spawner spawner){
+    public FireballManager(Screen screen, InputHandler input, Level level, Sprite[] fireballSprite, FireballAnimator animator, Spawner spawner, SpriteRegistry spriteRegistry){
         super(screen, input, level, 5);
         this.timeBetweenAnim = Player.FIREBALL_CAST_SPEED/numOfAnim;
         this.input = input;
         this.inAnimation = false;
         this.readyToShoot = true;
         this.fireballSprite = fireballSprite;
-        this.particleSprite = Sprite.particle_red;
+        this.particleSprite = spriteRegistry.get(SpriteRegistry.SpriteItem.RED_PARTICLE);
         this.animator = animator;
         this.spawner = spawner;
     }
