@@ -3,14 +3,11 @@ package game.levels;
 import game.entities.Entity;
 import game.entities.particles.Particle;
 import game.graphics.Screen;
+import game.graphics.files.Image;
 import game.levels.tile.TileConstants;
 import game.levels.tile.TileManager;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,37 +15,18 @@ import java.util.List;
  * Created by Matthew.c on 26/01/2017.
  */
 public class Level {
-
-    private int width;
-    private int height;
-
-    private List<Entity> entities = new ArrayList<>();
-    private List<Particle> particles = new ArrayList<>();
+    private final List<Entity> entities = new ArrayList<>();
+    private final List<Particle> particles = new ArrayList<>();
     protected TileManager tileManager;
 
-    public Level(String path, TileManager tileManager){
+    public Level(Image image, TileManager tileManager){
         this.tileManager = tileManager;
-        loadLevelFromFile(path);
-        this.tileManager.setDimensions(width, height);
+        this.tileManager.setTiles(image.getPixels());
+        this.tileManager.setDimensions(image.getWidth(), image.getHeight());
     }
 
     public TileManager getTileManager() {
         return this.tileManager;
-    }
-
-    protected void loadLevelFromFile(String path){
-        try{
-            String dir = System.getProperty("user.dir");
-            File file = new File(dir + "/res" + path);
-            BufferedImage image = ImageIO.read(file);
-            int w = width = image.getWidth();
-            int h = height = image.getHeight();
-            this.tileManager.setTiles(new int[w*h]);
-            image.getRGB(0,0,w,h,this.tileManager.getTiles(), 0, w);
-        }catch (IOException e) {
-            System.err.println("Level file could not be found:");
-            e.printStackTrace();
-        }
     }
 
     public void add(Entity entity){

@@ -20,6 +20,14 @@ public class Image {
         this.pixels = pixels;
     }
 
+    public void setPixel(int x, int y, int value){
+        this.pixels[x+y*getWidth()] = value;
+    }
+
+    public int getPixel(int x, int y){
+        return this.pixels[x+y*getWidth()];
+    }
+
     public int getWidth(){
         return this.width;
     }

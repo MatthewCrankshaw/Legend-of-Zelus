@@ -11,6 +11,7 @@ import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
+import game.graphics.files.Image;
 import game.graphics.files.ImageLoader;
 import game.graphics.sprite.SpriteRegistry;
 import game.graphics.sprite.SpriteSheetRegistry;
@@ -146,7 +147,9 @@ public class Game extends Canvas implements Runnable {
         animatedTransitionTiles.put(TileManager.AnimatedTransitionTileTypes.SAND_TO_WATER, new SandToWaterTileLoader(spriteRegistry).load());
 
         this.tileManager = new TileManager(tileTypes, transitionTiles, animatedTiles, animatedTransitionTiles);
-        this.level = new Level("/levels/TestingArena.png", tileManager);
+
+        Image levelImage = imageLoader.load("/levels/TestingArena.png");
+        this.level = new Level(levelImage, tileManager);
         Spawner spawner = new Spawner(level, screen, tileManager, spriteRegistry);
 
         FireballAnimator fireballAnimator = new FireballAnimator(screen, 4, spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.PLAYER_ATTACKS), spriteRegistry);

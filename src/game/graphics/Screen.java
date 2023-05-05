@@ -47,22 +47,22 @@ public class Screen {
             yp -= yOffset;
         }
 
-        for(int y = 0; y < sprite.SIZE*spriteScale; y ++) {
+        for(int y = 0; y < sprite.getSize()*spriteScale; y ++) {
             int ya = y + yp;
-            for(int x = 0; x < sprite.SIZE*spriteScale; x++) {
+            for(int x = 0; x < sprite.getSize()*spriteScale; x++) {
                 int xa = x + xp;
-                if (xa < -sprite.SIZE*spriteScale || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < -sprite.getSize()*spriteScale || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
 
                 //Set the colour -1 for original colour on sprite
-                int col = sprite.pixels[(x/spriteScale) + (y/spriteScale) * sprite.SIZE];
+                int col = sprite.getPixel(x , y, spriteScale);
 
-                if(sprite.pixels[(x/spriteScale) + (y/spriteScale) * sprite.SIZE] != 0xffff00ff){
+                if(sprite.getPixel(x, y, spriteScale) != 0xffff00ff){
                     col = colour;
                 }
 
                 if(colour == -1) {
-                    col = sprite.pixels[(x/spriteScale) + (y/spriteScale) * sprite.SIZE];
+                    col = sprite.getPixel(x, y, spriteScale);
                 }
 
                 if (col != 0xffff00ff){
@@ -93,13 +93,13 @@ public class Screen {
     public void renderTile(int xp, int yp, Tile tile){
         xp -= xOffset;
         yp -= yOffset;
-        for(int y = 0; y < tile.getCurrentSprite().SIZE; y ++) {
+        for(int y = 0; y < tile.getCurrentSprite().getSize(); y ++) {
             int ya = y + yp;
-            for(int x = 0; x < tile.getCurrentSprite().SIZE; x++) {
+            for(int x = 0; x < tile.getCurrentSprite().getSize(); x++) {
                 int xa = x + xp;
-                if (xa < -tile.getCurrentSprite().SIZE || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < -tile.getCurrentSprite().getSize() || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                pixels[xa+ya*width] = tile.getCurrentSprite().pixels[x+ y * tile.getCurrentSprite().SIZE];
+                pixels[xa+ya*width] = tile.getCurrentSprite().getPixel(x, y);
             }
         }
         tile.tick();
@@ -116,9 +116,9 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite[animIndex].pixels[x+y* TileConstants.TILE_SIZE*2];
+                int col = sprite[animIndex].getPixel(x, y, scale);
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite[animIndex].pixels[x + y * TileConstants.TILE_SIZE*2];
+                    pixels[xa+ya*width] = sprite[animIndex].getPixel(x, y, scale);
                 }
             }
         }
@@ -228,9 +228,9 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < -pixelsLong || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite.pixels[x/scale + y/scale * 16];
+                int col = sprite.getPixel(x, y, scale);
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite.pixels[x/scale + y/scale * 16];
+                    pixels[xa+ya*width] = sprite.getPixel(x, y, scale);
                 }
             }
         }
