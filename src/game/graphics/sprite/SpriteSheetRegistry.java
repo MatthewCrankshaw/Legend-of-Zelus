@@ -2,6 +2,7 @@ package game.graphics.sprite;
 
 
 import game.graphics.SpriteSheet;
+import game.graphics.files.ImageLoader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,23 +33,23 @@ public class SpriteSheetRegistry {
 
     protected Map<SpriteSheetItem, SpriteSheet> spriteSheets = new HashMap<>();
 
-    public SpriteSheetRegistry(){
-        this.spriteSheets.put(SpriteSheetItem.CHARACTER_ANIMS, new SpriteSheet("/Character/CharacterAnimations-16.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.CHARACTER_MOVEMENT, new SpriteSheet("/Character/CharacterMovement-16.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.GRASS_TO_SAND, new SpriteSheet("/Terrain/grass_to_sand.png", 48));
-        this.spriteSheets.put(SpriteSheetItem.DIRT_TO_GRASS, new SpriteSheet("/Terrain/dirt_to_grass.png", 48));
-        this.spriteSheets.put(SpriteSheetItem.GRASS_TO_DIRT, new SpriteSheet("/Terrain/grass_to_dirt.png", 48));
-        this.spriteSheets.put(SpriteSheetItem.SAND_TO_WATER_1, new SpriteSheet("/Terrain/water_sprites/sand_to_water1.png", 48));
-        this.spriteSheets.put(SpriteSheetItem.SAND_TO_WATER_2, new SpriteSheet("/Terrain/water_sprites/sand_to_water2.png", 48));
-        this.spriteSheets.put(SpriteSheetItem.SAND_TO_WATER_3, new SpriteSheet("/Terrain/water_sprites/sand_to_water3.png", 48));
-        this.spriteSheets.put(SpriteSheetItem.ENVIRONMENT_8, new SpriteSheet("/Environment/Environment-8.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.ENVIRONMENT_16, new SpriteSheet("/Environment/Environment-16.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.ENVIRONMENT_32, new SpriteSheet("/Environment/Environment-32.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.ABILITIES_8, new SpriteSheet("/AbilityEffects/AbilityEffects-8.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.ABILITIES_16, new SpriteSheet("/AbilityEffects/AbilityEffects-16.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.ABILITIES_32, new SpriteSheet("/AbilityEffects/AbilityEffects-32.png", 288));
-        this.spriteSheets.put(SpriteSheetItem.STATUS_AFFECTS_16, new SpriteSheet("/StatusEffects/StatusEffects-16.png", 256));
-        this.spriteSheets.put(SpriteSheetItem.TEXT, new SpriteSheet("/Text/Text.png", 256));
+    public SpriteSheetRegistry(ImageLoader loader){
+        this.spriteSheets.put(SpriteSheetItem.CHARACTER_ANIMS, new SpriteSheet(loader, "/Character/CharacterAnimations-16.png"));
+        this.spriteSheets.put(SpriteSheetItem.CHARACTER_MOVEMENT, new SpriteSheet(loader, "/Character/CharacterMovement-16.png"));
+        this.spriteSheets.put(SpriteSheetItem.GRASS_TO_SAND, new SpriteSheet(loader, "/Terrain/grass_to_sand.png"));
+        this.spriteSheets.put(SpriteSheetItem.DIRT_TO_GRASS, new SpriteSheet(loader, "/Terrain/dirt_to_grass.png"));
+        this.spriteSheets.put(SpriteSheetItem.GRASS_TO_DIRT, new SpriteSheet(loader, "/Terrain/grass_to_dirt.png"));
+        this.spriteSheets.put(SpriteSheetItem.SAND_TO_WATER_1, new SpriteSheet(loader, "/Terrain/water_sprites/sand_to_water1.png"));
+        this.spriteSheets.put(SpriteSheetItem.SAND_TO_WATER_2, new SpriteSheet(loader, "/Terrain/water_sprites/sand_to_water2.png"));
+        this.spriteSheets.put(SpriteSheetItem.SAND_TO_WATER_3, new SpriteSheet(loader, "/Terrain/water_sprites/sand_to_water3.png"));
+        this.spriteSheets.put(SpriteSheetItem.ENVIRONMENT_8, new SpriteSheet(loader, "/Environment/Environment-8.png"));
+        this.spriteSheets.put(SpriteSheetItem.ENVIRONMENT_16, new SpriteSheet(loader, "/Environment/Environment-16.png"));
+        this.spriteSheets.put(SpriteSheetItem.ENVIRONMENT_32, new SpriteSheet(loader, "/Environment/Environment-32.png"));
+        this.spriteSheets.put(SpriteSheetItem.ABILITIES_8, new SpriteSheet(loader, "/AbilityEffects/AbilityEffects-8.png"));
+        this.spriteSheets.put(SpriteSheetItem.ABILITIES_16, new SpriteSheet(loader, "/AbilityEffects/AbilityEffects-16.png"));
+        this.spriteSheets.put(SpriteSheetItem.ABILITIES_32, new SpriteSheet(loader, "/AbilityEffects/AbilityEffects-32.png"));
+        this.spriteSheets.put(SpriteSheetItem.STATUS_AFFECTS_16, new SpriteSheet(loader, "/StatusEffects/StatusEffects-16.png"));
+        this.spriteSheets.put(SpriteSheetItem.TEXT, new SpriteSheet(loader, "/Text/Text.png"));
     }
 
     public SpriteSheet get(SpriteSheetItem item) {

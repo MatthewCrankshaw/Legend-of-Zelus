@@ -11,6 +11,7 @@ import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
 import game.graphics.Screen;
+import game.graphics.files.ImageLoader;
 import game.graphics.sprite.SpriteRegistry;
 import game.graphics.sprite.SpriteSheetRegistry;
 import game.graphics.ui.UserInterface;
@@ -108,7 +109,8 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void init() {
-        SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry();
+        ImageLoader imageLoader = new ImageLoader();
+        SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry(imageLoader);
         SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry);
 
         this.screen = new Screen(WIDTH, HEIGHT, SCALE, spriteRegistry);

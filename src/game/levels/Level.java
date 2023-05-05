@@ -9,6 +9,7 @@ import game.levels.tile.TileManager;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,9 @@ public class Level {
 
     protected void loadLevelFromFile(String path){
         try{
-            BufferedImage image = ImageIO.read(Level.class.getResourceAsStream(path));
+            String dir = System.getProperty("user.dir");
+            File file = new File(dir + "/res" + path);
+            BufferedImage image = ImageIO.read(file);
             int w = width = image.getWidth();
             int h = height = image.getHeight();
             this.tileManager.setTiles(new int[w*h]);
