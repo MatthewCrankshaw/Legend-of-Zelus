@@ -15,6 +15,7 @@ import game.graphics.files.Image;
 import game.graphics.files.ImageLoader;
 import game.graphics.sprite.SpriteLoader;
 import game.graphics.sprite.SpriteRegistry;
+import game.graphics.sprite.SpriteRenderer;
 import game.graphics.sprite.SpriteSheetRegistry;
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
@@ -35,6 +36,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -113,10 +115,11 @@ public class Game extends Canvas implements Runnable {
     private void init() {
         ImageLoader imageLoader = new ImageLoader();
         SpriteLoader spriteLoader = new SpriteLoader();
+        SpriteRenderer spriteRenderer = new SpriteRenderer(new Point2D.Float(WIDTH, HEIGHT));
         SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry(imageLoader);
         SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry, spriteLoader);
 
-        this.screen = new Screen(WIDTH, HEIGHT, SCALE, spriteRegistry);
+        this.screen = new Screen(WIDTH, HEIGHT, SCALE, spriteRegistry, spriteRenderer);
 
         this.input = new InputHandler(this);
         this.input.registerKey(new Key(KeyEvent.VK_UP));

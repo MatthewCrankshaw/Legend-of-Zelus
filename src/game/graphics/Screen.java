@@ -1,11 +1,13 @@
 package game.graphics;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.SpriteRegistry;
+import game.graphics.sprite.SpriteRenderer;
 import game.levels.tile.Tile;
 import game.levels.tile.TileConstants;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,17 +18,20 @@ import java.util.Arrays;
 public class Screen {
     private int width, height;
     private int scale;
-    private double xOffset;
-    private double yOffset;
+
+    private Point2D.Float offset = new Point2D.Float();
     public int[] pixels;
     private boolean AAFilterEnabled, MedianBlurEnabled, SmoothingFilterEnabled;
     protected SpriteRegistry spriteRegistry;
 
-    public Screen(int width, int height, int scale, SpriteRegistry spriteRegistry){
+    protected SpriteRenderer renderer;
+
+    public Screen(int width, int height, int scale, SpriteRegistry spriteRegistry, SpriteRenderer renderer){
         this.width = width;
         this.height = height;
         this.scale = scale;
         this.spriteRegistry = spriteRegistry;
+        this.renderer = renderer;
         this.pixels = new int[width * height];
 
         this.AAFilterEnabled = false;
@@ -35,46 +40,19 @@ public class Screen {
     }
 
     public void clear(){
-        for (int i = 0; i < pixels.length; i++){
-            pixels[i] = 0;
-        }
+        Arrays.fill(pixels, 0);
     }
 
     public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed, int colour, int spriteScale){
-        if(fixed) {
-            xp -= xOffset;
-            yp -= yOffset;
-        }
+        Point2D position = new Point2D.Float(xp, yp);
 
-        for(int y = 0; y < sprite.getSize()*spriteScale; y ++) {
-            int ya = y + yp;
-            for(int x = 0; x < sprite.getSize()*spriteScale; x++) {
-                int xa = x + xp;
-                if (xa < -sprite.getSize()*spriteScale || xa >= width || ya < 0 || ya >= height) break;
-                if (xa < 0) xa = 0;
-
-                //Set the colour -1 for original colour on sprite
-                int col = sprite.getPixel(x , y, spriteScale);
-
-                if(sprite.getPixel(x, y, spriteScale) != 0xffff00ff){
-                    col = colour;
-                }
-
-                if(colour == -1) {
-                    col = sprite.getPixel(x, y, spriteScale);
-                }
-
-                if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = col;
-                }
-            }
-        }
+        pixels = this.renderer.render(pixels, sprite, position, offset, fixed, colour, spriteScale);
     }
 
     public void renderString(int xp, int yp, String string, boolean center, int colour, int scale, boolean fixed){
         if(fixed) {
-            xp -= xOffset;
-            yp -= yOffset;
+            xp -= offset.getX();
+            yp -= offset.getY();
         }
         for(int i = 0; i < string.length(); i++){
             if(string.charAt(i) == ' '){
@@ -90,8 +68,8 @@ public class Screen {
     }
 
     public void renderTile(int xp, int yp, Tile tile){
-        xp -= xOffset;
-        yp -= yOffset;
+        xp -= offset.getX();
+        yp -= offset.getY();
         for(int y = 0; y < tile.getCurrentSprite().getSize(); y ++) {
             int ya = y + yp;
             for(int x = 0; x < tile.getCurrentSprite().getSize(); x++) {
@@ -107,8 +85,8 @@ public class Screen {
     public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile, Sprite[] sprite){
 
         int animIndex = animTile.getCurrentAnimationIndex();
-        xp -= xOffset;
-        yp -= yOffset;
+        xp -= offset.getX();
+        yp -= offset.getY();
         for(int y = 0 ; y < 16; y ++) {
             int ya = y + yp;
             for(int x = 0; x < 16; x++) {
@@ -126,7 +104,10 @@ public class Screen {
     public void renderLine(double xp1, double yp1, double xp2, double yp2, int colour, boolean fixed){
 
         if(fixed) {
-            xp1 -= xOffset; yp1 -= yOffset; xp2 -= xOffset; yp2 -= yOffset;
+            xp1 -= offset.getX();
+            yp1 -= offset.getY();
+            xp2 -= offset.getX();
+            yp2 -= offset.getY();
         }
 
         double x = Math.abs(xp2 - xp1);
@@ -169,8 +150,8 @@ public class Screen {
 
     public void renderRectangle(int xp, int yp, int width, int height, int currentPercent, int colourFill, int colourBorder, boolean fixed){
         if(fixed) {
-            xp -= xOffset;
-            yp -= yOffset;
+            xp -= offset.getX();
+            yp -= offset.getY();
         }
 
         for(int y = yp; y <= yp + height; y++) {
@@ -190,8 +171,8 @@ public class Screen {
     public void renderCircle(int xp, int yp, int radius, int fill, int colour, int borderColour, boolean filled, boolean fixed){
         //whether the circle moves with the screen or is relative to the ground
         if(fixed) {
-            xp -= xOffset;
-            yp -= yOffset;
+            xp -= offset.getX();
+            yp -= offset.getY();
         }
 
         //fills from bottom to top
@@ -219,8 +200,8 @@ public class Screen {
     }
 
     public void renderPlayer(int xp, int yp , int pixelsLong, int pixelshigh, int scale, Sprite sprite){
-        xp -= xOffset;
-        yp -= yOffset;
+        xp -= offset.getX();
+        yp -= offset.getY();
         for(int y = 0 ; y < pixelshigh*scale; y++) {
             int ya = y + yp;
             for(int x = 0; x < pixelsLong*scale; x++) {
@@ -236,8 +217,7 @@ public class Screen {
     }
 
     public void setOffset(double x, double y){
-        this.xOffset = x;
-        this.yOffset = y;
+        this.offset.setLocation(x, y);
     }
 
     public int getScale() {
@@ -253,11 +233,11 @@ public class Screen {
     }
 
     public double getxOffset() {
-        return xOffset;
+        return offset.getX();
     }
 
     public double getyOffset() {
-        return yOffset;
+        return offset.getY();
     }
 
 

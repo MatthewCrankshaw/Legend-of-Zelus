@@ -8,7 +8,7 @@ import game.graphics.files.Image;
  * Created by Matthew.c on 25/01/2017.
  */
 public class Sprite {
-    Image image;
+    protected Image image;
 
     public Sprite(Image image){
         this.image = image;
