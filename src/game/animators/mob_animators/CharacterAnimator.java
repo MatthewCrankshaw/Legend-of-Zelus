@@ -77,7 +77,7 @@ public class CharacterAnimator extends MobAnimator {
 
         if (isSwimming) {
             AnimatedTile tile = tileManager.getAnimatedTile(TileManager.AnimatedTileTypes.SWIMMING);
-            screen.renderAnimatedTile(x, y, tile, spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.SWIMMING));
+            screen.renderAnimatedTile(x, y, tile);
             screen.renderPlayer(x, y, 16, 10, scale, currentSprite);
         }else{
             screen.renderPlayer(x, y, 16, 16, scale, currentSprite);

@@ -5,6 +5,8 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 
+import java.awt.geom.Point2D;
+
 /**
  * Created by Matthew.c on 08/02/2017.
  */
@@ -88,7 +90,8 @@ public class Particle extends Entity{
 
     @Override
     public void render(Screen screen) {
-        screen.renderSprite((int) xx, (int) yy - (int)zz +3, sprite, true, -1, 1);
+        Point2D position = new Point2D.Float((float)xx, (float)yy-(float)zz+3);
+        screen.renderSprite(position, sprite, true, -1, 1);
     }
 
     public boolean isAlive(){

@@ -43,9 +43,7 @@ public class Screen {
         Arrays.fill(pixels, 0);
     }
 
-    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed, int colour, int spriteScale){
-        Point2D position = new Point2D.Float(xp, yp);
-
+    public void renderSprite(Point2D position, Sprite sprite, boolean fixed, int colour, int spriteScale){
         pixels = this.renderer.render(pixels, sprite, position, offset, fixed, colour, spriteScale);
     }
 
@@ -62,29 +60,22 @@ public class Screen {
             int centerOffset;
             if(center){
                 centerOffset = ((len*8)/2) * scale;
-            }else centerOffset = 0;
-            renderSprite(xp + (i*8*scale) - centerOffset, yp, spriteRegistry.getCharacterSprite(string.charAt(i)), false, colour, scale);
+            }else{
+                centerOffset = 0;
+            }
+            Point2D position = new Point2D.Float(xp + (i*8*scale) - centerOffset, yp);
+            renderSprite(position, spriteRegistry.getCharacterSprite(string.charAt(i)), false, colour, scale);
         }
     }
 
-    public void renderTile(int xp, int yp, Tile tile){
-        xp -= offset.getX();
-        yp -= offset.getY();
-        for(int y = 0; y < tile.getCurrentSprite().getSize(); y ++) {
-            int ya = y + yp;
-            for(int x = 0; x < tile.getCurrentSprite().getSize(); x++) {
-                int xa = x + xp;
-                if (xa < -tile.getCurrentSprite().getSize() || xa >= width || ya < 0 || ya >= height) break;
-                if (xa < 0) xa = 0;
-                pixels[xa+ya*width] = tile.getCurrentSprite().getPixel(x, y);
-            }
-        }
+    public void renderTile(Point2D position, Tile tile){
+        pixels = this.renderer.render(pixels, tile.getCurrentSprite(), position, offset, true, -1, 1);
         tile.tick();
     }
 
-    public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile, Sprite[] sprite){
+    public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile){
 
-        int animIndex = animTile.getCurrentAnimationIndex();
+        Sprite sprite = animTile.getCurrentSprite();
         xp -= offset.getX();
         yp -= offset.getY();
         for(int y = 0 ; y < 16; y ++) {
@@ -93,9 +84,9 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite[animIndex].getPixel(x, y);
+                int col = sprite.getPixel(x, y);
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite[animIndex].getPixel(x, y);
+                    pixels[xa+ya*width] = sprite.getPixel(x, y);
                 }
             }
         }

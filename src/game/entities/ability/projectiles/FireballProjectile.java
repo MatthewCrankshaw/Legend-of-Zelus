@@ -4,6 +4,8 @@ import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.levels.Level;
 
+import java.awt.geom.Point2D;
+
 /**
  * Created by Matthew.c on 25/01/2017.
  */
@@ -45,15 +47,18 @@ public class FireballProjectile extends Projectile{
 
     @Override
     public void render(Screen screen) {
-        screen.renderSprite((int)x, (int)y, fireballSprite[0], true, -1, 1);
+        Point2D position = new Point2D.Float((float)x, (float)y);
+        screen.renderSprite(position, fireballSprite[0], true, -1, 1);
     }
 
     @Override
     public void explode() {
-        screen.renderSprite((int)x, (int)y, fireballSprite[1], true, -1, 1);
+        Point2D position = new Point2D.Float((float)x, (float)y);
+        screen.renderSprite(position, fireballSprite[1], true, -1, 1);
     }
 
     public void fizzleOut(){
-        screen.renderSprite((int)x,(int)y, fireballSprite[1], true, -1, 1);
+        Point2D position = new Point2D.Float((float)x, (float)y);
+        screen.renderSprite(position, fireballSprite[1], true, -1, 1);
     }
 }

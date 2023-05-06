@@ -3,6 +3,8 @@ package game.animators.ability_animators;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 
+import java.awt.geom.Point2D;
+
 /**
  * Created by Matthew.c on 07/02/2017.
  */
@@ -22,7 +24,7 @@ public class TeleportAnimator extends AbilityAnimator {
         this.castAbility = false;
         long currentTime = System.currentTimeMillis();
 
-        screen.renderSprite(x -8, y-4, teleportSprites, true, -1, 1);
+        screen.renderSprite(new Point2D.Float(x-8, y-4), teleportSprites, true, -1, 1);
         if (currentTime - lastTime >= timeBetweenAnim * 6) {
             currentSprite = basicSprite[0];
             lastTime = currentTime;
@@ -41,7 +43,7 @@ public class TeleportAnimator extends AbilityAnimator {
         }else {
             currentSprite = basicSprite[0];
         }
-        screen.renderSprite(x, y, currentSprite, true, -1, 1);
+        screen.renderSprite(new Point2D.Float(x, y), currentSprite, true, -1, 1);
     }
 
     public void resetAnimation(){
