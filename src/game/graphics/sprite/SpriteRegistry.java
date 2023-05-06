@@ -49,6 +49,8 @@ public class SpriteRegistry {
         DEATH_KEEPER
     }
 
+    protected SpriteLoader loader;
+
     protected Map<SpriteItem, Sprite> sprites = new HashMap<>();
 
     protected Map<AnimatedEnvSprite, Sprite[]> spriteCollections = new HashMap<>();
@@ -57,119 +59,120 @@ public class SpriteRegistry {
 
     protected ArrayList<Sprite> fonts;
 
-    public SpriteRegistry(SpriteSheetRegistry registry){
+    public SpriteRegistry(SpriteSheetRegistry registry, SpriteLoader loader){
+        this.loader = loader;
         SpriteSheet environment8 = registry.get(SpriteSheetRegistry.SpriteSheetItem.ENVIRONMENT_8);
-        sprites.put(SpriteItem.GRASS, new Sprite(8, 2, 0, environment8));
-        sprites.put(SpriteItem.STONE, new Sprite(8, 1, 0, environment8));
-        sprites.put(SpriteItem.WOOD_FLOOR,new Sprite(8, 5, 0, environment8));
-        sprites.put(SpriteItem.SAND, new Sprite(8, 6, 0, environment8));
-        sprites.put(SpriteItem.SAND_STONE, new Sprite(8, 7, 0, environment8));
-        sprites.put(SpriteItem.VOID, new Sprite(8, 0x1B87E0));
+        sprites.put(SpriteItem.GRASS, loader.load(8, 2, 0, environment8));
+        sprites.put(SpriteItem.STONE, loader.load(8, 1, 0, environment8));
+        sprites.put(SpriteItem.WOOD_FLOOR,loader.load(8, 5, 0, environment8));
+        sprites.put(SpriteItem.SAND, loader.load(8, 6, 0, environment8));
+        sprites.put(SpriteItem.SAND_STONE, loader.load(8, 7, 0, environment8));
+        sprites.put(SpriteItem.VOID, loader.loadColour(8, 0x1B87E0));
 
-        sprites.put(SpriteItem.RED_PARTICLE, new Sprite(1, 0x9C2A00));
-        sprites.put(SpriteItem.GREEN_PARTICLE, new Sprite(1, 0x00aa00));
-        sprites.put(SpriteItem.RED_PARTICLE_2, new Sprite(2, 0xff0000));
-        sprites.put(SpriteItem.TREE, new Sprite(32,0, 0, registry.get(SpriteSheetRegistry.SpriteSheetItem.ENVIRONMENT_32)));
-        sprites.put(SpriteItem.TELEPORT_FLOOR_SIGN, new Sprite(32, 0, 0,  registry.get(SpriteSheetRegistry.SpriteSheetItem.ABILITIES_32)));
+        sprites.put(SpriteItem.RED_PARTICLE, loader.loadColour(1, 0x9C2A00));
+        sprites.put(SpriteItem.GREEN_PARTICLE, loader.loadColour(1, 0x00aa00));
+        sprites.put(SpriteItem.RED_PARTICLE_2, loader.loadColour(2, 0xff0000));
+        sprites.put(SpriteItem.TREE, loader.load(32,0, 0, registry.get(SpriteSheetRegistry.SpriteSheetItem.ENVIRONMENT_32)));
+        sprites.put(SpriteItem.TELEPORT_FLOOR_SIGN, loader.load(32, 0, 0,  registry.get(SpriteSheetRegistry.SpriteSheetItem.ABILITIES_32)));
 
         SpriteSheet abilities = registry.get(SpriteSheetRegistry.SpriteSheetItem.ABILITIES_8);
         spriteCollections.put(AnimatedEnvSprite.FIREBALL_SPRITES, new Sprite[]{
-            new Sprite(8, 0, 0, abilities),
-            new Sprite(8, 1, 0, abilities),
-            new Sprite(8, 2, 0, abilities)
+            loader.load(8, 0, 0, abilities),
+            loader.load(8, 1, 0, abilities),
+            loader.load(8, 2, 0, abilities)
         });
 
         spriteCollections.put(AnimatedEnvSprite.GREEN_FIREBALL_SPRITES, new Sprite[]{
-            new Sprite(8,3, 0, abilities),
-            new Sprite(8,4, 0, abilities),
-            new Sprite(8,5, 0, abilities)
+            loader.load(8,3, 0, abilities),
+            loader.load(8,4, 0, abilities),
+            loader.load(8,5, 0, abilities)
         });
 
         SpriteSheet sandToWater1 = registry.get(SpriteSheetRegistry.SpriteSheetItem.SAND_TO_WATER_1);
         SpriteSheet sandToWater2 = registry.get(SpriteSheetRegistry.SpriteSheetItem.SAND_TO_WATER_2);
         SpriteSheet sandToWater3 = registry.get(SpriteSheetRegistry.SpriteSheetItem.SAND_TO_WATER_3);
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_NWD, new Sprite[]{
-                new Sprite(8, 0,0, sandToWater1),
-                new Sprite(8, 0,0, sandToWater2),
-                new Sprite(8, 0,0, sandToWater3)
+                loader.load(8, 0,0, sandToWater1),
+                loader.load(8, 0,0, sandToWater2),
+                loader.load(8, 0,0, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_NED, new Sprite[]{
-                new Sprite(8, 1,0, sandToWater1),
-                new Sprite(8, 1,0, sandToWater2),
-                new Sprite(8, 1,0, sandToWater3)
+                loader.load(8, 1,0, sandToWater1),
+                loader.load(8, 1,0, sandToWater2),
+                loader.load(8, 1,0, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_SWD, new Sprite[]{
-                new Sprite(8, 0,1, sandToWater1),
-                new Sprite(8, 0,1, sandToWater2),
-                new Sprite(8, 0,1, sandToWater3)
+                loader.load(8, 0,1, sandToWater1),
+                loader.load(8, 0,1, sandToWater2),
+                loader.load(8, 0,1, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_SED, new Sprite[]{
-                new Sprite(8, 1,1, sandToWater1),
-                new Sprite(8, 1,1, sandToWater2),
-                new Sprite(8, 1,1, sandToWater3)
+                loader.load(8, 1,1, sandToWater1),
+                loader.load(8, 1,1, sandToWater2),
+                loader.load(8, 1,1, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_NWC, new Sprite[]{
-                new Sprite(8, 2,0, sandToWater1),
-                new Sprite(8, 2,0, sandToWater2),
-                new Sprite(8, 2,0, sandToWater3)
+                loader.load(8, 2,0, sandToWater1),
+                loader.load(8, 2,0, sandToWater2),
+                loader.load(8, 2,0, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_NEC, new Sprite[]{
-                new Sprite(8, 3,0, sandToWater1),
-                new Sprite(8, 3,0, sandToWater2),
-                new Sprite(8, 3,0, sandToWater3)
+                loader.load(8, 3,0, sandToWater1),
+                loader.load(8, 3,0, sandToWater2),
+                loader.load(8, 3,0, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_SWC, new Sprite[]{
-                new Sprite(8, 2,1, sandToWater1),
-                new Sprite(8, 2,1, sandToWater2),
-                new Sprite(8, 2,1, sandToWater3)
+                loader.load(8, 2,1, sandToWater1),
+                loader.load(8, 2,1, sandToWater2),
+                loader.load(8, 2,1, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_SEC, new Sprite[]{
-                new Sprite(8, 3,1, sandToWater1),
-                new Sprite(8, 3,1, sandToWater2),
-                new Sprite(8, 3,1, sandToWater3)
+                loader.load(8, 3,1, sandToWater1),
+                loader.load(8, 3,1, sandToWater2),
+                loader.load(8, 3,1, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_NE, new Sprite[]{
-                new Sprite(8, 1,2, sandToWater1),
-                new Sprite(8, 1,2, sandToWater2),
-                new Sprite(8, 1,2, sandToWater3)
+                loader.load(8, 1,2, sandToWater1),
+                loader.load(8, 1,2, sandToWater2),
+                loader.load(8, 1,2, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_WE, new Sprite[]{
-                new Sprite(8, 0,3, sandToWater1),
-                new Sprite(8, 0,3, sandToWater2),
-                new Sprite(8, 0,3, sandToWater3)
+                loader.load(8, 0,3, sandToWater1),
+                loader.load(8, 0,3, sandToWater2),
+                loader.load(8, 0,3, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_EE, new Sprite[]{
-                new Sprite(8, 3,3, sandToWater1),
-                new Sprite(8, 3,3, sandToWater2),
-                new Sprite(8, 3,3, sandToWater3)
+                loader.load(8, 3,3, sandToWater1),
+                loader.load(8, 3,3, sandToWater2),
+                loader.load(8, 3,3, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_SE, new Sprite[]{
-                new Sprite(8, 1,5, sandToWater1),
-                new Sprite(8, 1,5, sandToWater2),
-                new Sprite(8, 1,5, sandToWater3)
+                loader.load(8, 1,5, sandToWater1),
+                loader.load(8, 1,5, sandToWater2),
+                loader.load(8, 1,5, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_S1, new Sprite[]{
-                new Sprite(8, 1,3, sandToWater1),
-                new Sprite(8, 1,3, sandToWater2),
-                new Sprite(8, 1,3, sandToWater3)
+                loader.load(8, 1,3, sandToWater1),
+                loader.load(8, 1,3, sandToWater2),
+                loader.load(8, 1,3, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.SAND_TO_WATER_S2, new Sprite[]{
-                new Sprite(8, 2,3, sandToWater1),
-                new Sprite(8, 2,3, sandToWater2),
-                new Sprite(8, 2,3, sandToWater3)
+                loader.load(8, 2,3, sandToWater1),
+                loader.load(8, 2,3, sandToWater2),
+                loader.load(8, 2,3, sandToWater3)
         });
 
         spriteCollections.put(AnimatedEnvSprite.PLAYER_ATTACKS, loadAnimatedSprite(TileConstants.TILE_SIZE*2, new int[]{0,1,2}, new int[]{0,0,0}, registry.get(SpriteSheetRegistry.SpriteSheetItem.CHARACTER_ANIMS)));
@@ -195,18 +198,18 @@ public class SpriteRegistry {
         return spriteCollections.get(item);
     }
 
-    protected static Sprite[] loadAnimatedSprite(int size, int[] xLocations, int [] yLocations, SpriteSheet sheet){
+    protected Sprite[] loadAnimatedSprite(int size, int[] xLocations, int [] yLocations, SpriteSheet sheet){
         Sprite[] sprites = new Sprite[xLocations.length];
         for (int i=0; i < xLocations.length; i++) {
-            sprites[i] = new Sprite(size, xLocations[i], yLocations[i], sheet);
+            sprites[i] = this.loader.load(size, xLocations[i], yLocations[i], sheet);
         }
         return sprites;
     }
 
-    protected static Sprite[] loadAnimatedSprite(int size, int startXPos, int startYPos, int numOfSprites, SpriteSheet sheet){
+    protected Sprite[] loadAnimatedSprite(int size, int startXPos, int startYPos, int numOfSprites, SpriteSheet sheet){
         Sprite[] sprites = new Sprite[numOfSprites];
         for(int i = 0; i < numOfSprites; i++) {
-            sprites[i] = new Sprite(size, startXPos + i, startYPos, sheet);
+            sprites[i] = this.loader.load(size, startXPos + i, startYPos, sheet);
         }
         return sprites;
     }
@@ -216,11 +219,11 @@ public class SpriteRegistry {
         ArrayList<Sprite> font = new ArrayList<>();
         //Letters
         for(int i = 0; i < 26; i++){
-            font.add( new Sprite(8, i, 0, text));
+            font.add( loader.load(8, i, 0, text));
         }
         //Digits and Signs
         for(int i = 0; i < 26; i++){
-            font.add(new Sprite(8, i, 1, text));
+            font.add(loader.load(8, i, 1, text));
         }
         return font;
     }

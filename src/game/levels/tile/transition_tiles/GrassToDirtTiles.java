@@ -2,6 +2,7 @@ package game.levels.tile.transition_tiles;
 
 import game.graphics.SpriteSheet;
 import game.graphics.sprite.Sprite;
+import game.graphics.sprite.SpriteLoader;
 import game.graphics.sprite.SpriteSheetRegistry;
 import game.levels.tile.static_tiles.BasicTile;
 
@@ -10,31 +11,31 @@ import game.levels.tile.static_tiles.BasicTile;
  */
 public class GrassToDirtTiles extends TransitionTiles {
 
-    public GrassToDirtTiles(SpriteSheetRegistry spriteSheet){
-        super(spriteSheet);
+    public GrassToDirtTiles(SpriteSheetRegistry spriteSheet, SpriteLoader loader){
+        super(spriteSheet, loader);
     }
     @Override
     public void setTiles() {
         SpriteSheet grassToDirt = spriteSheet.get(SpriteSheetRegistry.SpriteSheetItem.GRASS_TO_DIRT);
 
 
-        Sprite NW_Diagonal = new Sprite(8, 0, 0, grassToDirt);
-        Sprite NE_Diagonal = new Sprite(8, 1, 0, grassToDirt);
-        Sprite SW_Diagonal = new Sprite(8, 0, 1, grassToDirt);
-        Sprite SE_Diagonal = new Sprite(8, 1, 1, grassToDirt);
+        Sprite NW_Diagonal = loader.load(8, 0, 0, grassToDirt);
+        Sprite NE_Diagonal = loader.load(8, 1, 0, grassToDirt);
+        Sprite SW_Diagonal = loader.load(8, 0, 1, grassToDirt);
+        Sprite SE_Diagonal = loader.load(8, 1, 1, grassToDirt);
 
-        Sprite NW_Corner = new Sprite(8, 2, 0, grassToDirt);
-        Sprite NE_Corner = new Sprite(8, 3, 0, grassToDirt);
-        Sprite SW_Corner = new Sprite(8, 2, 1, grassToDirt);
-        Sprite SE_Corner = new Sprite(8, 3, 1, grassToDirt);
+        Sprite NW_Corner = loader.load(8, 2, 0, grassToDirt);
+        Sprite NE_Corner = loader.load(8, 3, 0, grassToDirt);
+        Sprite SW_Corner = loader.load(8, 2, 1, grassToDirt);
+        Sprite SE_Corner = loader.load(8, 3, 1, grassToDirt);
 
-        Sprite northEdge = new Sprite(8, 1, 2, grassToDirt);
-        Sprite westEdge = new Sprite(8, 0, 3, grassToDirt);
-        Sprite eastEdge = new Sprite(8, 3, 3, grassToDirt);
-        Sprite southEdge = new Sprite(8, 1, 5, grassToDirt);
+        Sprite northEdge = loader.load(8, 1, 2, grassToDirt);
+        Sprite westEdge = loader.load(8, 0, 3, grassToDirt);
+        Sprite eastEdge = loader.load(8, 3, 3, grassToDirt);
+        Sprite southEdge = loader.load(8, 1, 5, grassToDirt);
 
-        Sprite solidGrass1 = new Sprite(8, 1, 3, grassToDirt);
-        Sprite solidGrass2 = new Sprite(8, 2, 3, grassToDirt);
+        Sprite solidGrass1 = loader.load(8, 1, 3, grassToDirt);
+        Sprite solidGrass2 = loader.load(8, 2, 3, grassToDirt);
 
         tiles.put(Variants.NWD, new BasicTile(NW_Diagonal));
         tiles.put(Variants.NED, new BasicTile(NE_Diagonal));

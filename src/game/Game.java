@@ -13,6 +13,7 @@ import game.entities.mob.Player;
 import game.graphics.Screen;
 import game.graphics.files.Image;
 import game.graphics.files.ImageLoader;
+import game.graphics.sprite.SpriteLoader;
 import game.graphics.sprite.SpriteRegistry;
 import game.graphics.sprite.SpriteSheetRegistry;
 import game.graphics.ui.UserInterface;
@@ -111,11 +112,11 @@ public class Game extends Canvas implements Runnable {
 
     private void init() {
         ImageLoader imageLoader = new ImageLoader();
+        SpriteLoader spriteLoader = new SpriteLoader();
         SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry(imageLoader);
-        SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry);
+        SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry, spriteLoader);
 
         this.screen = new Screen(WIDTH, HEIGHT, SCALE, spriteRegistry);
-
 
         this.input = new InputHandler(this);
         this.input.registerKey(new Key(KeyEvent.VK_UP));
@@ -135,9 +136,9 @@ public class Game extends Canvas implements Runnable {
         tileTypes.put(TileManager.TileType.SAND_STONE, new BasicTile(spriteRegistry.get(SpriteRegistry.SpriteItem.SAND_STONE)));
 
         Map<TileManager.TransitionTileTypes, TransitionTiles> transitionTiles = new HashMap<>();
-        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_SAND, new GrassToSandTiles(spriteSheetRegistry));
-        transitionTiles.put(TileManager.TransitionTileTypes.DIRT_TO_GRASS, new DirtToGrassTiles(spriteSheetRegistry));
-        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_DIRT, new GrassToDirtTiles(spriteSheetRegistry));
+        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_SAND, new GrassToSandTiles(spriteSheetRegistry, spriteLoader));
+        transitionTiles.put(TileManager.TransitionTileTypes.DIRT_TO_GRASS, new DirtToGrassTiles(spriteSheetRegistry, spriteLoader));
+        transitionTiles.put(TileManager.TransitionTileTypes.GRASS_TO_DIRT, new GrassToDirtTiles(spriteSheetRegistry, spriteLoader));
 
         Map<TileManager.AnimatedTileTypes, AnimatedTile> animatedTiles = new HashMap<>();
         animatedTiles.put(TileManager.AnimatedTileTypes.MUD, new AnimatedTile(spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.MUD), false, 0.1f, 1000));

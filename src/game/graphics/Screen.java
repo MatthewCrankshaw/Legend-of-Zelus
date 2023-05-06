@@ -14,7 +14,6 @@ import java.util.Arrays;
  * Created by Matthew.c on 25/01/2017.
  */
 public class Screen {
-
     private int width, height;
     private int scale;
     private double xOffset;
@@ -116,9 +115,9 @@ public class Screen {
                 int xa = x + xp;
                 if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
                 if (xa < 0) xa = 0;
-                int col = sprite[animIndex].getPixel(x, y, scale);
+                int col = sprite[animIndex].getPixel(x, y);
                 if (col != 0xffff00ff){
-                    pixels[xa+ya*width] = sprite[animIndex].getPixel(x, y, scale);
+                    pixels[xa+ya*width] = sprite[animIndex].getPixel(x, y);
                 }
             }
         }

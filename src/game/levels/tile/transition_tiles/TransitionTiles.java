@@ -1,5 +1,6 @@
 package game.levels.tile.transition_tiles;
 
+import game.graphics.sprite.SpriteLoader;
 import game.graphics.sprite.SpriteSheetRegistry;
 import game.levels.tile.static_tiles.BasicTile;
 
@@ -18,13 +19,14 @@ public abstract class TransitionTiles {
         S1, S2
     }
 
-
-
     protected SpriteSheetRegistry spriteSheet;
 
-    public TransitionTiles(SpriteSheetRegistry spriteSheet) {
+    protected SpriteLoader loader;
+
+    public TransitionTiles(SpriteSheetRegistry spriteSheet, SpriteLoader loader) {
         tiles = new HashMap<>();
         this.spriteSheet = spriteSheet;
+        this.loader = loader;
         setTiles();
     }
 
