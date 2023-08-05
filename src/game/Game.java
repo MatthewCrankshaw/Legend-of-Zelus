@@ -46,57 +46,58 @@ import java.util.Map;
 
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
-    private static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static int WIDTH = (screensize.width / 2) - (screensize.width / 15);
-    private static int HEIGHT = (screensize.height / 2) - (screensize.height / 15);
+    private Dimension screenSize;
+    private int screenHeight;
+    private int screenWidth;
     private static int SCALE;
     private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
-    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    private BufferedImage image;
+    private int[] pixels;
     private UserInterface ui;
     private InputHandler input;
     private Level level;
     private Screen screen;
+    private Renderer renderer;
     private Player player;
     private AiManager ai;
     private Spawner spawner;
     private TileManager tileManager;
 
     public static void main(String[] args) {
-        int numpixels = screensize.width * screensize.height;
-        System.out.println("Screen Width: " + screensize.width + " Screen Height: " + screensize.height + " Number of Pixels: " + numpixels);
-
-
-        if (numpixels < 1000000) {
-            WIDTH = screensize.width;
-            HEIGHT = screensize.height;
-            SCALE = 1;
-            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
-
-        } else if (numpixels > 1000000 && numpixels < 2000000) {
-            WIDTH = (screensize.width / 2);
-            HEIGHT = (screensize.height / 2);
-            SCALE = 2;
-            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
-        } else if (numpixels > 2000000 && numpixels < 4000000) {
-            WIDTH = (screensize.width / 4);
-            HEIGHT = (screensize.height / 4);
-            SCALE = 4;
-            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
-        } else if (numpixels > 4000000 && numpixels < 8000000) {
-            WIDTH = (screensize.width / 8);
-            HEIGHT = (screensize.height / 8);
-            SCALE = 8;
-            System.out.println("Adjusted Width: " + WIDTH + " Adjusted Height: " + HEIGHT + " Scale: " + SCALE);
-        }
-
         new Game().start();
     }
 
     public Game() {
-        setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        this.screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int numpixels = screenSize.width * screenSize.height;
+        System.out.println("Screen Width: " + screenSize.width + " Screen Height: " + screenSize.height + " Number of Pixels: " + numpixels);
+
+        if (numpixels < 1000000) {
+            screenWidth = screenSize.width;
+            screenHeight = screenSize.height;
+            SCALE = 1;
+            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
+
+        } else if (numpixels > 1000000 && numpixels < 2000000) {
+            screenWidth = (screenSize.width / 2);
+            screenHeight = (screenSize.height / 2);
+            SCALE = 2;
+            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
+        } else if (numpixels > 2000000 && numpixels < 4000000) {
+            screenWidth = (screenSize.width / 4);
+            screenHeight = (screenSize.height / 4);
+            SCALE = 4;
+            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
+        } else if (numpixels > 4000000) {
+            screenWidth = (screenSize.width / 8);
+            screenHeight = (screenSize.height / 8);
+            SCALE = 8;
+            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
+        }
+
+        setMinimumSize(new Dimension(screenWidth * SCALE, screenHeight * SCALE));
+        setMaximumSize(new Dimension(screenWidth * SCALE, screenHeight * SCALE));
+        setPreferredSize(new Dimension(screenWidth * SCALE, screenHeight * SCALE));
 
         JFrame frame = new JFrame(NAME);
 
@@ -113,13 +114,17 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void init() {
+        this.image = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_RGB);
+        this.pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+
         ImageLoader imageLoader = new ImageLoader();
         SpriteLoader spriteLoader = new SpriteLoader();
-        SpriteRenderer spriteRenderer = new SpriteRenderer(new Point2D.Float(WIDTH, HEIGHT));
+        SpriteRenderer spriteRenderer = new SpriteRenderer(new Point2D.Float(screenWidth, screenHeight));
         SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry(imageLoader);
         SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry, spriteLoader);
 
-        this.screen = new Screen(WIDTH, HEIGHT, SCALE, spriteRegistry, spriteRenderer);
+        this.renderer = new Renderer(spriteRenderer, spriteRegistry);
+        this.screen = new Screen(screenWidth, screenHeight, SCALE, spriteRegistry, this.renderer);
 
         this.input = new InputHandler(this);
         this.input.registerKey(new Key(KeyEvent.VK_UP));
@@ -271,10 +276,7 @@ public class Game extends Canvas implements Runnable {
         }
         ui.render();
 
-
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = screen.getPixels(i);
-        }
+        this.pixels = screen.getPixels(this.pixels);
 
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2 = (Graphics2D) g;
