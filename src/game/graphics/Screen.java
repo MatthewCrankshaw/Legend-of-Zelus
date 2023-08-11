@@ -3,6 +3,7 @@ package game.graphics;
 import game.Renderer;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.SpriteRegistry;
+import game.graphics.ui.Circle;
 import game.levels.tile.Tile;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
@@ -13,7 +14,6 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
-
 /**
  * Created by Matthew.c on 25/01/2017.
  */
@@ -22,12 +22,9 @@ public class Screen extends Canvas {
     protected SpriteRegistry spriteRegistry;
     protected Renderer renderer;
     protected BufferStrategy strategy;
-    private Dimension2D screenSize;
     private boolean AAFilterEnabled, MedianBlurEnabled, SmoothingFilterEnabled;
 
     public Screen(Dimension2D screenSize, SpriteRegistry spriteRegistry, Renderer renderer) {
-        this.screenSize = screenSize;
-
         setMinimumSize((Dimension) screenSize);
         setMaximumSize((Dimension) screenSize);
         setPreferredSize((Dimension) screenSize);
@@ -51,10 +48,6 @@ public class Screen extends Canvas {
         this.AAFilterEnabled = false;
         this.MedianBlurEnabled = false;
         this.SmoothingFilterEnabled = false;
-    }
-
-    public void clear() {
-        this.renderer.clear();
     }
 
     public void renderSprite(Point2D position, Sprite sprite, boolean fixed, int colour, int spriteScale) {
@@ -93,39 +86,19 @@ public class Screen extends Canvas {
         this.renderer.renderRectangle(xp, yp, width, height, frameWidth, frameHeight, currentPercent, colourFill, colourBorder, fixed);
     }
 
-    public void renderCircle(int xp, int yp, int radius, int fill, int colour, int borderColour, boolean filled, boolean fixed) {
+    public void renderCircle(Circle circle, boolean fixed) {
         int frameWidth = (int) this.getFrameSize().getWidth();
         int frameHeight = (int) this.getFrameSize().getHeight();
-        this.renderer.renderCircle(xp, yp, frameWidth, frameHeight, radius, fill, colour, borderColour, filled, fixed);
+        this.renderer.renderCircle(circle, frameWidth, frameHeight, fixed);
     }
 
     public void renderPlayer(int xp, int yp, int pixelsLong, int pixelshigh, int scale, Sprite sprite) {
         this.renderer.renderPlayer(xp, yp, this.getWidth(), this.getHeight(), pixelsLong, pixelshigh, scale, sprite);
     }
 
-    public void setOffset(float x, float y) {
-        this.renderer.setOffset(x, y);
-    }
-
-
     //===================================================================
     // Filters
     //===================================================================
-
-    protected int getPixel(int i) {
-        int width = (int) this.getFrameSize().getWidth();
-        int height = (int) this.getFrameSize().getHeight();
-        if (SmoothingFilterEnabled) {
-            this.renderer.applyPixelSmoothingFilter(i, width, height);
-        }
-        if (MedianBlurEnabled) {
-            this.renderer.applyPixelsMedianBlur(i, width, height);
-        }
-        if (AAFilterEnabled) {
-            this.renderer.applyPixelSimpleAAFilter(i, width, height);
-        }
-        return this.renderer.getPixel(i);
-    }
 
     public void switchAAFilterEnabled() {
         if (AAFilterEnabled) {
@@ -153,10 +126,6 @@ public class Screen extends Canvas {
 
     public void setSmoothingFilterEnabled(boolean smoothingFilterEnabled) {
         SmoothingFilterEnabled = smoothingFilterEnabled;
-    }
-
-    public Dimension2D getScreenSize() {
-        return this.screenSize;
     }
 
     public void bufferStrategy() {

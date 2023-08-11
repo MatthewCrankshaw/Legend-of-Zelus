@@ -1,8 +1,11 @@
 package game;
 
+import game.graphics.CircleRenderer;
+import game.graphics.FrameState;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.SpriteRegistry;
 import game.graphics.sprite.SpriteRenderer;
+import game.graphics.ui.Circle;
 import game.levels.tile.Tile;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
@@ -16,32 +19,24 @@ import java.util.Arrays;
 public class Renderer {
     protected SpriteRenderer spriteRenderer;
     protected SpriteRegistry spriteRegistry;
-    private Point2D.Float offset;
     private BufferedImage image;
-    private int[] pixels;
     private int scale;
 
-    public Renderer(SpriteRenderer renderer, SpriteRegistry registry, BufferedImage image, int[] pixels, int scale) {
+    public Renderer(SpriteRenderer renderer, SpriteRegistry registry, BufferedImage image, int scale) {
         this.spriteRenderer = renderer;
         this.spriteRegistry = registry;
-        this.offset = new Point2D.Float();
         this.image = image;
-        this.pixels = pixels;
         this.scale = scale;
     }
 
-    public void setOffset(float x, float y) {
-        this.offset.setLocation(x, y);
-    }
-
     public void renderSprite(Point2D position, Dimension2D frameSize, Sprite sprite, boolean fixed, int colour, int spriteScale) {
-        this.spriteRenderer.render(pixels, sprite, frameSize, position, offset, fixed, colour, spriteScale);
+        this.spriteRenderer.render(sprite, frameSize, position, fixed, colour, spriteScale);
     }
 
     public void renderString(Dimension2D frameSize, int xp, int yp, String string, boolean center, int colour, boolean fixed) {
         if (fixed) {
-            xp -= (int) this.offset.getX();
-            yp -= (int) this.offset.getY();
+            xp -= (int) FrameState.getOffset().getX();
+            yp -= (int) FrameState.getOffset().getY();
         }
         for (int i = 0; i < string.length(); i++) {
             if (string.charAt(i) == ' ') {
@@ -60,15 +55,15 @@ public class Renderer {
     }
 
     public void renderTile(Dimension2D frameSize, Point2D position, Tile tile) {
-        this.spriteRenderer.render(pixels, tile.getCurrentSprite(), frameSize, position, offset, true, -1, 1);
+        this.spriteRenderer.render(tile.getCurrentSprite(), frameSize, position, true, -1, 1);
         tile.tick();
     }
 
     public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile, int width, int height) {
 
         Sprite sprite = animTile.getCurrentSprite();
-        xp -= offset.getX();
-        yp -= offset.getY();
+        xp -= (int) FrameState.getOffset().getX();
+        yp -= (int) FrameState.getOffset().getY();
         for (int y = 0; y < 16; y++) {
             int ya = y + yp;
             for (int x = 0; x < 16; x++) {
@@ -77,7 +72,7 @@ public class Renderer {
                 if (xa < 0) xa = 0;
                 int col = sprite.getPixel(x, y);
                 if (col != 0xffff00ff) {
-                    pixels[xa + ya * width] = sprite.getPixel(x, y);
+                    FrameState.setPixel(xa + ya * width, sprite.getPixel(x, y));
                 }
             }
         }
@@ -86,10 +81,10 @@ public class Renderer {
     public void renderLine(double xp1, double yp1, double xp2, double yp2, int width, int height, int colour, boolean fixed) {
 
         if (fixed) {
-            xp1 -= offset.getX();
-            yp1 -= offset.getY();
-            xp2 -= offset.getX();
-            yp2 -= offset.getY();
+            xp1 -= FrameState.getOffset().getX();
+            yp1 -= FrameState.getOffset().getY();
+            xp2 -= FrameState.getOffset().getX();
+            yp2 -= FrameState.getOffset().getY();
         }
 
         double x = Math.abs(xp2 - xp1);
@@ -110,7 +105,7 @@ public class Renderer {
         for (int i = 0; i < max; i++) {
             if (xp1 < 0 || xp1 >= width || yp1 < 0 || yp1 >= height) break;
             if (xp2 < 0 || xp2 >= width || yp2 < 0 || yp2 >= height) break;
-            pixels[(int) xp1 + (width * (int) yp1)] = colour;
+            FrameState.setPixel((int) xp1 + (width * (int) yp1), colour);
             if (xp1 < xp2) {
                 xp1 += x;
             } else {
@@ -141,58 +136,32 @@ public class Renderer {
 
     public void renderRectangle(int xp, int yp, int width, int height, int screenWidth, int screenHeight, int currentPercent, int colourFill, int colourBorder, boolean fixed) {
         if (fixed) {
-            xp -= offset.getX();
-            yp -= offset.getY();
+            xp -= (int) FrameState.getOffset().getX();
+            yp -= (int) FrameState.getOffset().getY();
         }
 
         for (int y = yp; y <= yp + height; y++) {
             for (int x = xp; x <= (xp + width); x++) {
                 if (x >= screenWidth || y >= screenHeight || x < 0 || y < 0) continue;
                 if (y == yp || y == yp + height || x == xp || x == xp + width) {
-                    pixels[x + (screenWidth * y)] = colourBorder;
+                    FrameState.setPixel(x + (screenWidth * y), colourBorder);
                 } else {
                     if (x <= (currentPercent * 0.01 * width) + xp) {
-                        pixels[x + (screenWidth * y)] = colourFill;
+                        FrameState.setPixel(x + (screenWidth * y), colourFill);
                     }
                 }
             }
         }
     }
 
-    public void renderCircle(int xp, int yp, int width, int height, int radius, int fill, int colour, int borderColour, boolean filled, boolean fixed) {
-        //whether the circle moves with the screen or is relative to the ground
-        if (fixed) {
-            xp -= offset.getX();
-            yp -= offset.getY();
-        }
-
-        //fills from bottom to top
-        //0 being empty 100 being full
-        int fillAmount = (radius * fill) / 100;
-
-        for (int y = -radius; y <= radius; y++) {
-            for (int x = -radius; x <= radius * 2; x++) {
-                if (y + xp < 0 || y + xp >= width || x + yp < 0 || x + yp >= height) continue;
-
-                if (x >= radius - (fillAmount * 2)) {
-                    if (filled) {
-                        if (Math.round(Math.sqrt(y * y + x * x)) < radius) {
-                            pixels[(y + xp) + (width * (x + yp))] = colour;
-                        }
-                    }
-                }
-
-                if (Math.round(Math.sqrt(y * y + x * x)) == radius) {
-                    pixels[(y + xp) + (width * (x + yp))] = borderColour;
-                }
-
-            }
-        }
+    public void renderCircle(Circle circle, int width, int height, boolean fixed) {
+        CircleRenderer circleRenderer = new CircleRenderer();
+        circleRenderer.render(circle, new Dimension(width, height), fixed);
     }
 
     public void renderPlayer(int xp, int yp, int width, int height, int pixelsLong, int pixelshigh, int scale, Sprite sprite) {
-        xp -= offset.getX();
-        yp -= offset.getY();
+        xp -= (int) FrameState.getOffset().getX();
+        yp -= (int) FrameState.getOffset().getY();
         for (int y = 0; y < pixelshigh * scale; y++) {
             int ya = y + yp;
             for (int x = 0; x < pixelsLong * scale; x++) {
@@ -201,7 +170,7 @@ public class Renderer {
                 if (xa < 0) xa = 0;
                 int col = sprite.getPixel(x, y, scale);
                 if (col != 0xffff00ff) {
-                    pixels[xa + ya * width] = sprite.getPixel(x, y, scale);
+                    FrameState.setPixel(xa + ya * width, sprite.getPixel(x, y, scale));
                 }
             }
         }
@@ -212,22 +181,22 @@ public class Renderer {
         row = i / width;
         int col = i % width;
 
-        if (row == 0 || col == 0 || row == height - 1 || col == width - 1) return pixels[i];
+        if (row == 0 || col == 0 || row == height - 1 || col == width - 1) return FrameState.getPixel(i);
 
         int[] kernel = new int[9];
         int[] rkernel = new int[9];
         int[] gkernel = new int[9];
         int[] bkernel = new int[9];
 
-        kernel[0] = pixels[((row - 1) * width) + (col - 1)];
-        kernel[1] = pixels[((row - 1) * width) + (col)];
-        kernel[2] = pixels[((row - 1) * width) + (col + 1)];
-        kernel[3] = pixels[((row) * width) + (col - 1)];
-        kernel[4] = pixels[((row) * width) + (col)];
-        kernel[5] = pixels[((row) * width) + (col + 1)];
-        kernel[6] = pixels[((row + 1) * width) + (col - 1)];
-        kernel[7] = pixels[((row + 1) * width) + (col)];
-        kernel[8] = pixels[((row + 1) * width) + (col + 1)];
+        kernel[0] = FrameState.getPixel(((row - 1) * width) + (col - 1));
+        kernel[1] = FrameState.getPixel(((row - 1) * width) + (col));
+        kernel[2] = FrameState.getPixel(((row - 1) * width) + (col + 1));
+        kernel[3] = FrameState.getPixel(((row) * width) + (col - 1));
+        kernel[4] = FrameState.getPixel(((row) * width) + (col));
+        kernel[5] = FrameState.getPixel(((row) * width) + (col + 1));
+        kernel[6] = FrameState.getPixel(((row + 1) * width) + (col - 1));
+        kernel[7] = FrameState.getPixel(((row + 1) * width) + (col));
+        kernel[8] = FrameState.getPixel(((row + 1) * width) + (col + 1));
 
         for (int a = 0; a < 9; a++) {
             rkernel[a] = (kernel[a] >> 16) & 0xff;
@@ -255,7 +224,7 @@ public class Renderer {
         int row = i / width;
         int col = i % width;
 
-        if (row == 0 || col == 0 || row == height - 1 || col == width - 1) return pixels[i];
+        if (row == 0 || col == 0 || row == height - 1 || col == width - 1) return FrameState.getPixel(i);
 
         int[] kernel = new int[9];
         int[] rkernel = new int[9];
@@ -263,15 +232,15 @@ public class Renderer {
         int[] bkernel = new int[9];
         float[] weight = {0.3f, 0.3f, 0.3f, 0.3f, 6.6f, 0.3f, 0.3f, 0.3f, 0.3f};
 
-        kernel[0] = pixels[((row - 1) * width) + (col - 1)];
-        kernel[1] = pixels[((row - 1) * width) + (col)];
-        kernel[2] = pixels[((row - 1) * width) + (col + 1)];
-        kernel[3] = pixels[((row) * width) + (col - 1)];
-        kernel[4] = pixels[((row) * width) + (col)];
-        kernel[5] = pixels[((row) * width) + (col + 1)];
-        kernel[6] = pixels[((row + 1) * width) + (col - 1)];
-        kernel[7] = pixels[((row + 1) * width) + (col)];
-        kernel[8] = pixels[((row + 1) * width) + (col + 1)];
+        kernel[0] = FrameState.getPixel(((row - 1) * width) + (col - 1));
+        kernel[1] = FrameState.getPixel(((row - 1) * width) + (col));
+        kernel[2] = FrameState.getPixel(((row - 1) * width) + (col + 1));
+        kernel[3] = FrameState.getPixel(((row) * width) + (col - 1));
+        kernel[4] = FrameState.getPixel(((row) * width) + (col));
+        kernel[5] = FrameState.getPixel(((row) * width) + (col + 1));
+        kernel[6] = FrameState.getPixel(((row + 1) * width) + (col - 1));
+        kernel[7] = FrameState.getPixel(((row + 1) * width) + (col));
+        kernel[8] = FrameState.getPixel(((row + 1) * width) + (col + 1));
 
         for (int a = 0; a < 9; a++) {
             rkernel[a] = (kernel[a] >> 16) & 0xff;
@@ -297,21 +266,21 @@ public class Renderer {
         int row = i / width;
         int col = i % width;
 
-        if (row == 0 || col == 0 || row == height - 1 || col == width - 1) return pixels[i];
+        if (row == 0 || col == 0 || row == height - 1 || col == width - 1) return FrameState.getPixel(i);
         int[] kernel = new int[9];
         int[] rkernel = new int[9];
         int[] gkernel = new int[9];
         int[] bkernel = new int[9];
 
-        kernel[0] = pixels[((row - 1) * width) + (col - 1)];
-        kernel[1] = pixels[((row - 1) * width) + (col)];
-        kernel[2] = pixels[((row - 1) * width) + (col + 1)];
-        kernel[3] = pixels[((row) * width) + (col - 1)];
-        kernel[4] = pixels[((row) * width) + (col)];
-        kernel[5] = pixels[((row) * width) + (col + 1)];
-        kernel[6] = pixels[((row + 1) * width) + (col - 1)];
-        kernel[7] = pixels[((row + 1) * width) + (col)];
-        kernel[8] = pixels[((row + 1) * width) + (col + 1)];
+        kernel[0] = FrameState.getPixel(((row - 1) * width) + (col - 1));
+        kernel[1] = FrameState.getPixel(((row - 1) * width) + (col));
+        kernel[2] = FrameState.getPixel(((row - 1) * width) + (col + 1));
+        kernel[3] = FrameState.getPixel(((row) * width) + (col - 1));
+        kernel[4] = FrameState.getPixel(((row) * width) + (col));
+        kernel[5] = FrameState.getPixel(((row) * width) + (col + 1));
+        kernel[6] = FrameState.getPixel(((row + 1) * width) + (col - 1));
+        kernel[7] = FrameState.getPixel(((row + 1) * width) + (col));
+        kernel[8] = FrameState.getPixel(((row + 1) * width) + (col + 1));
 
         for (int a = 0; a < 9; a++) {
             rkernel[a] = (kernel[a] >> 16) & 0xff;
@@ -324,14 +293,6 @@ public class Renderer {
         Arrays.sort(bkernel);
 
         return new Color(rkernel[4], gkernel[4], bkernel[4]).getRGB();
-    }
-
-    public void clear() {
-        Arrays.fill(pixels, 0);
-    }
-
-    public int getPixel(int i) {
-        return this.pixels[i];
     }
 
     public BufferedImage getImage() {

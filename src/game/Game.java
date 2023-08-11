@@ -10,6 +10,7 @@ import game.entities.ability.ability_managers.FireballManager;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.graphics.FrameState;
 import game.graphics.Screen;
 import game.graphics.files.Image;
 import game.graphics.files.ImageLoader;
@@ -78,9 +79,9 @@ public class Game implements Runnable {
                 (int) screenSize.getHeight(),
                 BufferedImage.TYPE_INT_RGB
         );
-        int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+        FrameState.setPixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
 
-        Renderer renderer = new Renderer(spriteRenderer, spriteRegistry, image, pixels, 1);
+        Renderer renderer = new Renderer(spriteRenderer, spriteRegistry, image, 1);
         Screen screen = new Screen(screenSize, spriteRegistry, renderer);
         new Game(screen, spriteSheetRegistry, spriteRegistry, spriteLoader, imageLoader).start();
     }
@@ -218,7 +219,7 @@ public class Game implements Runnable {
 
     public void render() {
         screen.bufferStrategy();
-        screen.clear();
+        FrameState.clear();
 
         //Make sure game is not paused
         if (!ui.isGamePaused()) {

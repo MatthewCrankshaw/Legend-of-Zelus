@@ -51,12 +51,10 @@ public class UserInterface {
 
         //setup health bar
         healthBar = new CircleProgressBar(screen, circleBarSize + circleBarSize / 10, screen.getHeight() - circleBarSize - (circleBarSize / 10), circleBarSize, "Life");
-        healthBar.setBarColours(0xff0000, 0xffffff);
         healthBar.setCurrentBarPercent(player.getMaxLife(), player.getCurrentLife());
 
         //setup mana bar
         manaBar = new CircleProgressBar(screen, screen.getWidth() - circleBarSize - circleBarSize / 10, screen.getHeight() - circleBarSize - circleBarSize / 10, circleBarSize, "Mana");
-        manaBar.setBarColours(0x0000ff, 0xffffff);
         manaBar.setCurrentBarPercent(player.getMaxMana(), player.getCurrentMana());
 
         //setup experience bar
