@@ -1,5 +1,6 @@
 package game;
 
+import game.graphics.Screen;
 import game.graphics.ui.UserInterface;
 
 import java.awt.event.*;
@@ -17,11 +18,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     private UserInterface ui;
 
-    public InputHandler(Game game) {
+    public InputHandler(Screen screen) {
         keys = new Vector<>();
-        game.addKeyListener(this);
-        game.addMouseMotionListener(this);
-        game.addMouseListener(this);
+        screen.addKeyListener(this);
+        screen.addMouseMotionListener(this);
+        screen.addMouseListener(this);
     }
 
     public void registerKey(Key key) {

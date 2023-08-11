@@ -13,7 +13,7 @@ public class RectangleProgressBar {
 
     private int currentBarPercentage; // 0 - 100 %
 
-    public RectangleProgressBar(Screen screen, int xPos, int yPos, int width, int height, String label){
+    public RectangleProgressBar(Screen screen, int xPos, int yPos, int width, int height, String label) {
         this.screen = screen;
         this.screenPosX = xPos;
         this.screenPosY = yPos;
@@ -26,7 +26,7 @@ public class RectangleProgressBar {
         barFillColour = 0x000000;
     }
 
-    public RectangleProgressBar(Screen screen, int xPos, int yPos, int width, int height){
+    public RectangleProgressBar(Screen screen, int xPos, int yPos, int width, int height) {
         this.screen = screen;
         this.screenPosX = xPos;
         this.screenPosY = yPos;
@@ -39,13 +39,13 @@ public class RectangleProgressBar {
         barFillColour = 0x000000;
     }
 
-    public void render(){
-        this.screen.renderString(screenPosX + (width/2), screenPosY - height, label, true, 0x660000, 1, false);
-        this.screen.renderRectangle(screenPosX, screenPosY, width, height,currentBarPercentage, barFillColour, barBorderColour,fixed);
+    public void render() {
+        this.screen.renderString(screenPosX + (width / 2), screenPosY - height, label, true, 0x660000, false);
+        this.screen.renderRectangle(screenPosX, screenPosY, width, height, currentBarPercentage, barFillColour, barBorderColour, fixed);
     }
 
     public void setCurrentBarPercentage(int max, int current) {
-        this.currentBarPercentage = (100 * current)/max;
+        this.currentBarPercentage = (100 * current) / max;
     }
 
     public void setBarColours(int barFillColour, int barBorderColour) {

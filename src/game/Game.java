@@ -32,101 +32,61 @@ import game.levels.tile.transition_tiles.GrassToDirtTiles;
 import game.levels.tile.transition_tiles.GrassToSandTiles;
 import game.levels.tile.transition_tiles.TransitionTiles;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
-import java.awt.image.BufferStrategy;
+import java.awt.geom.Dimension2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Game extends Canvas implements Runnable {
+public class Game implements Runnable {
     private static final long serialVersionUID = 1L;
-    private Dimension screenSize;
-    private int screenHeight;
-    private int screenWidth;
-    private static int SCALE;
-    private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
-    private BufferedImage image;
-    private int[] pixels;
     private UserInterface ui;
     private InputHandler input;
     private Level level;
     private Screen screen;
-    private Renderer renderer;
     private Player player;
     private AiManager ai;
     private Spawner spawner;
     private TileManager tileManager;
+    private SpriteSheetRegistry spriteSheetRegistry;
+    private SpriteRegistry spriteRegistry;
+    private SpriteLoader spriteLoader;
+    private ImageLoader imageLoader;
+
+    public Game(Screen screen, SpriteSheetRegistry spriteSheetRegistry, SpriteRegistry spriteRegistry, SpriteLoader spriteLoader, ImageLoader imageLoader) {
+        this.screen = screen;
+        this.spriteSheetRegistry = spriteSheetRegistry;
+        this.spriteRegistry = spriteRegistry;
+        this.spriteLoader = spriteLoader;
+        this.imageLoader = imageLoader;
+    }
 
     public static void main(String[] args) {
-        new Game().start();
-    }
-
-    public Game() {
-        this.screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int numpixels = screenSize.width * screenSize.height;
-        System.out.println("Screen Width: " + screenSize.width + " Screen Height: " + screenSize.height + " Number of Pixels: " + numpixels);
-
-        if (numpixels < 1000000) {
-            screenWidth = screenSize.width;
-            screenHeight = screenSize.height;
-            SCALE = 1;
-            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
-
-        } else if (numpixels > 1000000 && numpixels < 2000000) {
-            screenWidth = (screenSize.width / 2);
-            screenHeight = (screenSize.height / 2);
-            SCALE = 2;
-            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
-        } else if (numpixels > 2000000 && numpixels < 4000000) {
-            screenWidth = (screenSize.width / 4);
-            screenHeight = (screenSize.height / 4);
-            SCALE = 4;
-            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
-        } else if (numpixels > 4000000) {
-            screenWidth = (screenSize.width / 8);
-            screenHeight = (screenSize.height / 8);
-            SCALE = 8;
-            System.out.println("Adjusted Width: " + screenWidth + " Adjusted Height: " + screenHeight + " Scale: " + SCALE);
-        }
-
-        setMinimumSize(new Dimension(screenWidth * SCALE, screenHeight * SCALE));
-        setMaximumSize(new Dimension(screenWidth * SCALE, screenHeight * SCALE));
-        setPreferredSize(new Dimension(screenWidth * SCALE, screenHeight * SCALE));
-
-        JFrame frame = new JFrame(NAME);
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setUndecorated(true);
-        frame.setLayout(new BorderLayout());
-
-        frame.add(this, BorderLayout.CENTER);
-        frame.pack();
-
-        frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    private void init() {
-        this.image = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_RGB);
-        this.pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
         ImageLoader imageLoader = new ImageLoader();
         SpriteLoader spriteLoader = new SpriteLoader();
-        SpriteRenderer spriteRenderer = new SpriteRenderer(new Point2D.Float(screenWidth, screenHeight));
+        SpriteRenderer spriteRenderer = new SpriteRenderer();
         SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry(imageLoader);
         SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry, spriteLoader);
 
-        this.renderer = new Renderer(spriteRenderer, spriteRegistry);
-        this.screen = new Screen(screenWidth, screenHeight, SCALE, spriteRegistry, this.renderer);
+        Dimension2D screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        BufferedImage image = new BufferedImage(
+                (int) screenSize.getWidth(),
+                (int) screenSize.getHeight(),
+                BufferedImage.TYPE_INT_RGB
+        );
+        int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
-        this.input = new InputHandler(this);
+        Renderer renderer = new Renderer(spriteRenderer, spriteRegistry, image, pixels, 1);
+        Screen screen = new Screen(screenSize, spriteRegistry, renderer);
+        new Game(screen, spriteSheetRegistry, spriteRegistry, spriteLoader, imageLoader).start();
+    }
+
+    private void init() {
+        this.input = new InputHandler(this.screen);
         this.input.registerKey(new Key(KeyEvent.VK_UP));
         this.input.registerKey(new Key(KeyEvent.VK_DOWN));
         this.input.registerKey(new Key(KeyEvent.VK_LEFT));
@@ -165,11 +125,11 @@ public class Game extends Canvas implements Runnable {
         FireballManager fireballManager = new FireballManager(screen, input, level, spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.FIREBALL_SPRITES), fireballAnimator, spawner, spriteRegistry);
 
         TeleportAnimator teleportAnimator = new TeleportAnimator(
-            screen,
-            6,
-            spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.TELEPORT),
-            spriteRegistry.get(SpriteRegistry.SpriteItem.TELEPORT_FLOOR_SIGN),
-            Player.TELEPORT_CAST_SPEED/6
+                screen,
+                6,
+                spriteRegistry.getCollection(SpriteRegistry.AnimatedEnvSprite.TELEPORT),
+                spriteRegistry.get(SpriteRegistry.SpriteItem.TELEPORT_FLOOR_SIGN),
+                Player.TELEPORT_CAST_SPEED / 6
         );
         TeleportManager teleportManager = new TeleportManager(screen, input, level, teleportAnimator);
 
@@ -188,7 +148,7 @@ public class Game extends Canvas implements Runnable {
         this.level.add(player);
     }
 
-    private ArrayList<Enemy> initializeEnemies(){
+    private ArrayList<Enemy> initializeEnemies() {
         int numberOfZombies = 1;
         int numberOfEnemyWiz = 1;
         int numberOfDeathKeepers = 1;
@@ -257,12 +217,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void render() {
-        BufferStrategy bs = getBufferStrategy();
-        if (bs == null) {
-            createBufferStrategy(3);
-            return;
-        }
-
+        screen.bufferStrategy();
         screen.clear();
 
         //Make sure game is not paused
@@ -275,14 +230,6 @@ public class Game extends Canvas implements Runnable {
             ui.setGamePaused(true);
         }
         ui.render();
-
-        this.pixels = screen.getPixels(this.pixels);
-
-        Graphics g = bs.getDrawGraphics();
-        Graphics2D g2 = (Graphics2D) g;
-        g2.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-        g2.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-        g2.dispose();
-        bs.show();
+        screen.draw();
     }
 }

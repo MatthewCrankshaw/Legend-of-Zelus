@@ -10,10 +10,10 @@ public class UILabel {
     private boolean fixed, center;
 
     private long lifeSpan; // -1 for forever (in millisecs)
-    private long timeInstantiated,currentDuration;
+    private long timeInstantiated, currentDuration;
     private boolean alive;
 
-    public UILabel(Screen screen, int x, int y, String text, boolean fixed, boolean center, long lifeSpan){
+    public UILabel(Screen screen, int x, int y, String text, boolean fixed, boolean center, long lifeSpan) {
         this.screen = screen;
         this.screenX = x;
         this.screenY = y;
@@ -26,22 +26,22 @@ public class UILabel {
         this.timeInstantiated = System.currentTimeMillis();
     }
 
-    public void tick(){
+    public void tick() {
         currentDuration = System.currentTimeMillis() - timeInstantiated;
-        if(lifeSpan != -1 && currentDuration > lifeSpan) {
+        if (lifeSpan != -1 && currentDuration > lifeSpan) {
             alive = false;
         }
     }
 
     public void render() {
-        screen.renderString(screenX, screenY, text, center, colour, 1, fixed);
+        screen.renderString(screenX, screenY, text, center, colour, fixed);
     }
 
-    public void setColour(int colour){
+    public void setColour(int colour) {
         this.colour = colour;
     }
 
-    public boolean isAlive(){
+    public boolean isAlive() {
         return alive;
     }
 

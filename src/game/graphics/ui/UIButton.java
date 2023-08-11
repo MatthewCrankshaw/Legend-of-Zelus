@@ -14,7 +14,7 @@ public class UIButton {
 
     private long pressedTime;
 
-    public UIButton(Screen screen, int xpos, int ypos, int width, int height, String label, boolean clickable){
+    public UIButton(Screen screen, int xpos, int ypos, int width, int height, String label, boolean clickable) {
         this.screen = screen;
         this.screenX = xpos;
         this.screenY = ypos;
@@ -32,7 +32,7 @@ public class UIButton {
         pressedTime = 0;
     }
 
-    public UIButton(Screen screen, int xpos, int ypos, int width, int height, boolean clickable){
+    public UIButton(Screen screen, int xpos, int ypos, int width, int height, boolean clickable) {
         this.screen = screen;
         this.screenX = xpos;
         this.screenY = ypos;
@@ -50,18 +50,18 @@ public class UIButton {
         pressedTime = 0;
     }
 
-    public void render(){
+    public void render() {
         int changeColour = fillColour;
-        if (System.currentTimeMillis() - pressedTime < 100){
+        if (System.currentTimeMillis() - pressedTime < 100) {
             changeColour = clickedFillColour;
         }
 
-        this.screen.renderRectangle(screenX, screenY, buttonWidth, buttonHeight,100, changeColour, borderColour,false);
-        this.screen.renderString(screenX+buttonWidth/2, screenY + (buttonHeight/2) - (buttonHeight/4), label, true, 0xaaaa00, textSize, false);
+        this.screen.renderRectangle(screenX, screenY, buttonWidth, buttonHeight, 100, changeColour, borderColour, false);
+        this.screen.renderString(screenX + buttonWidth / 2, screenY + (buttonHeight / 2) - (buttonHeight / 4), label, true, 0xaaaa00, false);
     }
 
-    public boolean isPressed(int x, int y){
-        if(clickable) {
+    public boolean isPressed(int x, int y) {
+        if (clickable) {
             int xp = x / screen.getScale();
             int yp = y / screen.getScale();
 
@@ -69,13 +69,13 @@ public class UIButton {
             if (yp < screenY || yp > screenY + buttonHeight) return false;
 
             pressedTime = System.currentTimeMillis();
-        }else{
+        } else {
             return false;
         }
         return true;
     }
 
-    public void setColour(int fillColour, int borderColour){
+    public void setColour(int fillColour, int borderColour) {
         this.fillColour = fillColour;
         this.borderColour = borderColour;
     }

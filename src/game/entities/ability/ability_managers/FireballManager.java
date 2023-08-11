@@ -16,20 +16,17 @@ import game.levels.tile.TileManager;
  * Created by Matthew.c on 02/02/2017.
  */
 public class FireballManager extends AbilityManager {
+    public static int MANA_COST = 40;
     private FireballAnimator animator;
     private long lastAbilityCreated;
     private Sprite fireballSprite[];
     private Sprite particleSprite;
     private Spawner spawner;
-
     private boolean readyToShoot;
 
-    public static int MANA_COST = 40;
-
-
-    public FireballManager(Screen screen, InputHandler input, Level level, Sprite[] fireballSprite, FireballAnimator animator, Spawner spawner, SpriteRegistry spriteRegistry){
+    public FireballManager(Screen screen, InputHandler input, Level level, Sprite[] fireballSprite, FireballAnimator animator, Spawner spawner, SpriteRegistry spriteRegistry) {
         super(screen, input, level, 5);
-        this.timeBetweenAnim = Player.FIREBALL_CAST_SPEED/numOfAnim;
+        this.timeBetweenAnim = Player.FIREBALL_CAST_SPEED / numOfAnim;
         this.input = input;
         this.inAnimation = false;
         this.readyToShoot = true;
@@ -39,28 +36,28 @@ public class FireballManager extends AbilityManager {
         this.spawner = spawner;
     }
 
-    public void tick(){
-        for (Ability a: abilityList) {
+    public void tick() {
+        for (Ability a : abilityList) {
             a.tick();
         }
         checkReadyToShoot();
     }
 
-    public void checkReadyToShoot(){
+    public void checkReadyToShoot() {
         long currentTime = System.currentTimeMillis();
 
-        if (!readyToShoot && (currentTime - lastAbilityCreated) > Player.FIREBALL_CAST_SPEED){
+        if (!readyToShoot && (currentTime - lastAbilityCreated) > Player.FIREBALL_CAST_SPEED) {
             readyToShoot = true;
-        }else {
+        } else {
             readyToShoot = false;
         }
     }
 
-    public void renderSprite(double x, double y){
+    public void renderSprite(double x, double y) {
         animator.renderSprite((int) x, (int) y);
         setInAnimation(animator.isInAnimation());
         if (animator.castAbility()) {
-            castAbility((int)x, (int)y);
+            castAbility((int) x, (int) y);
         }
     }
 
@@ -69,44 +66,42 @@ public class FireballManager extends AbilityManager {
         addAbilityInstance(new FireballProjectile(level, screen, x, y, getDir(), fireballSprite));
     }
 
-    public double getDir(){
+    public double getDir() {
         int mouseX, mouseY;
 
         mouseX = input.getMouseX();
         mouseY = input.getMouseY();
 
-        double dx = mouseX - (double) (screen.getWidth() * screen.getScale()) /2;
-        double dy = mouseY - (double) (screen.getHeight() * screen.getScale()) /2;
+        double dx = mouseX - (double) (screen.getWidth() * screen.getScale()) / 2;
+        double dy = mouseY - (double) (screen.getHeight() * screen.getScale()) / 2;
 
         return Math.atan2(dy, dx);
     }
 
-    public void renderFireballs(TileManager tileManager){
+    public void renderFireballs(TileManager tileManager) {
         for (int i = 0; i < abilityList.size(); i++) {
             if (abilityList.get(i).isExploding()) {
                 abilityList.get(i).explode();
-                spawner.spawnEntities((int)abilityList.get(i).getX()+4, (int)abilityList.get(i).getY()+4, Spawner.Type.PARTICAL, 100, particleSprite );
+                spawner.spawnEntities((int) abilityList.get(i).getX() + 4, (int) abilityList.get(i).getY() + 4, Spawner.Type.PARTICAL, 100, particleSprite);
                 abilityList.remove(abilityList.get(i));
-            }else if (!abilityList.get(i).isAlive()) {
+            } else if (!abilityList.get(i).isAlive()) {
                 abilityList.get(i).fizzleOut();
                 abilityList.remove(i);
-            }else{
+            } else {
                 abilityList.get(i).render(screen);
             }
         }
     }
 
-    public void setParticleSprite(Sprite sprite){
+    public void setParticleSprite(Sprite sprite) {
         this.particleSprite = sprite;
     }
 
-    private void addAbilityInstance(Ability ability){
-        if (readyToShoot){
+    private void addAbilityInstance(Ability ability) {
+        if (readyToShoot) {
             abilityList.add(ability);
             lastAbilityCreated = System.currentTimeMillis();
             readyToShoot = false;
         }
     }
-
-
 }
