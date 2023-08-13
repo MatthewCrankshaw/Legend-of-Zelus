@@ -6,7 +6,6 @@ import game.graphics.sprite.Sprite;
 import game.graphics.sprite.SpriteRegistry;
 import game.graphics.sprite.SpriteRenderer;
 import game.graphics.ui.Circle;
-import game.graphics.ui.Text;
 import game.levels.tile.Tile;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
@@ -17,40 +16,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Renderer {
+    protected CircleRenderer circleRenderer;
     protected SpriteRenderer spriteRenderer;
     protected SpriteRegistry spriteRegistry;
     private BufferedImage image;
-    private int scale;
 
-    public Renderer(SpriteRenderer renderer, SpriteRegistry registry, BufferedImage image, int scale) {
+    public Renderer(CircleRenderer circleRenderer, SpriteRenderer renderer, SpriteRegistry registry, BufferedImage image) {
+        this.circleRenderer = circleRenderer;
         this.spriteRenderer = renderer;
         this.spriteRegistry = registry;
         this.image = image;
-        this.scale = scale;
     }
 
     public void renderSprite(Point2D position, Sprite sprite, boolean fixed, int colour, int spriteScale) {
         this.spriteRenderer.render(sprite, position, fixed, colour, spriteScale);
-    }
-
-    public void renderString(Text text) {
-
-        int xp = (int) text.getPosition().getX();
-        int yp = (int) text.getPosition().getY();
-
-        if (text.getFixed()) {
-            xp -= (int) FrameState.getOffset().getX();
-            yp -= (int) FrameState.getOffset().getY();
-        }
-        for (int i = 0; i < text.getText().length(); i++) {
-            if (text.getText().charAt(i) == ' ') {
-                continue;
-            }
-            int len = text.getText().length();
-            int centerOffset = ((len * 8) / 2) * scale;
-            Point2D position = new Point2D.Float(xp + (i * 8 * scale) - centerOffset, yp);
-            renderSprite(position, spriteRegistry.getCharacterSprite(text.getText().charAt(i)), false, text.getColour(), scale);
-        }
     }
 
     public void renderTile(Point2D position, Tile tile) {
@@ -158,7 +137,6 @@ public class Renderer {
     }
 
     public void renderCircle(Circle circle, boolean fixed) {
-        CircleRenderer circleRenderer = new CircleRenderer();
         circleRenderer.render(circle, fixed);
     }
 
@@ -300,9 +278,5 @@ public class Renderer {
 
     public BufferedImage getImage() {
         return this.image;
-    }
-
-    public int getScale() {
-        return this.scale;
     }
 }

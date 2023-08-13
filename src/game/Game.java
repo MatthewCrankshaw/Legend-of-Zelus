@@ -10,8 +10,10 @@ import game.entities.ability.ability_managers.FireballManager;
 import game.entities.ability.ability_managers.TeleportManager;
 import game.entities.mob.Enemy;
 import game.entities.mob.Player;
+import game.graphics.CircleRenderer;
 import game.graphics.FrameState;
 import game.graphics.Screen;
+import game.graphics.TextRenderer;
 import game.graphics.files.Image;
 import game.graphics.files.ImageLoader;
 import game.graphics.sprite.SpriteLoader;
@@ -69,11 +71,13 @@ public class Game implements Runnable {
     public static void main(String[] args) {
         ImageLoader imageLoader = new ImageLoader();
         SpriteLoader spriteLoader = new SpriteLoader();
+        CircleRenderer circleRenderer = new CircleRenderer();
         SpriteRenderer spriteRenderer = new SpriteRenderer();
         SpriteSheetRegistry spriteSheetRegistry = new SpriteSheetRegistry(imageLoader);
         SpriteRegistry spriteRegistry = new SpriteRegistry(spriteSheetRegistry, spriteLoader);
 
         Dimension2D screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
         BufferedImage image = new BufferedImage(
                 (int) screenSize.getWidth(),
                 (int) screenSize.getHeight(),
@@ -83,8 +87,12 @@ public class Game implements Runnable {
         FrameState.setFramesize(
                 new Dimension(image.getWidth(), image.getHeight())
         );
-        Renderer renderer = new Renderer(spriteRenderer, spriteRegistry, image, 1);
-        Screen screen = new Screen(screenSize, spriteRegistry, renderer);
+        FrameState.setScale(1);
+        Renderer renderer = new Renderer(circleRenderer, spriteRenderer, spriteRegistry, image);
+
+        TextRenderer textRenderer = new TextRenderer(spriteRegistry, renderer);
+        Screen screen = new Screen(screenSize, spriteRegistry, renderer, textRenderer);
+
         new Game(screen, spriteSheetRegistry, spriteRegistry, spriteLoader, imageLoader).start();
     }
 

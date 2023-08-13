@@ -9,9 +9,18 @@ import java.util.Arrays;
  * Created by Matthew.c on 25/01/2017.
  */
 public class FrameState {
+    protected static int scale;
     protected static int[] pixels;
     protected static Point2D.Float offset = new Point2D.Float(0, 0);
     protected static Dimension2D framesize = new Dimension();
+
+    public static int getScale() {
+        return FrameState.scale;
+    }
+
+    public static void setScale(int scale) {
+        FrameState.scale = scale;
+    }
 
     public static int[] getPixels() {
         return FrameState.pixels;

@@ -1,5 +1,6 @@
 package game.graphics.ui;
 
+import game.graphics.FrameState;
 import game.graphics.Screen;
 
 import java.awt.geom.Point2D;
@@ -51,8 +52,8 @@ public class UIButton {
 
     public boolean isPressed(int x, int y) {
         if (clickable) {
-            int xp = x / screen.getScale();
-            int yp = y / screen.getScale();
+            int xp = x / FrameState.getScale();
+            int yp = y / FrameState.getScale();
 
             if (xp < screenX || xp > screenX + buttonWidth) return false;
             if (yp < screenY || yp > screenY + buttonHeight) return false;

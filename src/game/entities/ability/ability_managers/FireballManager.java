@@ -6,6 +6,7 @@ import game.entities.Spawner;
 import game.entities.ability.Ability;
 import game.entities.ability.projectiles.FireballProjectile;
 import game.entities.mob.Player;
+import game.graphics.FrameState;
 import game.graphics.Screen;
 import game.graphics.sprite.Sprite;
 import game.graphics.sprite.SpriteRegistry;
@@ -72,8 +73,8 @@ public class FireballManager extends AbilityManager {
         mouseX = input.getMouseX();
         mouseY = input.getMouseY();
 
-        double dx = mouseX - (double) (screen.getWidth() * screen.getScale()) / 2;
-        double dy = mouseY - (double) (screen.getHeight() * screen.getScale()) / 2;
+        double dx = mouseX - (double) (screen.getWidth() * FrameState.getScale()) / 2;
+        double dy = mouseY - (double) (screen.getHeight() * FrameState.getScale()) / 2;
 
         return Math.atan2(dy, dx);
     }

@@ -22,10 +22,11 @@ public class Screen extends Canvas {
     private static final String NAME = "Never Lost - Matthew Crankshaw - 14303742";
     protected SpriteRegistry spriteRegistry;
     protected Renderer renderer;
+    protected TextRenderer textRenderer;
     protected BufferStrategy strategy;
     private boolean AAFilterEnabled, MedianBlurEnabled, SmoothingFilterEnabled;
 
-    public Screen(Dimension2D screenSize, SpriteRegistry spriteRegistry, Renderer renderer) {
+    public Screen(Dimension2D screenSize, SpriteRegistry spriteRegistry, Renderer renderer, TextRenderer textRenderer) {
         setMinimumSize((Dimension) screenSize);
         setMaximumSize((Dimension) screenSize);
         setPreferredSize((Dimension) screenSize);
@@ -45,6 +46,7 @@ public class Screen extends Canvas {
 
         this.spriteRegistry = spriteRegistry;
         this.renderer = renderer;
+        this.textRenderer = textRenderer;
 
         this.AAFilterEnabled = false;
         this.MedianBlurEnabled = false;
@@ -56,7 +58,7 @@ public class Screen extends Canvas {
     }
 
     public void renderString(Text text) {
-        this.renderer.renderString(text);
+        this.textRenderer.render(text);
     }
 
     public void renderTile(Point2D position, Tile tile) {
@@ -135,9 +137,5 @@ public class Screen extends Canvas {
         g2.drawImage(this.renderer.getImage(), 0, 0, getWidth(), getHeight(), null);
         g2.dispose();
         strategy.show();
-    }
-
-    public int getScale() {
-        return this.renderer.getScale();
     }
 }
