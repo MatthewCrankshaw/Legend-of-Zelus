@@ -2,24 +2,23 @@ package game.graphics.ui;
 
 import game.graphics.Screen;
 
+import java.awt.geom.Point2D;
+
 public class CircleProgressBar {
     private Screen screen;
     private Circle circle;
-    private int screenPosX, screenPosY;
     private int sizeRadius;
-    private String label;
+    private Text text;
 
     public CircleProgressBar(Screen screen, int xPos, int yPos, int size, String label) {
         this.screen = screen;
-        this.screenPosX = xPos;
-        this.screenPosY = yPos;
         this.sizeRadius = size;
-        this.label = label;
+        text = new Text(label, new Point2D.Float(xPos, yPos - sizeRadius - 16), 0x660000, false);
         circle = new Circle(xPos, yPos, size);
     }
 
     public void render() {
-        this.screen.renderString(screenPosX, screenPosY - sizeRadius - 16, label, true, 0x660000, false);
+        this.screen.renderString(text);
         this.screen.renderCircle(circle, false);
     }
 

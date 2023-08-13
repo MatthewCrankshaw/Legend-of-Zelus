@@ -1,5 +1,7 @@
 package game.graphics;
 
+import java.awt.*;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.util.Arrays;
 
@@ -9,6 +11,7 @@ import java.util.Arrays;
 public class FrameState {
     protected static int[] pixels;
     protected static Point2D.Float offset = new Point2D.Float(0, 0);
+    protected static Dimension2D framesize = new Dimension();
 
     public static int[] getPixels() {
         return FrameState.pixels;
@@ -40,5 +43,13 @@ public class FrameState {
 
     public static void setOffset(int x, int y) {
         FrameState.offset.setLocation(x, y);
+    }
+
+    public static Dimension2D getFramesize() {
+        return FrameState.framesize;
+    }
+
+    public static void setFramesize(Dimension2D framesize) {
+        FrameState.framesize = framesize;
     }
 }

@@ -6,11 +6,11 @@ import game.graphics.sprite.Sprite;
 import game.graphics.sprite.SpriteRegistry;
 import game.graphics.sprite.SpriteRenderer;
 import game.graphics.ui.Circle;
+import game.graphics.ui.Text;
 import game.levels.tile.Tile;
 import game.levels.tile.animated_tiles.AnimatedTile;
 
 import java.awt.*;
-import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -29,37 +29,36 @@ public class Renderer {
         this.scale = scale;
     }
 
-    public void renderSprite(Point2D position, Dimension2D frameSize, Sprite sprite, boolean fixed, int colour, int spriteScale) {
-        this.spriteRenderer.render(sprite, frameSize, position, fixed, colour, spriteScale);
+    public void renderSprite(Point2D position, Sprite sprite, boolean fixed, int colour, int spriteScale) {
+        this.spriteRenderer.render(sprite, position, fixed, colour, spriteScale);
     }
 
-    public void renderString(Dimension2D frameSize, int xp, int yp, String string, boolean center, int colour, boolean fixed) {
-        if (fixed) {
+    public void renderString(Text text) {
+
+        int xp = (int) text.getPosition().getX();
+        int yp = (int) text.getPosition().getY();
+
+        if (text.getFixed()) {
             xp -= (int) FrameState.getOffset().getX();
             yp -= (int) FrameState.getOffset().getY();
         }
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) == ' ') {
+        for (int i = 0; i < text.getText().length(); i++) {
+            if (text.getText().charAt(i) == ' ') {
                 continue;
             }
-            int len = string.length();
-            int centerOffset;
-            if (center) {
-                centerOffset = ((len * 8) / 2) * scale;
-            } else {
-                centerOffset = 0;
-            }
+            int len = text.getText().length();
+            int centerOffset = ((len * 8) / 2) * scale;
             Point2D position = new Point2D.Float(xp + (i * 8 * scale) - centerOffset, yp);
-            renderSprite(position, frameSize, spriteRegistry.getCharacterSprite(string.charAt(i)), false, colour, scale);
+            renderSprite(position, spriteRegistry.getCharacterSprite(text.getText().charAt(i)), false, text.getColour(), scale);
         }
     }
 
-    public void renderTile(Dimension2D frameSize, Point2D position, Tile tile) {
-        this.spriteRenderer.render(tile.getCurrentSprite(), frameSize, position, true, -1, 1);
+    public void renderTile(Point2D position, Tile tile) {
+        this.spriteRenderer.render(tile.getCurrentSprite(), position, true, -1, 1);
         tile.tick();
     }
 
-    public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile, int width, int height) {
+    public void renderAnimatedTile(int xp, int yp, AnimatedTile animTile) {
 
         Sprite sprite = animTile.getCurrentSprite();
         xp -= (int) FrameState.getOffset().getX();
@@ -68,17 +67,18 @@ public class Renderer {
             int ya = y + yp;
             for (int x = 0; x < 16; x++) {
                 int xa = x + xp;
-                if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
+                if (xa < -16 || xa >= FrameState.getFramesize().getWidth() || ya < 0 || ya >= FrameState.getFramesize().getHeight())
+                    break;
                 if (xa < 0) xa = 0;
                 int col = sprite.getPixel(x, y);
                 if (col != 0xffff00ff) {
-                    FrameState.setPixel(xa + ya * width, sprite.getPixel(x, y));
+                    FrameState.setPixel(xa + ya * (int) FrameState.getFramesize().getWidth(), sprite.getPixel(x, y));
                 }
             }
         }
     }
 
-    public void renderLine(double xp1, double yp1, double xp2, double yp2, int width, int height, int colour, boolean fixed) {
+    public void renderLine(double xp1, double yp1, double xp2, double yp2, int colour, boolean fixed) {
 
         if (fixed) {
             xp1 -= FrameState.getOffset().getX();
@@ -103,9 +103,11 @@ public class Renderer {
         }
 
         for (int i = 0; i < max; i++) {
-            if (xp1 < 0 || xp1 >= width || yp1 < 0 || yp1 >= height) break;
-            if (xp2 < 0 || xp2 >= width || yp2 < 0 || yp2 >= height) break;
-            FrameState.setPixel((int) xp1 + (width * (int) yp1), colour);
+            if (xp1 < 0 || xp1 >= FrameState.getFramesize().getWidth() || yp1 < 0 || yp1 >= FrameState.getFramesize().getHeight())
+                break;
+            if (xp2 < 0 || xp2 >= FrameState.getFramesize().getWidth() || yp2 < 0 || yp2 >= FrameState.getFramesize().getHeight())
+                break;
+            FrameState.setPixel((int) xp1 + (int) (FrameState.getFramesize().getWidth() * (int) yp1), colour);
             if (xp1 < xp2) {
                 xp1 += x;
             } else {
@@ -119,26 +121,27 @@ public class Renderer {
         }
     }
 
-    public void renderConnectedLine(ArrayList<Point> points, int xOffset, int yOffset, int width, int height, int colour, boolean fixed) {
+    public void renderConnectedLine(ArrayList<Point> points, int xOffset, int yOffset, int colour, boolean fixed) {
         for (int i = 0; i < points.size() - 1; i++) {
             renderLine(
                     points.get(i).x + xOffset,
                     points.get(i).y + yOffset,
                     points.get(i + 1).x + xOffset,
                     points.get(i + 1).y + yOffset,
-                    width,
-                    height,
                     colour,
                     fixed
             );
         }
     }
 
-    public void renderRectangle(int xp, int yp, int width, int height, int screenWidth, int screenHeight, int currentPercent, int colourFill, int colourBorder, boolean fixed) {
+    public void renderRectangle(int xp, int yp, int width, int height, int currentPercent, int colourFill, int colourBorder, boolean fixed) {
         if (fixed) {
             xp -= (int) FrameState.getOffset().getX();
             yp -= (int) FrameState.getOffset().getY();
         }
+
+        int screenWidth = (int) FrameState.getFramesize().getWidth();
+        int screenHeight = (int) FrameState.getFramesize().getHeight();
 
         for (int y = yp; y <= yp + height; y++) {
             for (int x = xp; x <= (xp + width); x++) {
@@ -154,9 +157,9 @@ public class Renderer {
         }
     }
 
-    public void renderCircle(Circle circle, int width, int height, boolean fixed) {
+    public void renderCircle(Circle circle, boolean fixed) {
         CircleRenderer circleRenderer = new CircleRenderer();
-        circleRenderer.render(circle, new Dimension(width, height), fixed);
+        circleRenderer.render(circle, fixed);
     }
 
     public void renderPlayer(int xp, int yp, int width, int height, int pixelsLong, int pixelshigh, int scale, Sprite sprite) {

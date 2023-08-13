@@ -6,6 +6,7 @@ import game.entities.mob.Player;
 import game.graphics.Screen;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,8 @@ public class UserInterface {
     //Menu options
     private boolean showEnemyPath, showPositions;
     private boolean gamePaused;
+    private Text playerPosition;
+    private Text enemyPosition;
 
     public UserInterface(Screen screen, Player player) {
         this.screen = screen;
@@ -42,7 +45,6 @@ public class UserInterface {
     }
 
     public void init() {
-
         currentManuLevel = MenuLevel.PAUSE;
         showEnemyPath = true;
         showPositions = true;
@@ -75,6 +77,9 @@ public class UserInterface {
         pauseButtons = setupMenuButtons(pauseButtonNames);
         settingsButtons = setupMenuButtons(settingsButtonNames);
         videoButtons = setupMenuButtons(videoButtonNames);
+
+        playerPosition = new Text("", new Point2D.Float(), 0x0000aa, false);
+        enemyPosition = new Text("", new Point2D.Float(), 0xaa0000, false);
 
         labels = new ArrayList<>();
     }
@@ -250,7 +255,9 @@ public class UserInterface {
     private void showPlayerPositions() {
         if (!showPositions) return;
 
-        screen.renderString(screen.getWidth() - 116, 0, "P1: " + (int) (player.getX() / 8) + " " + (int) (player.getY() / 8), false, 0x0000aa, false);
+        playerPosition.setText("P1: " + (int) (player.getX() / 8) + " " + (int) (player.getY() / 8));
+        playerPosition.setPosition(new Point2D.Float(screen.getWidth() - 116, 0));
+        screen.renderString(playerPosition);
         for (int i = 0; i < enemies.size(); i++) {
             int x = screen.getWidth() - 116;
             int y = 0;
@@ -263,7 +270,10 @@ public class UserInterface {
 
             int dist = (int) Math.sqrt((Math.pow((playerPosX - enemyPosX), 2.0)) + (Math.pow((playerPosY - enemyPosY), 2.0)));
             String s = "E" + (i + 1) + ": " + (int) enemyPosX + " " + (int) enemyPosY + " " + dist;
-            screen.renderString(x, yp, s, false, 0xaa0000, false);
+
+            enemyPosition.setText(s);
+            enemyPosition.setPosition(new Point2D.Float(x, yp));
+            screen.renderString(enemyPosition);
         }
     }
 
@@ -287,8 +297,8 @@ public class UserInterface {
     // Label Management Code
     // ===========================================================
 
-    public void addLabel(Screen screen, int x, int y, String text, boolean fixed, boolean center, long lifeSpan, int colour) {
-        UILabel newLabel = new UILabel(screen, x, y, text, fixed, center, lifeSpan);
+    public void addLabel(Screen screen, int x, int y, String text, boolean fixed, long lifeSpan, int colour) {
+        UILabel newLabel = new UILabel(screen, x, y, text, fixed, lifeSpan);
         newLabel.setColour(colour);
         labels.add(newLabel);
     }

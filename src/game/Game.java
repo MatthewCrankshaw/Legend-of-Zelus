@@ -80,7 +80,9 @@ public class Game implements Runnable {
                 BufferedImage.TYPE_INT_RGB
         );
         FrameState.setPixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
-
+        FrameState.setFramesize(
+                new Dimension(image.getWidth(), image.getHeight())
+        );
         Renderer renderer = new Renderer(spriteRenderer, spriteRegistry, image, 1);
         Screen screen = new Screen(screenSize, spriteRegistry, renderer);
         new Game(screen, spriteSheetRegistry, spriteRegistry, spriteLoader, imageLoader).start();

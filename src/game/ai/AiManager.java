@@ -2,9 +2,7 @@ package game.ai;
 
 import game.entities.Spawner;
 import game.entities.mob.Enemy;
-import game.entities.mob.Player;
 import game.graphics.Screen;
-
 import game.graphics.ui.UserInterface;
 import game.levels.Level;
 
@@ -26,7 +24,7 @@ public class AiManager {
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Queue<Point>> moveSets;
 
-    public AiManager(Level level, Screen screen, UserInterface ui, Spawner spawner, PathFinder pathFinder, ArrayList<Enemy> enemies){
+    public AiManager(Level level, Screen screen, UserInterface ui, Spawner spawner, PathFinder pathFinder, ArrayList<Enemy> enemies) {
         this.level = level;
         this.screen = screen;
         this.ui = ui;
@@ -61,7 +59,7 @@ public class AiManager {
         for (int i = 0; i < enemies.size(); i++) {
             if (!enemies.get(i).isAlive()) {
                 level.removeEntity(enemies.get(i));
-                ui.addLabel(screen, (int) enemies.get(i).getX(), (int) enemies.get(i).getY(), "10 Exp", true, true, 1000, 0xffffff00);
+                ui.addLabel(screen, (int) enemies.get(i).getX(), (int) enemies.get(i).getY(), "10 Exp", true, 1000, 0xffffff00);
                 enemies.remove(i);
                 continue;
             }
@@ -96,7 +94,9 @@ public class AiManager {
     }
 
     public ArrayList<Point> getAIPath(int character) {
-        if(moveSets.get(character) == null){return null;}
+        if (moveSets.get(character) == null) {
+            return null;
+        }
         return new ArrayList<>(moveSets.get(character));
     }
 
@@ -104,13 +104,13 @@ public class AiManager {
         return enemies;
     }
 
-    private void spawnZombieAI(){
+    private void spawnZombieAI() {
         Random rand = new Random();
         int x = Math.abs(rand.nextInt() % 300);
         int y = Math.abs(rand.nextInt() % 500);
         int type = Math.abs(rand.nextInt() % 3);
 
-        switch (type){
+        switch (type) {
             case 0:
                 enemies.addAll(spawner.spawnEnemies(x, y, Spawner.Type.ENEMY_ZOMBIE, 1));
                 break;

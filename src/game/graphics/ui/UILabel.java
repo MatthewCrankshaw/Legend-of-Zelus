@@ -2,28 +2,21 @@ package game.graphics.ui;
 
 import game.graphics.Screen;
 
+import java.awt.geom.Point2D;
+
 public class UILabel {
     private Screen screen;
-    private int screenX, screenY;
-    private String text;
-    private int colour;
-    private boolean fixed, center;
-
     private long lifeSpan; // -1 for forever (in millisecs)
     private long timeInstantiated, currentDuration;
     private boolean alive;
+    private Text text;
 
-    public UILabel(Screen screen, int x, int y, String text, boolean fixed, boolean center, long lifeSpan) {
+    public UILabel(Screen screen, int x, int y, String text, boolean fixed, long lifeSpan) {
         this.screen = screen;
-        this.screenX = x;
-        this.screenY = y;
-        this.text = text;
-        this.fixed = fixed;
-        this.center = center;
-        this.colour = 0xFF000000;
         this.lifeSpan = lifeSpan;
         this.alive = true;
         this.timeInstantiated = System.currentTimeMillis();
+        this.text = new Text(text, new Point2D.Float(x, y), 0xFF000000, fixed);
     }
 
     public void tick() {
@@ -34,11 +27,11 @@ public class UILabel {
     }
 
     public void render() {
-        screen.renderString(screenX, screenY, text, center, colour, fixed);
+        screen.renderString(text);
     }
 
     public void setColour(int colour) {
-        this.colour = colour;
+        this.text.setColour(colour);
     }
 
     public boolean isAlive() {

@@ -2,15 +2,16 @@ package game.graphics.ui;
 
 import game.graphics.Screen;
 
+import java.awt.geom.Point2D;
+
 public class RectangleProgressBar {
 
     private Screen screen;
     private int screenPosX, screenPosY;
     private int width, height;
     private int barFillColour, barBorderColour;
-    private String label;
+    private Text text;
     private boolean fixed;
-
     private int currentBarPercentage; // 0 - 100 %
 
     public RectangleProgressBar(Screen screen, int xPos, int yPos, int width, int height, String label) {
@@ -19,7 +20,7 @@ public class RectangleProgressBar {
         this.screenPosY = yPos;
         this.width = width;
         this.height = height;
-        this.label = label;
+        this.text = new Text(label, new Point2D.Float(screenPosX + (width / 2), screenPosY - height), 0x660000, false);
 
         currentBarPercentage = 0;
         barBorderColour = 0x000000;
@@ -32,7 +33,7 @@ public class RectangleProgressBar {
         this.screenPosY = yPos;
         this.width = width;
         this.height = height;
-        this.label = "";
+        this.text = null;
 
         currentBarPercentage = 0;
         barBorderColour = 0x000000;
@@ -40,7 +41,9 @@ public class RectangleProgressBar {
     }
 
     public void render() {
-        this.screen.renderString(screenPosX + (width / 2), screenPosY - height, label, true, 0x660000, false);
+        if (text != null) {
+            this.screen.renderString(text);
+        }
         this.screen.renderRectangle(screenPosX, screenPosY, width, height, currentBarPercentage, barFillColour, barBorderColour, fixed);
     }
 

@@ -3,7 +3,6 @@ package game.graphics.sprite;
 
 import game.graphics.FrameState;
 
-import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
 /**
@@ -11,7 +10,7 @@ import java.awt.geom.Point2D;
  */
 public class SpriteRenderer {
 
-    public void render(Sprite sprite, Dimension2D screenDimensions, Point2D position, boolean fixed, int colour, int scale) {
+    public void render(Sprite sprite, Point2D position, boolean fixed, int colour, int scale) {
         if (fixed) {
             position.setLocation(
                     position.getX() - FrameState.getOffset().getX(),
@@ -23,7 +22,7 @@ public class SpriteRenderer {
             int ya = y + (int) position.getY();
             for (int x = 0; x < sprite.getSize() * scale; x++) {
                 int xa = x + (int) position.getX();
-                if (xa < -sprite.getSize() * scale || xa >= screenDimensions.getWidth() || ya < 0 || ya >= screenDimensions.getHeight())
+                if (xa < -sprite.getSize() * scale || xa >= FrameState.getFramesize().getWidth() || ya < 0 || ya >= FrameState.getFramesize().getHeight())
                     break;
                 if (xa < 0) xa = 0;
 
@@ -39,7 +38,7 @@ public class SpriteRenderer {
                 }
 
                 if (col != 0xffff00ff) {
-                    FrameState.setPixel(xa + ya * (int) screenDimensions.getWidth(), col);
+                    FrameState.setPixel(xa + ya * (int) FrameState.getFramesize().getWidth(), col);
                 }
             }
         }
