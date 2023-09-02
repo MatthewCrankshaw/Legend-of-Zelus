@@ -84,7 +84,7 @@ public class Game implements Runnable {
                 BufferedImage.TYPE_INT_RGB
         );
         FrameState.setPixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
-        FrameState.setFramesize(
+        FrameState.setFrameSize(
                 new Dimension(image.getWidth(), image.getHeight())
         );
         FrameState.setScale(1);

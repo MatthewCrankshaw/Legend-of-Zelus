@@ -12,7 +12,7 @@ public class FrameState {
     protected static int scale;
     protected static int[] pixels;
     protected static Point2D.Float offset = new Point2D.Float(0, 0);
-    protected static Dimension2D framesize = new Dimension();
+    protected static Dimension2D frameSize = new Dimension();
 
     public static int getScale() {
         return FrameState.scale;
@@ -54,11 +54,11 @@ public class FrameState {
         FrameState.offset.setLocation(x, y);
     }
 
-    public static Dimension2D getFramesize() {
-        return FrameState.framesize;
+    public static Dimension2D getFrameSize() {
+        return FrameState.frameSize;
     }
 
-    public static void setFramesize(Dimension2D framesize) {
-        FrameState.framesize = framesize;
+    public static void setFrameSize(Dimension2D frameSize) {
+        FrameState.frameSize = frameSize;
     }
 }

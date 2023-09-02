@@ -46,12 +46,12 @@ public class Renderer {
             int ya = y + yp;
             for (int x = 0; x < 16; x++) {
                 int xa = x + xp;
-                if (xa < -16 || xa >= FrameState.getFramesize().getWidth() || ya < 0 || ya >= FrameState.getFramesize().getHeight())
+                if (xa < -16 || xa >= FrameState.getFrameSize().getWidth() || ya < 0 || ya >= FrameState.getFrameSize().getHeight())
                     break;
                 if (xa < 0) xa = 0;
                 int col = sprite.getPixel(x, y);
                 if (col != 0xffff00ff) {
-                    FrameState.setPixel(xa + ya * (int) FrameState.getFramesize().getWidth(), sprite.getPixel(x, y));
+                    FrameState.setPixel(xa + ya * (int) FrameState.getFrameSize().getWidth(), sprite.getPixel(x, y));
                 }
             }
         }
@@ -82,11 +82,11 @@ public class Renderer {
         }
 
         for (int i = 0; i < max; i++) {
-            if (xp1 < 0 || xp1 >= FrameState.getFramesize().getWidth() || yp1 < 0 || yp1 >= FrameState.getFramesize().getHeight())
+            if (xp1 < 0 || xp1 >= FrameState.getFrameSize().getWidth() || yp1 < 0 || yp1 >= FrameState.getFrameSize().getHeight())
                 break;
-            if (xp2 < 0 || xp2 >= FrameState.getFramesize().getWidth() || yp2 < 0 || yp2 >= FrameState.getFramesize().getHeight())
+            if (xp2 < 0 || xp2 >= FrameState.getFrameSize().getWidth() || yp2 < 0 || yp2 >= FrameState.getFrameSize().getHeight())
                 break;
-            FrameState.setPixel((int) xp1 + (int) (FrameState.getFramesize().getWidth() * (int) yp1), colour);
+            FrameState.setPixel((int) xp1 + (int) (FrameState.getFrameSize().getWidth() * (int) yp1), colour);
             if (xp1 < xp2) {
                 xp1 += x;
             } else {
@@ -119,8 +119,8 @@ public class Renderer {
             yp -= (int) FrameState.getOffset().getY();
         }
 
-        int screenWidth = (int) FrameState.getFramesize().getWidth();
-        int screenHeight = (int) FrameState.getFramesize().getHeight();
+        int screenWidth = (int) FrameState.getFrameSize().getWidth();
+        int screenHeight = (int) FrameState.getFrameSize().getHeight();
 
         for (int y = yp; y <= yp + height; y++) {
             for (int x = xp; x <= (xp + width); x++) {

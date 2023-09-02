@@ -22,7 +22,7 @@ public class SpriteRenderer {
             int ya = y + (int) position.getY();
             for (int x = 0; x < sprite.getSize() * scale; x++) {
                 int xa = x + (int) position.getX();
-                if (xa < -sprite.getSize() * scale || xa >= FrameState.getFramesize().getWidth() || ya < 0 || ya >= FrameState.getFramesize().getHeight())
+                if (xa < -sprite.getSize() * scale || xa >= FrameState.getFrameSize().getWidth() || ya < 0 || ya >= FrameState.getFrameSize().getHeight())
                     break;
                 if (xa < 0) xa = 0;
 
@@ -38,7 +38,7 @@ public class SpriteRenderer {
                 }
 
                 if (col != 0xffff00ff) {
-                    FrameState.setPixel(xa + ya * (int) FrameState.getFramesize().getWidth(), col);
+                    FrameState.setPixel(xa + ya * (int) FrameState.getFrameSize().getWidth(), col);
                 }
             }
         }

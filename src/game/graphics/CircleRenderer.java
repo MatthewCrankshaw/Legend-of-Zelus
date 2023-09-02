@@ -22,17 +22,17 @@ public class CircleRenderer {
 
         for (int y = -radius; y <= radius; y++) {
             for (int x = -radius; x <= radius * 2; x++) {
-                if (y + xp < 0 || y + xp >= FrameState.getFramesize().getWidth() || x + yp < 0 || x + yp >= FrameState.getFramesize().getHeight())
+                if (y + xp < 0 || y + xp >= FrameState.getFrameSize().getWidth() || x + yp < 0 || x + yp >= FrameState.getFrameSize().getHeight())
                     continue;
 
                 if (x >= radius - (fillAmount * 2)) {
                     if (Math.round(Math.sqrt(y * y + x * x)) < radius) {
-                        FrameState.setPixel((y + xp) + ((int) FrameState.getFramesize().getWidth() * (x + yp)), fillColour);
+                        FrameState.setPixel((y + xp) + ((int) FrameState.getFrameSize().getWidth() * (x + yp)), fillColour);
                     }
                 }
 
                 if (Math.round(Math.sqrt(y * y + x * x)) == radius) {
-                    FrameState.setPixel((y + xp) + ((int) FrameState.getFramesize().getWidth() * (x + yp)), borderColour);
+                    FrameState.setPixel((y + xp) + ((int) FrameState.getFrameSize().getWidth() * (x + yp)), borderColour);
                 }
 
             }
